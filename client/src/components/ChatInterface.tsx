@@ -96,7 +96,6 @@ export default function ChatInterface({ initialPrompt, onClose, showPrompts = fa
       ]
     }
   ]);
-  const [inputValue, setInputValue] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const [isLiveAgentOpen, setIsLiveAgentOpen] = useState(false);
   const [liveAgentMessages, setLiveAgentMessages] = useState<Message[]>([
@@ -218,7 +217,6 @@ export default function ChatInterface({ initialPrompt, onClose, showPrompts = fa
     }
   };
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
 
   // Function to analyze messages and detect keywords
@@ -275,14 +273,7 @@ export default function ChatInterface({ initialPrompt, onClose, showPrompts = fa
     }
   }, [messages]);
 
-  useEffect(() => {
-    if (initialPrompt) {
-      setInputValue(initialPrompt);
-      setTimeout(() => {
-        sendMessage(initialPrompt);
-      }, 500);
-    }
-  }, [initialPrompt]);
+  // Removed initialPrompt handling - Pure bubble interface
 
   // Initialize user as Justin
   useEffect(() => {
@@ -415,6 +406,51 @@ export default function ChatInterface({ initialPrompt, onClose, showPrompts = fa
     const service = initialMessage.selections?.find(s => s.id === serviceId);
     if (!service) return;
 
+    // Handle special actions first
+    if (serviceId === 'back-to-services') {
+      setMessages([messages[0]]); // Reset to initial message
+      return;
+    }
+    
+    // Handle quote requests
+    if (serviceId.includes('-quote')) {
+      const userMessage: Message = { role: 'user', content: 'I\'d like to get a free quote' };
+      setMessages(prev => [...prev, userMessage]);
+      
+      setTimeout(() => {
+        const quoteMessage: Message = {
+          role: 'assistant',
+          content: 'Great! We\'d love to provide you with a free estimate. Our team will assess your needs and provide detailed pricing.',
+          selections: [
+            { id: 'schedule-estimate', title: 'Schedule Estimate', icon: 'bi-calendar-plus', description: 'Book your free consultation', category: 'windows' },
+            { id: 'contact-info', title: 'Contact Information', icon: 'bi-person-lines-fill', description: 'Get our contact details', category: 'siding' },
+            { id: 'back-to-services', title: 'Back to Services', icon: 'bi-arrow-left', description: 'Choose different service', category: 'bathrooms' }
+          ]
+        };
+        setMessages(prev => [...prev, quoteMessage]);
+      }, 800);
+      return;
+    }
+    
+    // Handle contact requests
+    if (serviceId === 'contact-phone' || serviceId === 'contact-info') {
+      const userMessage: Message = { role: 'user', content: 'How can I contact you?' };
+      setMessages(prev => [...prev, userMessage]);
+      
+      setTimeout(() => {
+        const contactMessage: Message = {
+          role: 'assistant',
+          content: 'You can reach us by phone at (555) 123-4567 or email us at info@newyorksash.com. We\'re here Monday-Friday 8AM-6PM.',
+          selections: [
+            { id: 'schedule-estimate', title: 'Schedule Estimate', icon: 'bi-calendar-plus', description: 'Book your free consultation', category: 'windows' },
+            { id: 'back-to-services', title: 'Back to Services', icon: 'bi-arrow-left', description: 'Choose different service', category: 'siding' }
+          ]
+        };
+        setMessages(prev => [...prev, contactMessage]);
+      }, 800);
+      return;
+    }
+
     // Add user message for the selection
     const userMessage: Message = { 
       role: 'user', 
@@ -422,27 +458,62 @@ export default function ChatInterface({ initialPrompt, onClose, showPrompts = fa
     };
     setMessages(prev => [...prev, userMessage]);
 
-    // Generate appropriate response based on service
+    // Generate appropriate response with selection bubbles
     setTimeout(() => {
       let response = '';
+      let nextSelections: ServiceSelection[] = [];
+      
       switch (serviceId) {
         case 'windows':
           response = mockResponses.window;
+          nextSelections = [
+            { id: 'window-quote', title: 'Get Free Quote', icon: 'bi-calculator', description: 'Schedule a free estimate', category: 'windows' },
+            { id: 'window-types', title: 'View Window Types', icon: 'bi-grid', description: 'See our window options', category: 'windows' },
+            { id: 'window-process', title: 'Installation Process', icon: 'bi-tools', description: 'Learn about installation', category: 'windows' },
+            { id: 'back-to-services', title: 'Back to Services', icon: 'bi-arrow-left', description: 'Choose different service', category: 'windows' }
+          ];
           break;
         case 'siding':
           response = mockResponses.siding;
+          nextSelections = [
+            { id: 'siding-quote', title: 'Get Free Quote', icon: 'bi-calculator', description: 'Schedule a free estimate', category: 'siding' },
+            { id: 'siding-materials', title: 'View Materials', icon: 'bi-palette', description: 'See material options', category: 'siding' },
+            { id: 'siding-process', title: 'Installation Process', icon: 'bi-tools', description: 'Learn about installation', category: 'siding' },
+            { id: 'back-to-services', title: 'Back to Services', icon: 'bi-arrow-left', description: 'Choose different service', category: 'siding' }
+          ];
           break;
         case 'bathrooms':
           response = mockResponses.bath;
+          nextSelections = [
+            { id: 'bath-quote', title: 'Get Free Quote', icon: 'bi-calculator', description: 'Schedule a free estimate', category: 'bathrooms' },
+            { id: 'bath-designs', title: 'View Designs', icon: 'bi-image', description: 'See bathroom designs', category: 'bathrooms' },
+            { id: 'bath-timeline', title: 'Project Timeline', icon: 'bi-calendar', description: 'Learn about timeline', category: 'bathrooms' },
+            { id: 'back-to-services', title: 'Back to Services', icon: 'bi-arrow-left', description: 'Choose different service', category: 'bathrooms' }
+          ];
           break;
         case 'doors':
           response = mockResponses.door;
+          nextSelections = [
+            { id: 'door-entry', title: 'Entry Doors', icon: 'bi-door-closed', description: 'Explore entry door options', category: 'doors' },
+            { id: 'door-storm', title: 'Storm Doors', icon: 'bi-shield', description: 'Browse storm doors', category: 'doors' },
+            { id: 'door-patio', title: 'Patio Doors', icon: 'bi-door-open', description: 'View patio doors', category: 'doors' },
+            { id: 'back-to-services', title: 'Back to Services', icon: 'bi-arrow-left', description: 'Choose different service', category: 'doors' }
+          ];
           break;
         default:
           response = mockResponses.default;
+          nextSelections = [
+            { id: 'contact-phone', title: 'Call Us', icon: 'bi-telephone', description: 'Speak with specialist', category: 'windows' },
+            { id: 'contact-info', title: 'Email Us', icon: 'bi-envelope', description: 'Send us a message', category: 'siding' },
+            { id: 'back-to-services', title: 'Back to Services', icon: 'bi-arrow-left', description: 'Choose different service', category: 'bathrooms' }
+          ];
       }
       
-      const assistantMessage: Message = { role: 'assistant', content: response };
+      const assistantMessage: Message = { 
+        role: 'assistant', 
+        content: response,
+        selections: nextSelections.length > 0 ? nextSelections : undefined
+      };
       setMessages(prev => [...prev, assistantMessage]);
     }, 800);
   };
@@ -479,42 +550,7 @@ export default function ChatInterface({ initialPrompt, onClose, showPrompts = fa
     return mockResponses.default;
   };
 
-  const sendMessage = (messageText?: string) => {
-    const message = messageText || inputValue.trim();
-    
-    if (!message) return;
-
-    // Add user message
-    const userMessage: Message = { role: 'user', content: message };
-    setMessages(prev => [...prev, userMessage]);
-    
-    // Clear input
-    setInputValue('');
-    
-    // Show typing indicator
-    setIsTyping(true);
-    
-    // Generate AI response with async support
-    setTimeout(async () => {
-      try {
-        const response = await generateResponse(message);
-        setIsTyping(false);
-        const assistantMessage: Message = { role: 'assistant', content: response };
-        setMessages(prev => [...prev, assistantMessage]);
-      } catch (error) {
-        setIsTyping(false);
-        const assistantMessage: Message = { role: 'assistant', content: mockResponses.default };
-        setMessages(prev => [...prev, assistantMessage]);
-      }
-    }, 800);
-  };
-
-  const handleKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
-      sendMessage();
-    }
-  };
+  // Removed sendMessage and handleKeyPress - Pure bubble interface
 
   const sendLiveMessage = () => {
     const message = liveAgentInput.trim();
@@ -646,28 +682,7 @@ export default function ChatInterface({ initialPrompt, onClose, showPrompts = fa
           <div ref={messagesEndRef} />
         </div>
         
-        <div className="chat-input-modern">
-          <div className="input-container-modern">
-            <textarea 
-              ref={textareaRef}
-              className="chat-input-field"
-              rows={1}
-              placeholder="Continue the conversation..."
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
-              onKeyPress={handleKeyPress}
-              data-testid="input-chat-message"
-            />
-            <button 
-              className="send-button-modern"
-              onClick={() => sendMessage()}
-              disabled={!inputValue.trim()}
-              data-testid="button-send-message"
-            >
-              <i className="bi bi-send-fill"></i>
-            </button>
-          </div>
-        </div>
+        {/* Text input removed - Pure bubble selection interface */}
         
         {/* Add suggested prompts below chat if enabled */}
         {showPrompts && onPromptClick && (
