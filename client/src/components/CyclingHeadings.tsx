@@ -31,9 +31,9 @@ export default function CyclingHeadings({ onSubmit }: CyclingHeadingsProps) {
         }
       } 
       else if (phase === 'pausing') {
-        // Pause for 2 seconds (40 intervals at 50ms each = 2000ms)
+        // Pause for 1 second (30 intervals at 30ms each = 900ms)
         pauseCounter++;
-        if (pauseCounter >= 40) {
+        if (pauseCounter >= 30) {
           phase = 'deleting';
         }
       }
@@ -61,7 +61,7 @@ export default function CyclingHeadings({ onSubmit }: CyclingHeadingsProps) {
           return () => clearInterval(cursorInterval);
         }
       }
-    }, 50);
+    }, 30);
 
     return () => clearInterval(typingInterval);
   }, []);
