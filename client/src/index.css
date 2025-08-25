@@ -469,7 +469,8 @@
   text-align: center;
   color: #6c757d;
   font-size: 1.1rem;
-  margin-bottom: 4rem;
+  max-width: 940px;
+  margin: 0 auto 4rem auto;
   animation: fadeIn 1.5s ease-out;
 }
 
