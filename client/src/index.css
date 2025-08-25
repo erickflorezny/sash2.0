@@ -454,7 +454,7 @@
   }
   
   .logo-heading-container {
-    margin-bottom: 2rem;
+    margin-bottom: 3.5rem;
   }
   
   .company-logo {
@@ -508,7 +508,7 @@
   }
   
   .logo-heading-container {
-    margin-bottom: 1.5rem;
+    margin-bottom: 2.5rem;
   }
   
   .company-logo {
@@ -649,7 +649,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 3rem;
+  margin-bottom: 5rem;
   animation: slideInUp 0.8s ease-out;
 }
 
