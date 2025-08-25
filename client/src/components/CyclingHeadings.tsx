@@ -12,7 +12,7 @@ export default function CyclingHeadings({ onSubmit }: CyclingHeadingsProps) {
   const [textareaRef, setTextareaRef] = useState<HTMLTextAreaElement | null>(null);
   
   const firstText = "Welcome to New York Sash How Can We Help You Today?";
-  const secondText = "How about we start with your name? Go ahead and type";
+  const secondText = "How about we start with your name? Go ahead and type!";
 
   useEffect(() => {
     let index = 0;
