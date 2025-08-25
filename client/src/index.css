@@ -771,8 +771,14 @@
     justify-content: center;
     min-width: unset;
     background: transparent;
-    border: none;
+    border: none !important;
     color: var(--elite-red);
+  }
+  
+  .live-agent-button:hover {
+    background: transparent;
+    color: var(--elite-red);
+    border: none !important;
   }
   
   .live-agent-text {
@@ -1089,7 +1095,7 @@
 .live-chat-send-button {
   background: var(--elite-red);
   color: white;
-  border: none;
+  border: none !important;
   border-radius: 6px;
   padding: 0.5rem 0.75rem;
   cursor: pointer;
@@ -1097,6 +1103,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  outline: none;
+}
+
+.live-chat-send-button:focus {
+  outline: none;
+  border: none !important;
 }
 
 .live-chat-send-button:hover:not(:disabled) {
