@@ -45,24 +45,20 @@ export default function Home() {
         <main>
           {/* Hero Section */}
           <section className="hero-section text-center mb-5">
-            <div className="company-logo">
-              <i className="bi bi-house-gear-fill"></i> Elite Home Remodeling
-            </div>
-            
-            <CyclingHeadings onClick={handleHeadingClick} />
-            
-            <p className="lead text-muted mt-3">
-              Transform your home with our expert remodeling services. Click above to get started with our AI assistant.
-            </p>
+            {!isChatActive ? (
+              <>
+                <CyclingHeadings onClick={handleHeadingClick} />
+                <p className="lead text-muted mt-3">
+                  Transform your home with our expert remodeling services. Click above to get started with our AI assistant.
+                </p>
+              </>
+            ) : (
+              <ChatInterface 
+                initialPrompt={initialPrompt} 
+                onClose={handleCloseChat}
+              />
+            )}
           </section>
-
-          {/* Chat Interface */}
-          {isChatActive && (
-            <ChatInterface 
-              initialPrompt={initialPrompt} 
-              onClose={handleCloseChat}
-            />
-          )}
 
           {/* Suggested Prompts */}
           <SuggestedPrompts onPromptClick={handleHeadingClick} />
