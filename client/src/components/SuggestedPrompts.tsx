@@ -257,41 +257,6 @@ export default function SuggestedPrompts({
             ))}
           </div>
 
-          {/* Quick Actions Footer */}
-          <div className="quick-actions-footer mt-4 pt-3 border-top">
-            <div className="row text-center">
-              <div className="col-4">
-                <button 
-                  className="btn btn-link text-decoration-none p-0"
-                  onClick={() => onPromptClick("I'd like to speak with a live agent about my project")}
-                  data-testid="quick-action-live-agent"
-                >
-                  <i className="bi bi-person-headset display-6 text-danger d-block"></i>
-                  <small className="text-muted">Live Agent</small>
-                </button>
-              </div>
-              <div className="col-4">
-                <button 
-                  className="btn btn-link text-decoration-none p-0"
-                  onClick={() => onPromptClick("What is your phone number? I'd like to call to discuss my project")}
-                  data-testid="quick-action-call-now"
-                >
-                  <i className="bi bi-telephone-fill display-6 text-danger d-block"></i>
-                  <small className="text-muted">Call Now</small>
-                </button>
-              </div>
-              <div className="col-4">
-                <button 
-                  className="btn btn-link text-decoration-none p-0"
-                  onClick={() => onPromptClick("I'd like to schedule an in-home consultation for my project")}
-                  data-testid="quick-action-schedule"
-                >
-                  <i className="bi bi-calendar-event display-6 text-danger d-block"></i>
-                  <small className="text-muted">Schedule</small>
-                </button>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </section>

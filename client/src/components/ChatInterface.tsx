@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import chatLogo from '@assets/image_1756148189859.png';
 import SuggestedPrompts from './SuggestedPrompts';
+import QuickConnect from './QuickConnect';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -827,6 +828,16 @@ export default function ChatInterface({ initialPrompt, onClose, showPrompts = fa
         </div>
         
         {/* Text input removed - Pure bubble selection interface */}
+        
+        {/* Fixed bottom quick connect bar */}
+        {onPromptClick && (
+          <QuickConnect 
+            onPromptClick={onPromptClick}
+            conversationTopic={sidebarContent}
+            userSelections={detectedKeywords}
+            messageCount={messages.length}
+          />
+        )}
         
         {/* Add suggested prompts below chat if enabled */}
         {showPrompts && onPromptClick && (
