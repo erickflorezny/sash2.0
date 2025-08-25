@@ -762,6 +762,33 @@
     height: auto;
     padding: 1rem;
   }
+  
+  .live-agent-button {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    padding: 0;
+    justify-content: center;
+    min-width: unset;
+  }
+  
+  .live-agent-text {
+    display: none;
+  }
+  
+  .mobile-chat-icon {
+    display: block;
+    font-size: 1.2rem;
+  }
+  
+  .live-indicator {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    width: 12px;
+    height: 12px;
+    border: 2px solid white;
+  }
 }
 
 .live-agent-button {
@@ -782,6 +809,10 @@
 .live-agent-button:hover {
   background: var(--elite-red);
   color: white;
+}
+
+.mobile-chat-icon {
+  display: none;
 }
 
 .live-indicator {

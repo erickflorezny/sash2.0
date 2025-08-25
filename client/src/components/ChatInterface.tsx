@@ -167,7 +167,8 @@ export default function ChatInterface({ initialPrompt, onClose }: ChatInterfaceP
               data-testid="button-live-agent"
             >
               <div className="live-indicator"></div>
-              <span>Talk to Live Person</span>
+              <i className="bi bi-chat-dots mobile-chat-icon"></i>
+              <span className="live-agent-text">Talk to Live Person</span>
             </button>
           </div>
         </div>
