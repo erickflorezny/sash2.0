@@ -781,6 +781,10 @@
     border: none !important;
   }
   
+  .live-agent-button:hover .mobile-chat-icon {
+    color: var(--elite-red);
+  }
+  
   .live-agent-text {
     display: none;
   }
