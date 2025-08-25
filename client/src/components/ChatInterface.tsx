@@ -40,6 +40,14 @@ export default function ChatInterface({ initialPrompt, onClose, showPrompts = fa
   ]);
   const [liveAgentInput, setLiveAgentInput] = useState('');
   const [isLiveAgentTyping, setIsLiveAgentTyping] = useState(false);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  
+  const slides = [
+    { icon: 'bi-window', title: 'Energy-Efficient Windows', gradient: 'linear-gradient(135deg, #dc3545, #6f42c1)' },
+    { icon: 'bi-droplet', title: 'Modern Bath Renovation', gradient: 'linear-gradient(135deg, #28a745, #17a2b8)' },
+    { icon: 'bi-house', title: 'Premium Siding Installation', gradient: 'linear-gradient(135deg, #fd7e14, #e83e8c)' },
+    { icon: 'bi-door-open', title: 'Custom Entry Doors', gradient: 'linear-gradient(135deg, #6610f2, #20c997)' }
+  ];
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
@@ -53,6 +61,27 @@ export default function ChatInterface({ initialPrompt, onClose, showPrompts = fa
       }, 500);
     }
   }, [initialPrompt]);
+
+  // Auto-advance slider
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide(prev => (prev + 1) % slides.length);
+    }, 4000); // Change slide every 4 seconds
+    
+    return () => clearInterval(interval);
+  }, [slides.length]);
+
+  const nextSlide = () => {
+    setCurrentSlide(prev => (prev + 1) % slides.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide(prev => (prev - 1 + slides.length) % slides.length);
+  };
+
+  const goToSlide = (index: number) => {
+    setCurrentSlide(index);
+  };
 
   const extractName = (message: string): string | null => {
     const lowerMessage = message.toLowerCase();
@@ -270,9 +299,33 @@ export default function ChatInterface({ initialPrompt, onClose, showPrompts = fa
         <div className="sidebar-content">
           {/* Image Slider Section */}
           <div className="sidebar-slider">
-            <div className="slider-placeholder">
-              <i className="bi bi-images"></i>
-              <span>Related Images</span>
+            <h3>Recent Projects</h3>
+            <div className="image-slider-container">
+              {slides.map((slide, index) => (
+                <div key={index} className={`slider-image ${index === currentSlide ? 'active' : ''}`}>
+                  <div className="image-placeholder" style={{background: slide.gradient}}>
+                    <i className={slide.icon}></i>
+                  </div>
+                  <p>{slide.title}</p>
+                </div>
+              ))}
+            </div>
+            <div className="slider-controls">
+              <button className="slider-btn prev" onClick={prevSlide}>
+                <i className="bi bi-chevron-left"></i>
+              </button>
+              <div className="slider-dots">
+                {slides.map((_, index) => (
+                  <span 
+                    key={index}
+                    className={`dot ${index === currentSlide ? 'active' : ''}`}
+                    onClick={() => goToSlide(index)}
+                  ></span>
+                ))}
+              </div>
+              <button className="slider-btn next" onClick={nextSlide}>
+                <i className="bi bi-chevron-right"></i>
+              </button>
             </div>
           </div>
           
