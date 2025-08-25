@@ -359,27 +359,12 @@
 /* Small screens (tablets and large phones) */
 @media (max-width: 768px) {
   .floating-nav {
-    position: relative;
-    top: 0;
-    right: 0;
-    text-align: center;
-    margin-bottom: 20px;
-  }
-
-  .floating-nav ul {
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 1rem;
-  }
-
-  .floating-nav a {
-    display: inline-block;
-    margin: 4px;
-    font-size: 0.9rem;
+    display: none;
   }
 
   .hero-section {
-    padding: 1.5rem 0;
+    padding: 2rem 0;
+    height: 100vh;
     min-height: 100vh;
   }
   
@@ -424,7 +409,8 @@
 /* Extra small screens (phones) */
 @media (max-width: 576px) {
   .hero-section {
-    padding: 1rem 0;
+    padding: 1.5rem 0;
+    height: 100vh;
   }
   
   .ai-badge {
@@ -588,6 +574,7 @@
   text-align: left;
   font-family: inherit;
   cursor: text;
+  z-index: 1;
 }
 
 .typewriter-cursor {
@@ -616,6 +603,8 @@
   font-family: inherit;
   transition: all 0.3s ease;
   min-height: 120px;
+  position: relative;
+  z-index: 2;
 }
 
 .prompt-input-field.hide-cursor {
