@@ -1,16 +1,17 @@
 import { useState } from 'react';
 
-interface QuestionInputProps {
+interface HeroSectionProps {
   onSubmit: (question: string) => void;
 }
 
-export default function QuestionInput({ onSubmit }: QuestionInputProps) {
+export default function HeroSection({ onSubmit }: HeroSectionProps) {
   const [question, setQuestion] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (question.trim()) {
       onSubmit(question.trim());
+      setQuestion(''); // Clear input after submission
     }
   };
 
@@ -22,31 +23,50 @@ export default function QuestionInput({ onSubmit }: QuestionInputProps) {
   };
 
   return (
-    <div className="question-input-container">
-      <h2 className="display-6 fw-bold text-center mb-4">
-        What can we help you with today?
-      </h2>
-      <form onSubmit={handleSubmit}>
-        <div className="d-flex gap-2 align-items-end">
-          <textarea 
-            className="form-control question-input"
-            rows={2}
-            placeholder="Ask about windows, siding, bathrooms, doors, or any remodeling question..."
-            value={question}
-            onChange={(e) => setQuestion(e.target.value)}
-            onKeyPress={handleKeyPress}
-            data-testid="input-main-question"
-          />
-          <button 
-            type="submit"
-            className="btn btn-flat"
-            disabled={!question.trim()}
-            data-testid="button-submit-question"
-          >
-            <i className="bi bi-send-fill"></i>
-          </button>
+    <div className="hero-content">
+      <div className="company-logo text-center mb-4">
+        <i className="bi bi-house-gear-fill"></i> Elite Home Remodeling
+      </div>
+      
+      <h1 className="display-3 fw-bold text-center mb-4">
+        Transform Your Home with Expert Remodeling
+      </h1>
+      
+      <p className="lead text-center text-muted mb-5">
+        Professional windows, siding, bathroom, and door installations. 
+        Get instant answers from our AI assistant.
+      </p>
+
+      <div className="hero-cta-container">
+        <form onSubmit={handleSubmit}>
+          <div className="input-group hero-input-group">
+            <input 
+              type="text"
+              className="form-control hero-input"
+              placeholder="What remodeling project are you considering?"
+              value={question}
+              onChange={(e) => setQuestion(e.target.value)}
+              onKeyPress={handleKeyPress}
+              data-testid="input-main-question"
+            />
+            <button 
+              type="submit"
+              className="btn btn-flat btn-lg"
+              disabled={!question.trim()}
+              data-testid="button-submit-question"
+            >
+              Get Instant Help
+            </button>
+          </div>
+        </form>
+        
+        <div className="text-center mt-3">
+          <small className="text-muted">
+            <i className="bi bi-shield-check text-success me-1"></i>
+            Licensed & Insured • Free Estimates • 15+ Years Experience
+          </small>
         </div>
-      </form>
+      </div>
     </div>
   );
 }

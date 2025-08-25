@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import QuestionInput from '@/components/CyclingHeadings';
+import HeroSection from '@/components/CyclingHeadings';
 import ChatInterface from '@/components/ChatInterface';
 import SuggestedPrompts from '@/components/SuggestedPrompts';
 
@@ -45,10 +45,7 @@ export default function Home() {
         <main>
           {/* Hero Section */}
           <section className="hero-section text-center mb-5">
-            <QuestionInput onSubmit={handleQuestionSubmit} />
-            <p className="lead text-muted mt-3">
-              Transform your home with our expert remodeling services. Ask any question to get started.
-            </p>
+            <HeroSection onSubmit={handleQuestionSubmit} />
           </section>
 
           {/* Suggested Prompts */}
