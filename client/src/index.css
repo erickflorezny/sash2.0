@@ -749,6 +749,19 @@
   .input-hint {
     display: none;
   }
+  
+  .prompt-container {
+    position: relative;
+  }
+  
+  .typewriter-overlay {
+    position: relative;
+    top: auto;
+    left: auto;
+    right: auto;
+    height: auto;
+    padding: 1rem;
+  }
 }
 
 .live-agent-button {
