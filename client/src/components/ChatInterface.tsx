@@ -51,8 +51,35 @@ export default function ChatInterface({ initialPrompt, onClose }: ChatInterfaceP
     }
   }, [initialPrompt]);
 
+  const extractName = (message: string): string | null => {
+    const lowerMessage = message.toLowerCase();
+    const namePatterns = [
+      /my name is (\w+)/i,
+      /i'm (\w+)/i,
+      /i am (\w+)/i,
+      /this is (\w+)/i,
+      /hello,? i'?m (\w+)/i,
+      /hi,? i'?m (\w+)/i,
+      /^(\w+)$/i // Just a single word (likely a name)
+    ];
+    
+    for (const pattern of namePatterns) {
+      const match = message.match(pattern);
+      if (match && match[1] && match[1].length > 1) {
+        return match[1];
+      }
+    }
+    return null;
+  };
+
   const generateResponse = (message: string): string => {
     const lowerMessage = message.toLowerCase();
+    const extractedName = extractName(message);
+    
+    // If user introduced themselves, ask for location
+    if (extractedName && (lowerMessage.includes('name is') || lowerMessage.includes("i'm") || lowerMessage.includes('i am') || lowerMessage.includes('hello') || lowerMessage.includes('hi') || message.trim().split(' ').length === 1)) {
+      return `Nice to meet you ${extractedName}, where are you located?`;
+    }
     
     if (lowerMessage.includes('window')) {
       return mockResponses.window;
@@ -123,6 +150,7 @@ export default function ChatInterface({ initialPrompt, onClose }: ChatInterfaceP
 
   const generateLiveAgentResponse = (message: string): string => {
     const lowerMessage = message.toLowerCase();
+    const extractedName = extractName(message);
     
     const liveResponses = {
       window: "Great question about windows! I can connect you with our window specialist who can discuss energy-efficient options, pricing, and scheduling. Are you looking to replace specific windows or considering a whole-house upgrade?",
@@ -133,6 +161,11 @@ export default function ChatInterface({ initialPrompt, onClose }: ChatInterfaceP
       timeline: "Great question about timing! Most of our projects are completed within 1-2 weeks, depending on scope. We're currently booking 2-3 weeks out for new projects. Would you like me to check our calendar for available consultation dates?",
       default: "Thanks for reaching out! I'm here to help with any questions about our services. We specialize in windows, bathrooms, siding, and doors. Is there a specific project you have in mind? I can connect you with the right specialist on our team."
     };
+    
+    // If user introduced themselves, ask for location
+    if (extractedName && (lowerMessage.includes('name is') || lowerMessage.includes("i'm") || lowerMessage.includes('i am') || lowerMessage.includes('hello') || lowerMessage.includes('hi') || message.trim().split(' ').length === 1)) {
+      return `Nice to meet you ${extractedName}, where are you located?`;
+    }
     
     if (lowerMessage.includes('window')) {
       return liveResponses.window;
