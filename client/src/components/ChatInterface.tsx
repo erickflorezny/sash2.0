@@ -831,7 +831,12 @@ export default function ChatInterface({ initialPrompt, onClose, showPrompts = fa
         {/* Add suggested prompts below chat if enabled */}
         {showPrompts && onPromptClick && (
           <div className="chat-prompts-area">
-            <SuggestedPrompts onPromptClick={onPromptClick} />
+            <SuggestedPrompts 
+              onPromptClick={onPromptClick}
+              conversationTopic={sidebarContent}
+              userSelections={detectedKeywords}
+              messageCount={messages.length}
+            />
           </div>
         )}
       </div>
