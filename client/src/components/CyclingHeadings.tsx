@@ -38,7 +38,7 @@ export default function CyclingHeadings({ onSubmit }: CyclingHeadingsProps) {
 
       {/* Input Hint */}
       <div className="input-hint">
-        Ask about windows, bathrooms, siding, costs, timelines, or anything else
+        Ask our new AI agent a question about your next project to get started! Get instant answers about windows, siding, pricing, timelines, and more.
       </div>
 
       {/* Ask Button */}
