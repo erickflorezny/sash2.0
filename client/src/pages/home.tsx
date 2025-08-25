@@ -1,20 +1,20 @@
 import { useState } from 'react';
-import CyclingHeadings from '@/components/CyclingHeadings';
+import QuestionInput from '@/components/CyclingHeadings';
 import ChatInterface from '@/components/ChatInterface';
 import SuggestedPrompts from '@/components/SuggestedPrompts';
 
 export default function Home() {
-  const [isChatActive, setIsChatActive] = useState(false);
-  const [initialPrompt, setInitialPrompt] = useState('');
+  const [isChatOpen, setIsChatOpen] = useState(false);
+  const [initialQuestion, setInitialQuestion] = useState('');
 
-  const handleHeadingClick = (prompt: string) => {
-    setInitialPrompt(prompt);
-    setIsChatActive(true);
+  const handleQuestionSubmit = (question: string) => {
+    setInitialQuestion(question);
+    setIsChatOpen(true);
   };
 
   const handleCloseChat = () => {
-    setIsChatActive(false);
-    setInitialPrompt('');
+    setIsChatOpen(false);
+    setInitialQuestion('');
   };
 
   return (
@@ -45,23 +45,21 @@ export default function Home() {
         <main>
           {/* Hero Section */}
           <section className="hero-section text-center mb-5">
-            {!isChatActive ? (
-              <>
-                <CyclingHeadings onClick={handleHeadingClick} />
-                <p className="lead text-muted mt-3">
-                  Transform your home with our expert remodeling services. Click above to get started with our AI assistant.
-                </p>
-              </>
-            ) : (
-              <ChatInterface 
-                initialPrompt={initialPrompt} 
-                onClose={handleCloseChat}
-              />
-            )}
+            <QuestionInput onSubmit={handleQuestionSubmit} />
+            <p className="lead text-muted mt-3">
+              Transform your home with our expert remodeling services. Ask any question to get started.
+            </p>
           </section>
 
           {/* Suggested Prompts */}
-          <SuggestedPrompts onPromptClick={handleHeadingClick} />
+          <SuggestedPrompts onPromptClick={handleQuestionSubmit} />
+
+          {/* Chat Modal */}
+          <ChatInterface 
+            initialQuestion={initialQuestion}
+            isOpen={isChatOpen}
+            onClose={handleCloseChat}
+          />
         </main>
       </div>
 

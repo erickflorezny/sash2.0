@@ -6,7 +6,8 @@ interface Message {
 }
 
 interface ChatInterfaceProps {
-  initialPrompt: string;
+  initialQuestion: string;
+  isOpen: boolean;
   onClose: () => void;
 }
 
@@ -18,13 +19,8 @@ const mockResponses = {
   default: "Thank you for your question! Our team specializes in windows, bathrooms, siding, and doors. We provide free estimates and have over 15 years of experience. How can we help transform your home?"
 };
 
-export default function ChatInterface({ initialPrompt, onClose }: ChatInterfaceProps) {
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      role: 'assistant',
-      content: "Hello! I'm here to help you with your home remodeling needs. How can I assist you today?"
-    }
-  ]);
+export default function ChatInterface({ initialQuestion, isOpen, onClose }: ChatInterfaceProps) {
+  const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -39,13 +35,22 @@ export default function ChatInterface({ initialPrompt, onClose }: ChatInterfaceP
   }, [messages, isTyping]);
 
   useEffect(() => {
-    if (initialPrompt) {
-      setInputValue(initialPrompt);
+    if (initialQuestion && isOpen) {
+      // Start fresh conversation with the initial question
+      const userMessage: Message = { role: 'user', content: initialQuestion };
+      setMessages([userMessage]);
+      setInputValue('');
+      
+      // Show typing indicator and generate response
+      setIsTyping(true);
       setTimeout(() => {
-        sendMessage(initialPrompt);
-      }, 500);
+        setIsTyping(false);
+        const response = generateResponse(initialQuestion);
+        const assistantMessage: Message = { role: 'assistant', content: response };
+        setMessages(prev => [...prev, assistantMessage]);
+      }, 1500);
     }
-  }, [initialPrompt]);
+  }, [initialQuestion, isOpen]);
 
   const generateResponse = (message: string): string => {
     const lowerMessage = message.toLowerCase();
@@ -63,9 +68,8 @@ export default function ChatInterface({ initialPrompt, onClose }: ChatInterfaceP
     return mockResponses.default;
   };
 
-  const sendMessage = (messageText?: string) => {
-    const message = messageText || inputValue.trim();
-    
+  const sendMessage = () => {
+    const message = inputValue.trim();
     if (!message) return;
 
     // Add user message
@@ -94,62 +98,83 @@ export default function ChatInterface({ initialPrompt, onClose }: ChatInterfaceP
     }
   };
 
+  if (!isOpen) return null;
+
   return (
-    <div className="fade-in" data-testid="chat-section">
-      <div className="text-end mb-3">
-        <button 
-          className="btn btn-sm btn-flat-outline" 
-          onClick={onClose}
-          data-testid="button-close-chat"
-          aria-label="Close chat"
-        >
-          Back to Questions
-        </button>
-      </div>
+    <>
+      {/* Modal Backdrop */}
+      <div 
+        className="modal-backdrop show" 
+        onClick={onClose}
+        data-testid="modal-backdrop"
+      />
       
-      <div className="chat-messages-integrated" data-testid="chat-messages">
-        {messages.map((message, index) => (
-          <div
-            key={index}
-            className={`message-bubble-integrated message-${message.role}`}
-            data-testid={`message-${message.role}-${index}`}
-          >
-            {message.content}
+      {/* Modal Dialog */}
+      <div className="modal show d-block" tabIndex={-1} data-testid="chat-modal">
+        <div className="modal-dialog modal-lg modal-dialog-centered">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title">
+                <i className="bi bi-robot text-danger me-2"></i>
+                Elite Remodeling AI Assistant
+              </h5>
+              <button 
+                type="button" 
+                className="btn-close" 
+                onClick={onClose}
+                data-testid="button-close-chat"
+                aria-label="Close"
+              />
+            </div>
+            
+            <div className="modal-body p-0">
+              <div className="chat-messages" data-testid="chat-messages">
+                {messages.map((message, index) => (
+                  <div
+                    key={index}
+                    className={`message-bubble message-${message.role}`}
+                    data-testid={`message-${message.role}-${index}`}
+                  >
+                    {message.content}
+                  </div>
+                ))}
+                
+                {isTyping && (
+                  <div className="typing-indicator" data-testid="typing-indicator">
+                    <div className="typing-dot"></div>
+                    <div className="typing-dot"></div>
+                    <div className="typing-dot"></div>
+                  </div>
+                )}
+                <div ref={messagesEndRef} />
+              </div>
+            </div>
+            
+            <div className="modal-footer">
+              <div className="input-group">
+                <textarea 
+                  ref={textareaRef}
+                  className="form-control chat-input"
+                  rows={2}
+                  placeholder="Continue the conversation..."
+                  value={inputValue}
+                  onChange={(e) => setInputValue(e.target.value)}
+                  onKeyPress={handleKeyPress}
+                  data-testid="input-chat-message"
+                />
+                <button 
+                  className="btn btn-flat"
+                  onClick={sendMessage}
+                  disabled={!inputValue.trim()}
+                  data-testid="button-send-message"
+                >
+                  <i className="bi bi-send-fill"></i>
+                </button>
+              </div>
+            </div>
           </div>
-        ))}
-        
-        {isTyping && (
-          <div className="typing-indicator-integrated" data-testid="typing-indicator">
-            <div className="typing-dot"></div>
-            <div className="typing-dot"></div>
-            <div className="typing-dot"></div>
-          </div>
-        )}
-        <div ref={messagesEndRef} />
-      </div>
-      
-      <div className="chat-input-integrated mt-4">
-        <div className="d-flex gap-2">
-          <textarea 
-            ref={textareaRef}
-            className="form-control chat-input-integrated"
-            rows={2}
-            placeholder="Type your question about windows, siding, baths, or doors..."
-            value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
-            onKeyPress={handleKeyPress}
-            data-testid="input-chat-message"
-          />
-          <button 
-            className="btn btn-flat align-self-end"
-            onClick={() => sendMessage()}
-            disabled={!inputValue.trim()}
-            data-testid="button-send-message"
-          >
-            <i className="bi bi-send-fill"></i>
-          </button>
         </div>
       </div>
-    </div>
+    </>
   );
 }

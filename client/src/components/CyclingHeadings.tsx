@@ -1,45 +1,52 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
-interface CyclingHeadingsProps {
-  onClick: (prompt: string) => void;
+interface QuestionInputProps {
+  onSubmit: (question: string) => void;
 }
 
-const headings = [
-  'Ask About Our Window Installations',
-  'Inquire About Bath Remodeling',
-  'Explore Our Siding Options',
-  'Discover Door Replacement Services'
-];
+export default function QuestionInput({ onSubmit }: QuestionInputProps) {
+  const [question, setQuestion] = useState('');
 
-export default function CyclingHeadings({ onClick }: CyclingHeadingsProps) {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isActive, setIsActive] = useState(true);
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (question.trim()) {
+      onSubmit(question.trim());
+    }
+  };
 
-  useEffect(() => {
-    if (!isActive) return;
-
-    const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % headings.length);
-    }, 4000);
-
-    return () => clearInterval(interval);
-  }, [isActive]);
-
-  const handleClick = () => {
-    const currentHeading = headings[currentIndex];
-    setIsActive(false);
-    onClick(currentHeading);
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      handleSubmit(e);
+    }
   };
 
   return (
-    <div 
-      className="cycling-heading" 
-      onClick={handleClick}
-      data-testid="cycling-heading"
-    >
-      <h1 className="display-4 fw-bold text-center">
-        {headings[currentIndex]}
-      </h1>
+    <div className="question-input-container">
+      <h2 className="display-6 fw-bold text-center mb-4">
+        What can we help you with today?
+      </h2>
+      <form onSubmit={handleSubmit}>
+        <div className="d-flex gap-2 align-items-end">
+          <textarea 
+            className="form-control question-input"
+            rows={2}
+            placeholder="Ask about windows, siding, bathrooms, doors, or any remodeling question..."
+            value={question}
+            onChange={(e) => setQuestion(e.target.value)}
+            onKeyPress={handleKeyPress}
+            data-testid="input-main-question"
+          />
+          <button 
+            type="submit"
+            className="btn btn-flat"
+            disabled={!question.trim()}
+            data-testid="button-submit-question"
+          >
+            <i className="bi bi-send-fill"></i>
+          </button>
+        </div>
+      </form>
     </div>
   );
 }
