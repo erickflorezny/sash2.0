@@ -22,7 +22,7 @@ export default function ChatInterface({ initialPrompt, onClose }: ChatInterfaceP
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
-      content: "Hello! I'm here to help you with your home remodeling needs. How can I assist you today?"
+      content: "Welcome to New York Sash How Can We Help You Today?"
     }
   ]);
   const [inputValue, setInputValue] = useState('');
