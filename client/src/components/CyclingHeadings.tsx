@@ -68,9 +68,8 @@ export default function CyclingHeadings({ onSubmit }: CyclingHeadingsProps) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (inputValue.trim()) {
-      onSubmit(inputValue.trim());
-    }
+    // Always submit, even with empty input - chat can handle the greeting
+    onSubmit(inputValue.trim() || 'Hello');
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -125,7 +124,6 @@ export default function CyclingHeadings({ onSubmit }: CyclingHeadingsProps) {
         <button 
           className="btn-ask"
           onClick={handleSubmit}
-          disabled={!inputValue.trim()}
           data-testid="button-submit-question"
         >
           Let's Get Started
