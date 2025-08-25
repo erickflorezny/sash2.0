@@ -2,6 +2,7 @@ import { useLocation } from 'wouter';
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import ChatInterface from '@/components/ChatInterface';
+import SuggestedPrompts from '@/components/SuggestedPrompts';
 
 export default function Chat() {
   const [, setLocation] = useLocation();
@@ -32,12 +33,28 @@ export default function Chat() {
   const urlParams = new URLSearchParams(window.location.search);
   const initialPrompt = urlParams.get('prompt') || '';
 
+  const handlePromptClick = (prompt: string) => {
+    // Could be used to add new messages to the existing chat
+    // For now, we'll reload the chat with the new prompt
+    const urlParams = new URLSearchParams();
+    urlParams.set('prompt', prompt);
+    window.history.pushState({}, '', `/chat?${urlParams.toString()}`);
+    window.location.reload();
+  };
+
   return (
     <div ref={pageRef} className="chat-page">
-      <ChatInterface 
-        initialPrompt={initialPrompt} 
-        onClose={handleCloseChat}
-      />
+      <div className="chat-container-reduced">
+        <ChatInterface 
+          initialPrompt={initialPrompt} 
+          onClose={handleCloseChat}
+        />
+      </div>
+      
+      {/* Suggested Prompts below chat */}
+      <div className="container py-4">
+        <SuggestedPrompts onPromptClick={handlePromptClick} />
+      </div>
     </div>
   );
 }

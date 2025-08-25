@@ -1181,10 +1181,15 @@
 
 /* Modern Chat Page Layout */
 .chat-page-layout {
-  height: 100vh;
+  height: 70vh;
   display: flex;
   background: white;
   font-family: var(--font-sans);
+}
+
+.chat-container-reduced {
+  height: 70vh;
+  overflow: hidden;
 }
 
 /* Main Chat Area */
