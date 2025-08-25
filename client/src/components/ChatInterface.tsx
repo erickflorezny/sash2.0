@@ -29,14 +29,24 @@ export default function ChatInterface({ initialPrompt, onClose }: ChatInterfaceP
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const chatContainerRef = useRef<HTMLDivElement>(null);
 
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  const scrollToTop = () => {
+    if (chatContainerRef.current) {
+      const elementTop = chatContainerRef.current.getBoundingClientRect().top + window.scrollY;
+      window.scrollTo({ 
+        top: elementTop - 10, // 10px margin from top
+        behavior: 'smooth' 
+      });
+    }
   };
 
   useEffect(() => {
-    scrollToBottom();
-  }, [messages, isTyping]);
+    // Only scroll to top when chat is first activated, not on every message
+    if (messages.length === 1) {
+      scrollToTop();
+    }
+  }, [messages]);
 
   useEffect(() => {
     if (initialPrompt) {
@@ -98,7 +108,7 @@ export default function ChatInterface({ initialPrompt, onClose }: ChatInterfaceP
     <section className="mb-5 fade-in" data-testid="chat-section">
       <div className="row justify-content-center">
         <div className="col-lg-8">
-          <div className="card chat-container card-flat">
+          <div ref={chatContainerRef} className="card chat-container card-flat">
             <div className="card-header bg-light border-bottom-0 p-3">
               <div className="d-flex align-items-center">
                 <i className="bi bi-robot text-danger me-2"></i>
