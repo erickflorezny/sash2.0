@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 import CyclingHeadings from '@/components/CyclingHeadings';
 import ChatInterface from '@/components/ChatInterface';
 import SuggestedPrompts from '@/components/SuggestedPrompts';
@@ -52,46 +53,65 @@ export default function Home() {
         </div>
       )}
 
-      {/* Main Content Container */}
-      <div className={`main-content ${isChatActive ? 'slide-up' : ''}`}>
-        <div className="hero-section">
-          <main className="container-fluid">
-            <CyclingHeadings onSubmit={handleQuestionSubmit} />
-          </main>
-        </div>
-
-        {/* Suggested Prompts */}
-        <div className="container py-5">
-          <SuggestedPrompts onPromptClick={handleQuestionSubmit} />
-        </div>
-
-        {/* Footer */}
-        <footer className="bg-dark text-light py-4">
-          <div className="container">
-            <div className="row">
-              <div className="col-md-6">
-                <h5 className="text-danger">New York Sash</h5>
-                <p className="mb-1">Professional home improvement services</p>
-                <p className="mb-0">Licensed • Insured • Trusted</p>
-              </div>
-              <div className="col-md-6 text-md-end">
-                <p className="mb-1"><i className="bi bi-telephone-fill text-danger me-2"></i>(555) 123-4567</p>
-                <p className="mb-0"><i className="bi bi-envelope-fill text-danger me-2"></i>info@newyorksash.com</p>
-              </div>
+      <AnimatePresence mode="wait">
+        {!isChatActive ? (
+          <motion.div
+            key="homepage"
+            initial={{ y: 0 }}
+            exit={{ y: "-100vh" }}
+            transition={{ 
+              duration: 0.6, 
+              ease: [0.4, 0, 0.2, 1] 
+            }}
+            className="main-content"
+          >
+            <div className="hero-section">
+              <main className="container-fluid">
+                <CyclingHeadings onSubmit={handleQuestionSubmit} />
+              </main>
             </div>
-          </div>
-        </footer>
-      </div>
 
-      {/* Chat Interface - Full Screen */}
-      <div className={`chat-screen ${isChatActive ? 'active' : ''}`}>
-        {isChatActive && (
-          <ChatInterface 
-            initialPrompt={initialPrompt} 
-            onClose={handleCloseChat}
-          />
+            {/* Suggested Prompts */}
+            <div className="container py-5">
+              <SuggestedPrompts onPromptClick={handleQuestionSubmit} />
+            </div>
+
+            {/* Footer */}
+            <footer className="bg-dark text-light py-4">
+              <div className="container">
+                <div className="row">
+                  <div className="col-md-6">
+                    <h5 className="text-danger">New York Sash</h5>
+                    <p className="mb-1">Professional home improvement services</p>
+                    <p className="mb-0">Licensed • Insured • Trusted</p>
+                  </div>
+                  <div className="col-md-6 text-md-end">
+                    <p className="mb-1"><i className="bi bi-telephone-fill text-danger me-2"></i>(555) 123-4567</p>
+                    <p className="mb-0"><i className="bi bi-envelope-fill text-danger me-2"></i>info@newyorksash.com</p>
+                  </div>
+                </div>
+              </div>
+            </footer>
+          </motion.div>
+        ) : (
+          <motion.div
+            key="chatpage"
+            initial={{ y: "100vh" }}
+            animate={{ y: 0 }}
+            exit={{ y: "100vh" }}
+            transition={{ 
+              duration: 0.6, 
+              ease: [0.4, 0, 0.2, 1] 
+            }}
+            className="chat-screen-react"
+          >
+            <ChatInterface 
+              initialPrompt={initialPrompt} 
+              onClose={handleCloseChat}
+            />
+          </motion.div>
         )}
-      </div>
+      </AnimatePresence>
     </div>
   );
 }

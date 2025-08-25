@@ -748,7 +748,7 @@
   animation: slideInUp 0.8s ease-out 0.4s both;
 }
 
-/* Main Container Layout for SPA Transitions */
+/* Main Container Layout for React Transitions */
 .main-container {
   position: relative;
   width: 100%;
@@ -756,36 +756,24 @@
   overflow: hidden;
 }
 
-/* Main Content Slide Animation */
+/* Main Content Page */
 .main-content {
   position: relative;
   width: 100%;
   min-height: 100vh;
-  transform: translateY(0);
-  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 1;
 }
 
-.main-content.slide-up {
-  transform: translateY(-100vh);
-}
-
-/* Chat Screen Slide-Up Transition */
-.chat-screen {
+/* Chat Screen Page */
+.chat-screen-react {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100vh;
   background: white;
-  transform: translateY(100%);
-  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 2;
   overflow: hidden;
-}
-
-.chat-screen.active {
-  transform: translateY(0);
 }
 
 /* Full Screen Chat Interface */
