@@ -6,6 +6,7 @@ import SuggestedPrompts from '@/components/SuggestedPrompts';
 export default function Home() {
   const [isChatActive, setIsChatActive] = useState(false);
   const [initialPrompt, setInitialPrompt] = useState('');
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleQuestionSubmit = (prompt: string) => {
     setInitialPrompt(prompt);
@@ -19,15 +20,37 @@ export default function Home() {
 
   return (
     <div>
-      {/* Navigation */}
-      <div className="floating-nav">
-        <ul>
-          <li><a href="#windows" data-testid="nav-windows">Windows</a></li>
-          <li><a href="#siding" data-testid="nav-siding">Siding</a></li>
-          <li><a href="#bath" data-testid="nav-bath">Bath</a></li>
-          <li><a href="#doors" data-testid="nav-doors">Doors</a></li>
-        </ul>
-      </div>
+      {/* Hamburger Menu Button */}
+      <button 
+        className="hamburger-btn"
+        onClick={() => setIsMenuOpen(true)}
+        data-testid="hamburger-menu"
+        aria-label="Open menu"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      {/* Full Page Navigation Overlay */}
+      {isMenuOpen && (
+        <div className="nav-overlay">
+          <button 
+            className="close-btn"
+            onClick={() => setIsMenuOpen(false)}
+            data-testid="close-menu"
+            aria-label="Close menu"
+          >
+            ×
+          </button>
+          <nav className="nav-links">
+            <a href="#windows" data-testid="nav-windows" onClick={() => setIsMenuOpen(false)}>Windows</a>
+            <a href="#siding" data-testid="nav-siding" onClick={() => setIsMenuOpen(false)}>Siding</a>
+            <a href="#bath" data-testid="nav-bath" onClick={() => setIsMenuOpen(false)}>Bath</a>
+            <a href="#doors" data-testid="nav-doors" onClick={() => setIsMenuOpen(false)}>Doors</a>
+          </nav>
+        </div>
+      )}
 
       <div className="hero-section">
         <main className="container-fluid">
