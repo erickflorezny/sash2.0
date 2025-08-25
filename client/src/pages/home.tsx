@@ -1,19 +1,37 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useLocation } from 'wouter';
+import { gsap } from 'gsap';
 import CyclingHeadings from '@/components/CyclingHeadings';
 import SuggestedPrompts from '@/components/SuggestedPrompts';
 
 export default function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [, setLocation] = useLocation();
+  const pageRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // Animate page in on mount
+    gsap.fromTo(pageRef.current, 
+      { opacity: 0, y: 20 },
+      { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }
+    );
+  }, []);
 
   const handleQuestionSubmit = (prompt: string) => {
-    // Navigate to chat route with prompt as URL parameter
-    setLocation(`/chat?prompt=${encodeURIComponent(prompt)}`);
+    // Animate page out before navigation
+    gsap.to(pageRef.current, {
+      y: -100,
+      opacity: 0,
+      duration: 0.3,
+      ease: "power2.in",
+      onComplete: () => {
+        setLocation(`/chat?prompt=${encodeURIComponent(prompt)}`);
+      }
+    });
   };
 
   return (
-    <div className="main-container">
+    <div ref={pageRef} className="main-container">
       {/* Hamburger Menu Button */}
       <button 
         className="hamburger-btn"

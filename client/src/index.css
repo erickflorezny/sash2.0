@@ -763,34 +763,7 @@
   z-index: 1;
 }
 
-/* Page Transition Effects */
-.chat-page {
-  animation: slideInFromBottom 0.2s ease-out;
-}
-
-.main-content {
-  animation: fadeIn 0.2s ease-out;
-}
-
-@keyframes slideInFromBottom {
-  from {
-    transform: translateY(100vh);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
+/* GSAP handles page transitions */
 
 /* Modern Chat Page Layout */
 .chat-page-layout {
