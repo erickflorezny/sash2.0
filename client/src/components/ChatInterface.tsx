@@ -444,30 +444,8 @@ export default function ChatInterface({ initialPrompt, onClose, showPrompts = fa
 
   const generateResponse = async (message: string): Promise<string> => {
     const lowerMessage = message.toLowerCase();
-    const extractedName = extractName(message);
     
-    // If user introduced themselves, get location and provide personalized greeting
-    if (extractedName && !userName && (lowerMessage.includes('name is') || lowerMessage.includes("i'm") || lowerMessage.includes('i am') || lowerMessage.includes('hello') || lowerMessage.includes('hi') || message.trim().split(' ').length === 1)) {
-      setUserName(extractedName);
-      
-      // Request location
-      const location = await requestUserLocation();
-      setUserLocation(location);
-      
-      // Create welcome message with selections
-      setTimeout(() => {
-        const welcomeMessage: Message = {
-          role: 'assistant',
-          content: `Hi ${extractedName}! Welcome to New York Sash${location ? ` - we're glad to serve customers in ${location}` : ''}! How can we help you today? Please select the service you're interested in:`,
-          selections: serviceSelections
-        };
-        setMessages(prev => [...prev, welcomeMessage]);
-      }, isDetectingLocation ? 2000 : 500);
-      
-      return isDetectingLocation ? 
-        `Nice to meet you ${extractedName}! Let me get your location to better serve you...` :
-        `Nice to meet you ${extractedName}! Let me show you our services...`;
-    }
+    // Skip name extraction logic since we auto-initialize with Justin's greeting
     
     // Enhanced door response logic using knowledge base
     if (lowerMessage.includes('door')) {
