@@ -202,56 +202,70 @@
   transition: all 0.5s ease;
 }
 
-/* Chat Interface */
-.chat-container {
-  max-height: 500px;
-  background-color: var(--elite-light-gray);
-  border: 2px solid #dee2e6;
-  border-radius: 0;
-}
-
-.chat-messages {
-  height: 350px;
+/* Chat Interface - Integrated */
+.chat-messages-integrated {
+  max-height: 400px;
   overflow-y: auto;
-  padding: 20px;
-  background-color: var(--elite-white);
+  padding: 0;
+  margin: 20px 0;
 }
 
-.message-bubble {
-  max-width: 80%;
-  padding: 12px 16px;
-  margin-bottom: 12px;
-  border-radius: 0;
+.message-bubble-integrated {
+  max-width: 100%;
+  padding: 16px 0;
+  margin-bottom: 16px;
+  border-bottom: 1px solid #f0f0f0;
+  line-height: 1.6;
 }
 
-.message-user {
-  background-color: var(--elite-red);
-  color: var(--elite-white);
-  margin-left: auto;
-}
-
-.message-assistant {
-  background-color: #e9ecef;
+.message-bubble-integrated.message-user {
   color: var(--elite-black);
-  margin-right: auto;
+  font-weight: 600;
 }
 
-.chat-input-container {
-  padding: 15px;
-  background-color: var(--elite-light-gray);
-  border-top: 1px solid #dee2e6;
+.message-bubble-integrated.message-user::before {
+  content: "You: ";
+  color: var(--elite-red);
+  font-weight: 700;
 }
 
-.chat-input {
+.message-bubble-integrated.message-assistant {
+  color: var(--elite-black);
+}
+
+.message-bubble-integrated.message-assistant::before {
+  content: "Elite Remodeling: ";
+  color: var(--elite-red);
+  font-weight: 700;
+}
+
+.chat-input-integrated {
   border: 2px solid #dee2e6;
   border-radius: 0;
   padding: 12px;
   resize: none;
   box-shadow: none !important;
+  background-color: var(--elite-white);
 }
 
-.chat-input:focus {
+.chat-input-integrated:focus {
   border-color: var(--elite-red);
+  outline: none;
+}
+
+.typing-indicator-integrated {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 16px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.typing-indicator-integrated::before {
+  content: "Elite Remodeling: ";
+  color: var(--elite-red);
+  font-weight: 700;
+  margin-right: 8px;
 }
 
 /* Suggested Prompts */
