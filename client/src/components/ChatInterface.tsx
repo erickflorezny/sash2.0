@@ -105,62 +105,98 @@ export default function ChatInterface({ initialPrompt, onClose }: ChatInterfaceP
   };
 
   return (
-    <div className="chat-interface-fullscreen" data-testid="chat-section">
-      <div ref={chatContainerRef} className="chat-container-fullscreen">
-        <div className="chat-header">
-          <div className="d-flex align-items-center">
-            <i className="bi bi-robot text-danger me-2"></i>
-            <h5 className="mb-0 fw-bold">New York Sash AI Assistant</h5>
-            <button 
-              className="btn-close ms-auto" 
-              onClick={onClose}
-              data-testid="button-close-chat"
-              aria-label="Close chat"
-            />
+    <div className="chat-page-layout" data-testid="chat-section">
+      {/* Main Chat Area */}
+      <div className="chat-main-area">
+        <div className="chat-header-modern">
+          <div className="chat-header-content">
+            <div className="chat-brand">
+              <i className="bi bi-robot"></i>
+              <span>New York Sash AI Assistant</span>
+            </div>
           </div>
         </div>
         
-        <div className="chat-messages" data-testid="chat-messages">
+        <div ref={chatContainerRef} className="chat-messages-modern" data-testid="chat-messages">
           {messages.map((message, index) => (
             <div
               key={index}
-              className={`message-bubble message-${message.role}`}
+              className={`message-modern message-${message.role}`}
               data-testid={`message-${message.role}-${index}`}
             >
-              {message.content}
+              <div className="message-content">
+                {message.content}
+              </div>
             </div>
           ))}
           
           {isTyping && (
-            <div className="typing-indicator" data-testid="typing-indicator">
-              <div className="typing-dot"></div>
-              <div className="typing-dot"></div>
-              <div className="typing-dot"></div>
+            <div className="typing-indicator-modern" data-testid="typing-indicator">
+              <div className="typing-dots">
+                <div className="typing-dot"></div>
+                <div className="typing-dot"></div>
+                <div className="typing-dot"></div>
+              </div>
             </div>
           )}
           <div ref={messagesEndRef} />
         </div>
         
-        <div className="chat-input-container">
-          <div className="input-group">
+        <div className="chat-input-modern">
+          <div className="input-container-modern">
             <textarea 
               ref={textareaRef}
-              className="form-control chat-input"
-              rows={2}
-              placeholder="Type your question about windows, siding, baths, or doors..."
+              className="chat-input-field"
+              rows={1}
+              placeholder="Continue the conversation..."
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
               onKeyPress={handleKeyPress}
               data-testid="input-chat-message"
             />
             <button 
-              className="btn btn-flat"
+              className="send-button-modern"
               onClick={() => sendMessage()}
               disabled={!inputValue.trim()}
               data-testid="button-send-message"
             >
               <i className="bi bi-send-fill"></i>
             </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Right Sidebar */}
+      <div className="chat-sidebar">
+        <div className="sidebar-content">
+          {/* Image Slider Section */}
+          <div className="sidebar-slider">
+            <div className="slider-placeholder">
+              <i className="bi bi-images"></i>
+              <span>Related Images</span>
+            </div>
+          </div>
+          
+          {/* Content Section */}
+          <div className="sidebar-content-area">
+            <h3>Related Information</h3>
+            <div className="content-placeholder">
+              <p>This sidebar will display relevant page content related to your conversation with our AI assistant.</p>
+              <div className="content-sections">
+                <div className="content-section">
+                  <h4>Windows</h4>
+                  <p>Learn about our energy-efficient window solutions.</p>
+                </div>
+                <div className="content-section">
+                  <h4>Siding</h4>
+                  <p>Discover our durable siding options.</p>
+                </div>
+                <div className="content-section">
+                  <h4>Doors</h4>
+                  <p>Explore our entry and patio door selections.</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
