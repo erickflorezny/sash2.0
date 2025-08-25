@@ -60,12 +60,7 @@ const mockResponses = {
 };
 
 export default function ChatInterface({ initialPrompt, onClose, showPrompts = false, onPromptClick }: ChatInterfaceProps) {
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      role: 'assistant',
-      content: "Welcome to New York Sash How Can We Help You Today?"
-    }
-  ]);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const [isLiveAgentOpen, setIsLiveAgentOpen] = useState(false);
@@ -254,6 +249,29 @@ export default function ChatInterface({ initialPrompt, onClose, showPrompts = fa
     }
   }, [initialPrompt]);
 
+  // Auto-initialize with personalized greeting for Justin
+  useEffect(() => {
+    if (messages.length === 0 && !initialPrompt && !userName) {
+      const initializeChat = async () => {
+        setUserName('Justin');
+        
+        // Request location
+        const location = await requestUserLocation();
+        setUserLocation(location);
+        
+        // Add the personalized welcome message with service selections
+        const welcomeMessage: Message = {
+          role: 'assistant',
+          content: `Hi Justin! Welcome to New York Sash - we're glad to serve customers in ${location}! How can we help you today? Please select the service you're interested in:`,
+          selections: serviceSelections
+        };
+        setMessages([welcomeMessage]);
+      };
+      
+      initializeChat();
+    }
+  }, [messages.length, initialPrompt, userName]);
+
   // Auto-advance slider (only when no keywords are detected)
   useEffect(() => {
     // Don't auto-advance if we have detected keywords and are showing relevant content
@@ -295,7 +313,7 @@ export default function ChatInterface({ initialPrompt, onClose, showPrompts = fa
             resolve(locationName);
           } catch (error) {
             setIsDetectingLocation(false);
-            resolve('your location');
+            resolve('Central New York');
           }
         },
         (error) => {
@@ -327,10 +345,10 @@ export default function ChatInterface({ initialPrompt, onClose, showPrompts = fa
           return state;
         }
       }
-      return 'your area';
+      return 'Central New York';
     } catch (error) {
       console.log('Reverse geocoding failed:', error);
-      return 'your area';
+      return 'Central New York';
     }
   };
 
