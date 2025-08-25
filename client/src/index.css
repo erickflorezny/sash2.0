@@ -745,6 +745,12 @@
   clear: both;
 }
 
+@media (max-width: 768px) {
+  .input-hint {
+    display: none;
+  }
+}
+
 .ask-button {
   text-align: center;
   margin-bottom: 3rem;
