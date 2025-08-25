@@ -751,6 +751,47 @@
   }
 }
 
+.live-agent-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: transparent;
+  border: 2px solid var(--elite-red);
+  color: var(--elite-red);
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.live-agent-button:hover {
+  background: var(--elite-red);
+  color: white;
+}
+
+.live-indicator {
+  width: 8px;
+  height: 8px;
+  background: var(--elite-red);
+  border-radius: 50%;
+  animation: livePulse 2s infinite;
+}
+
+@keyframes livePulse {
+  0%, 100% { 
+    opacity: 1; 
+    transform: scale(1); 
+    box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.7);
+  }
+  50% { 
+    opacity: 0.7; 
+    transform: scale(1.1); 
+    box-shadow: 0 0 0 4px rgba(220, 53, 69, 0);
+  }
+}
+
 .ask-button {
   text-align: center;
   margin-bottom: 3rem;

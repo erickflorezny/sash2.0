@@ -99,6 +99,14 @@ export default function ChatInterface({ initialPrompt, onClose }: ChatInterfaceP
               <img src={chatLogo} alt="New York Sash" className="chat-logo" />
               <span>New York Sash AI Assistant</span>
             </div>
+            <button 
+              className="live-agent-button"
+              onClick={() => alert('Connecting you to a live agent...')}
+              data-testid="button-live-agent"
+            >
+              <div className="live-indicator"></div>
+              <span>Talk to Live Person</span>
+            </button>
           </div>
         </div>
         
