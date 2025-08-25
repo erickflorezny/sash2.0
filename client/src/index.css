@@ -816,9 +816,10 @@
   font-weight: 600;
 }
 
-.chat-brand i {
-  color: var(--elite-red);
-  font-size: 1.5rem;
+.chat-logo {
+  width: 2rem;
+  height: auto;
+  object-fit: contain;
 }
 
 .chat-messages-modern {

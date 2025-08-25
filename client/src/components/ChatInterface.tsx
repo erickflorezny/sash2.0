@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import chatLogo from '@assets/image_1756148189859.png';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -111,7 +112,7 @@ export default function ChatInterface({ initialPrompt, onClose }: ChatInterfaceP
         <div className="chat-header-modern">
           <div className="chat-header-content">
             <div className="chat-brand">
-              <i className="bi bi-robot"></i>
+              <img src={chatLogo} alt="New York Sash" className="chat-logo" />
               <span>New York Sash AI Assistant</span>
             </div>
           </div>
