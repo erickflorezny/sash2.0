@@ -1181,33 +1181,10 @@
 
 /* Modern Chat Page Layout */
 .chat-page-layout {
-  height: 70vh;
+  height: 100vh;
   display: flex;
   background: white;
   font-family: var(--font-sans);
-}
-
-.chat-container-with-prompts {
-  height: 100vh;
-  display: flex;
-}
-
-.chat-main-section {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-.chat-main-section .chat-page-layout {
-  height: 70vh;
-  flex: 0 0 auto;
-}
-
-.chat-prompts-section {
-  flex: 1;
-  padding: 2rem;
-  background: #fafafa;
-  overflow-y: auto;
 }
 
 /* Main Chat Area */
@@ -1249,13 +1226,21 @@
 }
 
 .chat-messages-modern {
-  flex: 1;
+  flex: 0 0 50vh;
   overflow-y: auto;
   padding: 2rem;
   background: #fafafa;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+}
+
+.chat-prompts-area {
+  flex: 1;
+  padding: 1rem 2rem;
+  background: white;
+  border-top: 1px solid #e5e7eb;
+  overflow-y: auto;
 }
 
 .message-modern {

@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import chatLogo from '@assets/image_1756148189859.png';
+import SuggestedPrompts from './SuggestedPrompts';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -9,6 +10,8 @@ interface Message {
 interface ChatInterfaceProps {
   initialPrompt: string;
   onClose: () => void;
+  showPrompts?: boolean;
+  onPromptClick?: (prompt: string) => void;
 }
 
 const mockResponses = {
@@ -19,7 +22,7 @@ const mockResponses = {
   default: "Thank you for your question! Our team specializes in windows, bathrooms, siding, and doors. We provide free estimates and have over 15 years of experience. How can we help transform your home?"
 };
 
-export default function ChatInterface({ initialPrompt, onClose }: ChatInterfaceProps) {
+export default function ChatInterface({ initialPrompt, onClose, showPrompts = false, onPromptClick }: ChatInterfaceProps) {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
@@ -253,6 +256,13 @@ export default function ChatInterface({ initialPrompt, onClose }: ChatInterfaceP
             </button>
           </div>
         </div>
+        
+        {/* Add suggested prompts below chat if enabled */}
+        {showPrompts && onPromptClick && (
+          <div className="chat-prompts-area">
+            <SuggestedPrompts onPromptClick={onPromptClick} />
+          </div>
+        )}
       </div>
 
       {/* Right Sidebar */}
