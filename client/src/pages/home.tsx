@@ -19,7 +19,7 @@ export default function Home() {
   };
 
   return (
-    <div>
+    <div className="main-container">
       {/* Hamburger Menu Button */}
       <button 
         className="hamburger-btn"
@@ -52,43 +52,46 @@ export default function Home() {
         </div>
       )}
 
-      <div className="hero-section">
-        <main className="container-fluid">
-          <CyclingHeadings onSubmit={handleQuestionSubmit} />
-        </main>
+      {/* Main Content Container */}
+      <div className={`main-content ${isChatActive ? 'slide-up' : ''}`}>
+        <div className="hero-section">
+          <main className="container-fluid">
+            <CyclingHeadings onSubmit={handleQuestionSubmit} />
+          </main>
+        </div>
+
+        {/* Suggested Prompts */}
+        <div className="container py-5">
+          <SuggestedPrompts onPromptClick={handleQuestionSubmit} />
+        </div>
+
+        {/* Footer */}
+        <footer className="bg-dark text-light py-4">
+          <div className="container">
+            <div className="row">
+              <div className="col-md-6">
+                <h5 className="text-danger">New York Sash</h5>
+                <p className="mb-1">Professional home improvement services</p>
+                <p className="mb-0">Licensed • Insured • Trusted</p>
+              </div>
+              <div className="col-md-6 text-md-end">
+                <p className="mb-1"><i className="bi bi-telephone-fill text-danger me-2"></i>(555) 123-4567</p>
+                <p className="mb-0"><i className="bi bi-envelope-fill text-danger me-2"></i>info@newyorksash.com</p>
+              </div>
+            </div>
+          </div>
+        </footer>
       </div>
 
-      {/* Chat Interface */}
-      {isChatActive && (
-        <div className="container py-5">
+      {/* Chat Interface - Full Screen */}
+      <div className={`chat-screen ${isChatActive ? 'active' : ''}`}>
+        {isChatActive && (
           <ChatInterface 
             initialPrompt={initialPrompt} 
             onClose={handleCloseChat}
           />
-        </div>
-      )}
-
-      {/* Suggested Prompts */}
-      <div className="container py-5">
-        <SuggestedPrompts onPromptClick={handleQuestionSubmit} />
+        )}
       </div>
-
-      {/* Footer */}
-      <footer className="bg-dark text-light py-4">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-6">
-              <h5 className="text-danger">Elite Home Remodeling</h5>
-              <p className="mb-1">Professional home improvement services</p>
-              <p className="mb-0">Licensed • Insured • Trusted</p>
-            </div>
-            <div className="col-md-6 text-md-end">
-              <p className="mb-1"><i className="bi bi-telephone-fill text-danger me-2"></i>(555) 123-4567</p>
-              <p className="mb-0"><i className="bi bi-envelope-fill text-danger me-2"></i>info@elitehomeremodeling.com</p>
-            </div>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }

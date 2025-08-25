@@ -105,69 +105,65 @@ export default function ChatInterface({ initialPrompt, onClose }: ChatInterfaceP
   };
 
   return (
-    <section className="mb-5 fade-in" data-testid="chat-section">
-      <div className="row justify-content-center">
-        <div className="col-lg-8">
-          <div ref={chatContainerRef} className="card chat-container card-flat">
-            <div className="card-header bg-light border-bottom-0 p-3">
-              <div className="d-flex align-items-center">
-                <i className="bi bi-robot text-danger me-2"></i>
-                <h5 className="card-title mb-0 fw-bold">Elite Remodeling AI Assistant</h5>
-                <button 
-                  className="btn-close ms-auto" 
-                  onClick={onClose}
-                  data-testid="button-close-chat"
-                  aria-label="Close chat"
-                />
-              </div>
+    <div className="chat-interface-fullscreen" data-testid="chat-section">
+      <div ref={chatContainerRef} className="chat-container-fullscreen">
+        <div className="chat-header">
+          <div className="d-flex align-items-center">
+            <i className="bi bi-robot text-danger me-2"></i>
+            <h5 className="mb-0 fw-bold">New York Sash AI Assistant</h5>
+            <button 
+              className="btn-close ms-auto" 
+              onClick={onClose}
+              data-testid="button-close-chat"
+              aria-label="Close chat"
+            />
+          </div>
+        </div>
+        
+        <div className="chat-messages" data-testid="chat-messages">
+          {messages.map((message, index) => (
+            <div
+              key={index}
+              className={`message-bubble message-${message.role}`}
+              data-testid={`message-${message.role}-${index}`}
+            >
+              {message.content}
             </div>
-            
-            <div className="chat-messages" data-testid="chat-messages">
-              {messages.map((message, index) => (
-                <div
-                  key={index}
-                  className={`message-bubble message-${message.role}`}
-                  data-testid={`message-${message.role}-${index}`}
-                >
-                  {message.content}
-                </div>
-              ))}
-              
-              {isTyping && (
-                <div className="typing-indicator" data-testid="typing-indicator">
-                  <div className="typing-dot"></div>
-                  <div className="typing-dot"></div>
-                  <div className="typing-dot"></div>
-                </div>
-              )}
-              <div ref={messagesEndRef} />
+          ))}
+          
+          {isTyping && (
+            <div className="typing-indicator" data-testid="typing-indicator">
+              <div className="typing-dot"></div>
+              <div className="typing-dot"></div>
+              <div className="typing-dot"></div>
             </div>
-            
-            <div className="chat-input-container">
-              <div className="input-group">
-                <textarea 
-                  ref={textareaRef}
-                  className="form-control chat-input"
-                  rows={2}
-                  placeholder="Type your question about windows, siding, baths, or doors..."
-                  value={inputValue}
-                  onChange={(e) => setInputValue(e.target.value)}
-                  onKeyPress={handleKeyPress}
-                  data-testid="input-chat-message"
-                />
-                <button 
-                  className="btn btn-flat"
-                  onClick={() => sendMessage()}
-                  disabled={!inputValue.trim()}
-                  data-testid="button-send-message"
-                >
-                  <i className="bi bi-send-fill"></i>
-                </button>
-              </div>
-            </div>
+          )}
+          <div ref={messagesEndRef} />
+        </div>
+        
+        <div className="chat-input-container">
+          <div className="input-group">
+            <textarea 
+              ref={textareaRef}
+              className="form-control chat-input"
+              rows={2}
+              placeholder="Type your question about windows, siding, baths, or doors..."
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
+              onKeyPress={handleKeyPress}
+              data-testid="input-chat-message"
+            />
+            <button 
+              className="btn btn-flat"
+              onClick={() => sendMessage()}
+              disabled={!inputValue.trim()}
+              data-testid="button-send-message"
+            >
+              <i className="bi bi-send-fill"></i>
+            </button>
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 }
