@@ -432,9 +432,10 @@
 }
 
 .prompt-container {
-  max-width: 940px;
+  max-width: 1160px;
   width: 100%;
   margin: 0 auto 2rem auto;
+  padding: 0 2rem;
   animation: slideInUp 0.8s ease-out 0.2s both;
 }
 
@@ -469,8 +470,9 @@
   text-align: center;
   color: #6c757d;
   font-size: 1.1rem;
-  max-width: 940px;
+  max-width: 1160px;
   margin: 0 auto 4rem auto;
+  padding: 0 2rem;
   animation: fadeIn 1.5s ease-out;
 }
 
