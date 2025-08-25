@@ -28,6 +28,8 @@ export default function ChatInterface({ initialPrompt, onClose }: ChatInterfaceP
   ]);
   const [inputValue, setInputValue] = useState('');
   const [isTyping, setIsTyping] = useState(false);
+  const [isLiveAgentOpen, setIsLiveAgentOpen] = useState(false);
+  const [liveAgentMessage, setLiveAgentMessage] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
@@ -101,7 +103,7 @@ export default function ChatInterface({ initialPrompt, onClose }: ChatInterfaceP
             </div>
             <button 
               className="live-agent-button"
-              onClick={() => alert('Connecting you to a live agent...')}
+              onClick={() => setIsLiveAgentOpen(true)}
               data-testid="button-live-agent"
             >
               <div className="live-indicator"></div>
@@ -193,6 +195,67 @@ export default function ChatInterface({ initialPrompt, onClose }: ChatInterfaceP
           </div>
         </div>
       </div>
+
+      {/* Live Agent Dialog */}
+      {isLiveAgentOpen && (
+        <div className="live-agent-dialog-overlay" onClick={() => setIsLiveAgentOpen(false)}>
+          <div className="live-agent-dialog" onClick={e => e.stopPropagation()}>
+            <div className="live-agent-header">
+              <div className="live-agent-title">
+                <div className="live-indicator"></div>
+                <span>Connect with Live Agent</span>
+              </div>
+              <button 
+                className="dialog-close-button"
+                onClick={() => setIsLiveAgentOpen(false)}
+              >
+                <i className="bi bi-x-lg"></i>
+              </button>
+            </div>
+            
+            <div className="live-agent-content">
+              <p>Ready to speak with one of our home improvement specialists?</p>
+              <div className="contact-options">
+                <div className="contact-option">
+                  <i className="bi bi-telephone-fill"></i>
+                  <div>
+                    <strong>Call Now</strong>
+                    <p>(555) 123-4567</p>
+                  </div>
+                </div>
+                <div className="contact-option">
+                  <i className="bi bi-envelope-fill"></i>
+                  <div>
+                    <strong>Email Us</strong>
+                    <p>info@newyorksash.com</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="live-chat-form">
+                <h4>Or send us a quick message:</h4>
+                <textarea
+                  className="live-agent-textarea"
+                  placeholder="Tell us about your project and we'll get back to you shortly..."
+                  value={liveAgentMessage}
+                  onChange={(e) => setLiveAgentMessage(e.target.value)}
+                  rows={4}
+                />
+                <button 
+                  className="submit-live-message"
+                  onClick={() => {
+                    alert('Message sent! Our team will contact you within 24 hours.');
+                    setLiveAgentMessage('');
+                    setIsLiveAgentOpen(false);
+                  }}
+                >
+                  Send Message
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
