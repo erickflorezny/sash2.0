@@ -30,7 +30,7 @@ export default function CyclingHeadings({ onSubmit }: CyclingHeadingsProps) {
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
           onKeyPress={handleKeyPress}
-          placeholder="What home improvement project can we help you with today?"
+          placeholder="Welcome to New York Sash How Can We Help You Today?"
           rows={2}
           data-testid="input-question"
         />
