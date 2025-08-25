@@ -29,7 +29,14 @@ export default function ChatInterface({ initialPrompt, onClose }: ChatInterfaceP
   const [inputValue, setInputValue] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const [isLiveAgentOpen, setIsLiveAgentOpen] = useState(false);
-  const [liveAgentMessage, setLiveAgentMessage] = useState('');
+  const [liveAgentMessages, setLiveAgentMessages] = useState<Message[]>([
+    {
+      role: 'assistant',
+      content: "Hello! I'm Sarah, your live agent. I'm here to help with your home improvement needs. What can I assist you with today?"
+    }
+  ]);
+  const [liveAgentInput, setLiveAgentInput] = useState('');
+  const [isLiveAgentTyping, setIsLiveAgentTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
@@ -89,6 +96,59 @@ export default function ChatInterface({ initialPrompt, onClose }: ChatInterfaceP
       e.preventDefault();
       sendMessage();
     }
+  };
+
+  const sendLiveMessage = () => {
+    const message = liveAgentInput.trim();
+    if (!message) return;
+
+    // Add user message to live chat
+    const userMessage: Message = { role: 'user', content: message };
+    setLiveAgentMessages(prev => [...prev, userMessage]);
+    
+    // Clear input
+    setLiveAgentInput('');
+    
+    // Show typing indicator
+    setIsLiveAgentTyping(true);
+    
+    // Generate live agent response
+    setTimeout(() => {
+      setIsLiveAgentTyping(false);
+      const response = generateLiveAgentResponse(message);
+      const agentMessage: Message = { role: 'assistant', content: response };
+      setLiveAgentMessages(prev => [...prev, agentMessage]);
+    }, 1200);
+  };
+
+  const generateLiveAgentResponse = (message: string): string => {
+    const lowerMessage = message.toLowerCase();
+    
+    const liveResponses = {
+      window: "Great question about windows! I can connect you with our window specialist who can discuss energy-efficient options, pricing, and scheduling. Are you looking to replace specific windows or considering a whole-house upgrade?",
+      bath: "Bathroom remodeling is one of our most popular services! I'd love to hear more about your vision. Are you thinking of a complete renovation or updating specific fixtures? Our team can typically complete most projects in 7-10 days.",
+      siding: "Siding can really transform your home's appearance and energy efficiency! We work with vinyl, fiber cement, and wood options. What style of home do you have? I can share some recent project photos that might inspire you.",
+      door: "New doors make such a difference in both curb appeal and security! Are you interested in entry doors, patio doors, or interior doors? We have a showroom where you can see and feel different materials and styles.",
+      price: "I understand cost is important when planning home improvements. Our pricing varies based on materials, project scope, and timing. I can arrange for one of our estimators to provide you with a detailed, no-obligation quote. When would be a good time for them to visit?",
+      timeline: "Great question about timing! Most of our projects are completed within 1-2 weeks, depending on scope. We're currently booking 2-3 weeks out for new projects. Would you like me to check our calendar for available consultation dates?",
+      default: "Thanks for reaching out! I'm here to help with any questions about our services. We specialize in windows, bathrooms, siding, and doors. Is there a specific project you have in mind? I can connect you with the right specialist on our team."
+    };
+    
+    if (lowerMessage.includes('window')) {
+      return liveResponses.window;
+    } else if (lowerMessage.includes('bath') || lowerMessage.includes('bathroom')) {
+      return liveResponses.bath;
+    } else if (lowerMessage.includes('siding')) {
+      return liveResponses.siding;
+    } else if (lowerMessage.includes('door')) {
+      return liveResponses.door;
+    } else if (lowerMessage.includes('price') || lowerMessage.includes('cost') || lowerMessage.includes('$')) {
+      return liveResponses.price;
+    } else if (lowerMessage.includes('time') || lowerMessage.includes('schedule') || lowerMessage.includes('when')) {
+      return liveResponses.timeline;
+    }
+    
+    return liveResponses.default;
   };
 
   return (
@@ -232,25 +292,50 @@ export default function ChatInterface({ initialPrompt, onClose }: ChatInterfaceP
                 </div>
               </div>
               
-              <div className="live-chat-form">
-                <h4>Or send us a quick message:</h4>
-                <textarea
-                  className="live-agent-textarea"
-                  placeholder="Tell us about your project and we'll get back to you shortly..."
-                  value={liveAgentMessage}
-                  onChange={(e) => setLiveAgentMessage(e.target.value)}
-                  rows={4}
-                />
-                <button 
-                  className="submit-live-message"
-                  onClick={() => {
-                    alert('Message sent! Our team will contact you within 24 hours.');
-                    setLiveAgentMessage('');
-                    setIsLiveAgentOpen(false);
-                  }}
-                >
-                  Send Message
-                </button>
+              {/* Live Chat Messages */}
+              <div className="live-chat-messages">
+                {liveAgentMessages.map((message, index) => (
+                  <div
+                    key={index}
+                    className={`live-chat-message live-chat-message-${message.role}`}
+                  >
+                    <div className="live-chat-content">
+                      {message.content}
+                    </div>
+                  </div>
+                ))}
+                
+                {isLiveAgentTyping && (
+                  <div className="live-chat-typing">
+                    <div className="typing-dots">
+                      <div className="typing-dot"></div>
+                      <div className="typing-dot"></div>
+                      <div className="typing-dot"></div>
+                    </div>
+                    <span>Sarah is typing...</span>
+                  </div>
+                )}
+              </div>
+              
+              {/* Live Chat Input */}
+              <div className="live-chat-input-area">
+                <div className="live-chat-input-container">
+                  <input
+                    type="text"
+                    className="live-chat-input"
+                    placeholder="Type your message..."
+                    value={liveAgentInput}
+                    onChange={(e) => setLiveAgentInput(e.target.value)}
+                    onKeyPress={(e) => e.key === 'Enter' && sendLiveMessage()}
+                  />
+                  <button 
+                    className="live-chat-send-button"
+                    onClick={sendLiveMessage}
+                    disabled={!liveAgentInput.trim()}
+                  >
+                    <i className="bi bi-send-fill"></i>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
