@@ -821,8 +821,10 @@
   color: white;
 }
 
-.mobile-chat-icon {
-  display: none;
+@media (min-width: 769px) {
+  .mobile-chat-icon {
+    display: none;
+  }
 }
 
 .live-indicator {
