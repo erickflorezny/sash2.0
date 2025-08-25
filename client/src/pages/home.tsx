@@ -44,11 +44,7 @@ export default function Home() {
       <div className="container py-5">
         <main>
           {/* Hero Section */}
-          <section className="hero-section text-center mb-5">
-            <div className="company-logo">
-              <i className="bi bi-house-gear-fill"></i> Elite Home Remodeling
-            </div>
-            
+          <section className="text-center mb-5">            
             <CyclingHeadings onClick={handleHeadingClick} />
             
             <p className="lead text-muted mt-3">
