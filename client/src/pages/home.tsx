@@ -66,53 +66,6 @@ export default function Home() {
 
           {/* Suggested Prompts */}
           <SuggestedPrompts onPromptClick={handleHeadingClick} />
-
-          {/* Company Information Section */}
-          <section className="py-5 bg-light">
-            <div className="container">
-              <div className="row">
-                <div className="col-lg-6 mb-4">
-                  <h3 className="fw-bold mb-3">Why Choose Elite Home Remodeling?</h3>
-                  <ul className="list-unstyled">
-                    <li className="mb-2"><i className="bi bi-check-circle-fill text-danger me-2"></i>Over 15 years of experience</li>
-                    <li className="mb-2"><i className="bi bi-check-circle-fill text-danger me-2"></i>Licensed and insured professionals</li>
-                    <li className="mb-2"><i className="bi bi-check-circle-fill text-danger me-2"></i>Free estimates and consultations</li>
-                    <li className="mb-2"><i className="bi bi-check-circle-fill text-danger me-2"></i>Warranty on all work performed</li>
-                    <li className="mb-2"><i className="bi bi-check-circle-fill text-danger me-2"></i>Local family-owned business</li>
-                  </ul>
-                </div>
-                <div className="col-lg-6 mb-4">
-                  <h3 className="fw-bold mb-3">Our Services</h3>
-                  <div className="row g-3">
-                    <div className="col-6">
-                      <div className="text-center p-3 border border-2 border-light">
-                        <i className="bi bi-window text-danger display-6 mb-2"></i>
-                        <h6 className="fw-bold">Windows</h6>
-                      </div>
-                    </div>
-                    <div className="col-6">
-                      <div className="text-center p-3 border border-2 border-light">
-                        <i className="bi bi-droplet text-danger display-6 mb-2"></i>
-                        <h6 className="fw-bold">Bathrooms</h6>
-                      </div>
-                    </div>
-                    <div className="col-6">
-                      <div className="text-center p-3 border border-2 border-light">
-                        <i className="bi bi-house text-danger display-6 mb-2"></i>
-                        <h6 className="fw-bold">Siding</h6>
-                      </div>
-                    </div>
-                    <div className="col-6">
-                      <div className="text-center p-3 border border-2 border-light">
-                        <i className="bi bi-door-open text-danger display-6 mb-2"></i>
-                        <h6 className="fw-bold">Doors</h6>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
         </main>
       </div>
 
