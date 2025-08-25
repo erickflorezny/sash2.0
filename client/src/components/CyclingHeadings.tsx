@@ -11,21 +11,55 @@ export default function CyclingHeadings({ onSubmit }: CyclingHeadingsProps) {
   const [showCursor, setShowCursor] = useState(true);
   const [textareaRef, setTextareaRef] = useState<HTMLTextAreaElement | null>(null);
   
-  const fullText = "Welcome to New York Sash How Can We Help You Today?";
+  const firstText = "Welcome to New York Sash How Can We Help You Today?";
+  const secondText = "how about we start with your name";
 
   useEffect(() => {
     let index = 0;
+    let phase = 'typing'; // 'typing', 'pausing', 'deleting', 'typing-second'
+    let pauseCounter = 0;
+    
     const typingInterval = setInterval(() => {
-      if (index < fullText.length) {
-        setTypewriterText(fullText.slice(0, index + 1));
-        index++;
-      } else {
-        clearInterval(typingInterval);
-        // Start cursor blinking after typing is complete
-        const cursorInterval = setInterval(() => {
-          setShowCursor(prev => !prev);
-        }, 500);
-        return () => clearInterval(cursorInterval);
+      if (phase === 'typing') {
+        // Type first message
+        if (index < firstText.length) {
+          setTypewriterText(firstText.slice(0, index + 1));
+          index++;
+        } else {
+          phase = 'pausing';
+          pauseCounter = 0;
+        }
+      } 
+      else if (phase === 'pausing') {
+        // Pause for 2 seconds (40 intervals at 50ms each = 2000ms)
+        pauseCounter++;
+        if (pauseCounter >= 40) {
+          phase = 'deleting';
+        }
+      }
+      else if (phase === 'deleting') {
+        // Delete first message
+        if (index > 0) {
+          index--;
+          setTypewriterText(firstText.slice(0, index));
+        } else {
+          phase = 'typing-second';
+          index = 0;
+        }
+      }
+      else if (phase === 'typing-second') {
+        // Type second message
+        if (index < secondText.length) {
+          setTypewriterText(secondText.slice(0, index + 1));
+          index++;
+        } else {
+          clearInterval(typingInterval);
+          // Start cursor blinking after typing is complete
+          const cursorInterval = setInterval(() => {
+            setShowCursor(prev => !prev);
+          }, 500);
+          return () => clearInterval(cursorInterval);
+        }
       }
     }, 50);
 
