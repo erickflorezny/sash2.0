@@ -382,17 +382,18 @@
   .typewriter-overlay {
     left: 2rem;
     right: 2rem;
-    font-size: clamp(1.8rem, 8vw, 3rem);
+    font-size: clamp(1.5rem, 7vw, 2.5rem);
   }
 
   .prompt-input-field {
-    font-size: clamp(1.8rem, 8vw, 3rem) !important;
+    font-size: clamp(1.5rem, 7vw, 2.5rem) !important;
     padding: 0.8rem;
     min-height: 120px;
   }
   
   .input-hint {
     font-size: 1rem;
+    margin-top: 30px;
     margin-bottom: 2.5rem;
   }
   
@@ -427,11 +428,11 @@
   .typewriter-overlay {
     left: 1.5rem;
     right: 1.5rem;
-    font-size: clamp(1.4rem, 10vw, 2.5rem);
+    font-size: clamp(1.2rem, 9vw, 2.2rem);
   }
 
   .prompt-input-field {
-    font-size: clamp(1.4rem, 10vw, 2.5rem) !important;
+    font-size: clamp(1.2rem, 9vw, 2.2rem) !important;
     padding: 0.6rem;
     min-height: 100px;
   }
@@ -439,6 +440,7 @@
   .input-hint {
     font-size: 0.9rem;
     line-height: 1.4;
+    margin-top: 30px;
     margin-bottom: 2rem;
     padding: 0 1rem;
   }
