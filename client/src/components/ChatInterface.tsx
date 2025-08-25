@@ -18,7 +18,7 @@ const mockResponses = {
   window: "I'd be happy to help with window installations! We offer vinyl, wood, and composite windows with energy-efficient features. Our team can provide a free estimate. What type of windows are you interested in?",
   bath: "Our bathroom remodeling services include complete renovations, tile work, fixtures, and plumbing. The typical timeline is 5-10 days depending on scope. Would you like to discuss your specific bathroom needs?",
   siding: "We install vinyl, fiber cement, and wood siding that's built to last. Our materials come with warranties and are designed to withstand harsh weather. What style of home do you have?",
-  door: "We offer comprehensive door solutions! Our entry doors are available in 20-gauge steel (49% stronger) and fiberglass with multi-point locking systems. We also have 5 storm door series including Spectrum™ and Decorator™, plus sliding patio doors with LowE Argon glass. Are you interested in entry, storm, or patio doors?",
+  door: "Ready to transform your home with beautiful, secure, and energy-efficient doors? We offer premium fiberglass and steel entry doors, custom storm doors, and smooth-gliding patio doors. All are Energy Star rated with endless customization options and come with warranties. What type of door transformation are you considering?",
   default: "Thank you for your question! Our team specializes in windows, bathrooms, siding, and doors. We provide free estimates and have over 15 years of experience. How can we help transform your home?"
 };
 
@@ -105,23 +105,23 @@ export default function ChatInterface({ initialPrompt, onClose, showPrompts = fa
       ]
     },
     door: {
-      title: "Door Solutions",
+      title: "Energy-Efficient Doors from New York Sash",
       sections: [
         {
-          title: "Entry Doors - Enhance Curb Appeal & Security",
-          content: "Available in 20-gauge steel (49% stronger than standard) and fiberglass materials. Features kick-in-proof security plates, multi-point locking systems, and solid oak laminated construction. Customize with wood finishes, decorative glass, and hardware in oil-rubbed bronze, satin nickel, or bright brass."
+          title: "Secure & Stylish Entry Doors",
+          content: "Time for a new front door? Choose from premium fiberglass and steel entry doors with endless customization options. Select finishes, glass options, and hardware to match your unique style. All doors are Energy Star rated with advanced security features and come with a warranty for peace of mind."
         },
         {
-          title: "Storm Doors - Protection & Style",
-          content: "Custom-sized aluminum storm doors in 5 series: Spectrum™ (retractable screens), Decorator™ (stylish designs), Deluxe™ (full/top screen options), Duraguard™ (child/pet safe), and Superview™ (style & value). Available in multiple colors with Inspirations™ Art Glass options."
+          title: "Custom Storm Doors for Curb Appeal",
+          content: "Need extra protection? Our storm doors are custom-made for both function and curb appeal. Choose from various styles, finishes, and glass options that complement your home's architecture and reflect your personal taste while providing additional security."
         },
         {
-          title: "Patio Doors - Indoor-Outdoor Living", 
-          content: "Durable vinyl sliding doors with dual tandem rollers and fully interlocking panels. Features 1\" LowE Argon-filled glass, thermal breaks, and 0.090\" vinyl wall thickness. Available with woodgrain interiors, various exterior colors, and optional stainless steel hardware."
+          title: "Smooth-Gliding & Energy-Efficient Patio Doors", 
+          content: "Want easy access to the outdoors? Customize your patio doors to perfectly match your home with superior energy efficiency. Features LowE Argon-filled glass for year-round comfort and smooth-gliding operation for seamless indoor-outdoor living."
         },
         {
-          title: "Professional Installation & Benefits",
-          content: "Expert installation by certified technicians ensures proper fit and performance. All doors improve home value, energy efficiency, and security while offering extensive customization options to match your home's architectural style."
+          title: "Why Choose New York Sash Doors?",
+          content: "Imagine lower energy bills, increased comfort, and a boost to your home's value. Our expert design team provides personalized guidance to help you explore our extensive collections. Plus, flexible financing options make upgrading easier than ever!"
         }
       ]
     },
@@ -343,7 +343,7 @@ export default function ChatInterface({ initialPrompt, onClose, showPrompts = fa
       window: "Great question about windows! I can connect you with our window specialist who can discuss energy-efficient options, pricing, and scheduling. Are you looking to replace specific windows or considering a whole-house upgrade?",
       bath: "Bathroom remodeling is one of our most popular services! I'd love to hear more about your vision. Are you thinking of a complete renovation or updating specific fixtures? Our team can typically complete most projects in 7-10 days.",
       siding: "Siding can really transform your home's appearance and energy efficiency! We work with vinyl, fiber cement, and wood options. What style of home do you have? I can share some recent project photos that might inspire you.",
-      door: "Excellent! We have extensive door options. For entry doors, we offer 20-gauge steel and fiberglass with multi-point locking systems. Our 5 storm door series include Spectrum™, Decorator™, Deluxe™, Duraguard™, and Superview™. We also specialize in sliding patio doors with LowE Argon glass. Which type interests you most? I'd love to schedule a showroom visit so you can see the quality and customization options in person.",
+      door: "Fantastic! Ready to transform your home? We specialize in beautiful, secure, and energy-efficient doors that can lower your energy bills and boost your home's value. Whether you need a stylish entry door, custom storm door for extra protection, or smooth-gliding patio doors, we have endless customization options. All our doors are Energy Star rated with warranties. Our design team provides personalized guidance to help you find your perfect match. Would you like to explore entry, storm, or patio doors?",
       price: "I understand cost is important when planning home improvements. Our pricing varies based on materials, project scope, and timing. I can arrange for one of our estimators to provide you with a detailed, no-obligation quote. When would be a good time for them to visit?",
       timeline: "Great question about timing! Most of our projects are completed within 1-2 weeks, depending on scope. We're currently booking 2-3 weeks out for new projects. Would you like me to check our calendar for available consultation dates?",
       default: "Thanks for reaching out! I'm here to help with any questions about our services. We specialize in windows, bathrooms, siding, and doors. Is there a specific project you have in mind? I can connect you with the right specialist on our team."
