@@ -33,6 +33,7 @@ export default function CyclingHeadings({ onSubmit }: CyclingHeadingsProps) {
           placeholder="Welcome to New York Sash How Can We Help You Today?"
           rows={2}
           data-testid="input-question"
+          autoFocus
         />
       </div>
 
