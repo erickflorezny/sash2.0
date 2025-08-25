@@ -30,9 +30,10 @@ export default function Chat() {
     });
   };
 
-  // Get initial prompt from URL params if available
+  // Get initial prompt and username from URL params if available
   const urlParams = new URLSearchParams(window.location.search);
   const initialPrompt = urlParams.get('prompt') || '';
+  const userName = urlParams.get('userName') || urlParams.get('name') || '';
 
   const handlePromptClick = (prompt: string) => {
     // Could be used to add new messages to the existing chat
@@ -50,6 +51,7 @@ export default function Chat() {
         onClose={handleCloseChat}
         showPrompts={true}
         onPromptClick={handlePromptClick}
+        userName={userName}
       />
       
       {/* Mega Footer */}

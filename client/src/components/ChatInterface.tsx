@@ -21,6 +21,7 @@ interface ChatInterfaceProps {
   onClose: () => void;
   showPrompts?: boolean;
   onPromptClick?: (prompt: string) => void;
+  userName?: string;
 }
 
 // Comprehensive door knowledge base for contextual responses
@@ -59,11 +60,11 @@ const mockResponses = {
   default: "Thank you for your question! Our team specializes in windows, bathrooms, siding, and doors. We provide free estimates and have over 15 years of experience. How can we help transform your home?"
 };
 
-export default function ChatInterface({ initialPrompt, onClose, showPrompts = false, onPromptClick }: ChatInterfaceProps) {
+export default function ChatInterface({ initialPrompt, onClose, showPrompts = false, onPromptClick, userName: initialUserName }: ChatInterfaceProps) {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
-      content: `Hi Justin! Welcome to New York Sash - we're glad to serve customers in Central New York! How can we help you today? Please select the service you're interested in:`,
+      content: `Hi there! Welcome to New York Sash - we're glad to serve customers in Central New York! How can we help you today? Please select the service you're interested in:`,
       selections: [
         {
           id: 'windows',
@@ -275,28 +276,25 @@ export default function ChatInterface({ initialPrompt, onClose, showPrompts = fa
 
   // Removed initialPrompt handling - Pure bubble interface
 
-  // Initialize user as Justin
+  // Initialize user and location
   useEffect(() => {
-    if (!userName) {
-      setUserName('Justin');
-      
-      // Try to get location and update the message if possible
-      requestUserLocation().then(location => {
-        if (location && location !== 'Central New York') {
-          setUserLocation(location);
-          setMessages(prev => prev.map((msg, index) => {
-            if (index === 0 && msg.role === 'assistant') {
-              return {
-                ...msg,
-                content: `Hi Justin! Welcome to New York Sash - we're glad to serve customers in ${location}! How can we help you today? Please select the service you're interested in:`
-              };
-            }
-            return msg;
-          }));
+    const finalUserName = initialUserName || 'there';
+    setUserName(finalUserName);
+    
+    // Get location and update the message
+    requestUserLocation().then(location => {
+      setUserLocation(location);
+      setMessages(prev => prev.map((msg, index) => {
+        if (index === 0 && msg.role === 'assistant') {
+          return {
+            ...msg,
+            content: `Hi ${finalUserName}! Welcome to New York Sash - we're glad to serve customers in ${location}! How can we help you today? Please select the service you're interested in:`
+          };
         }
-      });
-    }
-  }, []);
+        return msg;
+      }));
+    });
+  }, [initialUserName]);
 
   // Auto-advance slider (only when no keywords are detected)
   useEffect(() => {
@@ -324,32 +322,54 @@ export default function ChatInterface({ initialPrompt, onClose, showPrompts = fa
 
   // Geolocation functions
   const requestUserLocation = async (): Promise<string | null> => {
-    if (!navigator.geolocation) {
-      return 'Location not supported';
+    setIsDetectingLocation(true);
+    
+    // First try browser geolocation
+    if (navigator.geolocation) {
+      try {
+        const position = await new Promise<GeolocationPosition>((resolve, reject) => {
+          navigator.geolocation.getCurrentPosition(resolve, reject, { timeout: 8000 });
+        });
+        
+        const { latitude, longitude } = position.coords;
+        const locationName = await reverseGeocode(latitude, longitude);
+        setIsDetectingLocation(false);
+        return locationName;
+      } catch (error) {
+        console.log('Browser geolocation failed, trying IP-based location:', error);
+      }
     }
+    
+    // Fallback to IP-based geolocation
+    try {
+      const ipLocation = await getIPLocation();
+      setIsDetectingLocation(false);
+      return ipLocation;
+    } catch (error) {
+      console.log('IP-based location failed:', error);
+      setIsDetectingLocation(false);
+      return 'Central New York'; // Default fallback as requested
+    }
+  };
 
-    return new Promise((resolve) => {
-      setIsDetectingLocation(true);
-      navigator.geolocation.getCurrentPosition(
-        async (position) => {
-          try {
-            const { latitude, longitude } = position.coords;
-            const locationName = await reverseGeocode(latitude, longitude);
-            setIsDetectingLocation(false);
-            resolve(locationName);
-          } catch (error) {
-            setIsDetectingLocation(false);
-            resolve('Central New York');
-          }
-        },
-        (error) => {
-          setIsDetectingLocation(false);
-          console.log('Location access denied or failed:', error);
-          resolve('your area');
-        },
-        { timeout: 10000 }
-      );
-    });
+  const getIPLocation = async (): Promise<string> => {
+    try {
+      // Using a free IP geolocation service
+      const response = await fetch('https://ipapi.co/json/');
+      const data = await response.json();
+      
+      if (data && data.city && data.region) {
+        return `${data.city}, ${data.region}`;
+      } else if (data && data.region) {
+        return data.region;
+      } else if (data && data.country_name) {
+        return data.country_name;
+      }
+      
+      return 'Central New York';
+    } catch (error) {
+      return 'Central New York';
+    }
   };
 
   const reverseGeocode = async (lat: number, lon: number): Promise<string> => {
