@@ -113,11 +113,11 @@
 }
 
 .btn-ask {
-  background: linear-gradient(135deg, var(--elite-red), #6f42c1);
+  background: var(--elite-red);
   color: white;
   border: none;
   padding: 1rem 2.5rem;
-  border-radius: 50px;
+  border-radius: 0;
   font-size: 1.1rem;
   font-weight: 600;
   cursor: pointer;
