@@ -23,12 +23,6 @@ export default function CyclingHeadings({ onSubmit }: CyclingHeadingsProps) {
 
   return (
     <div className="text-center">
-      {/* AI Badge */}
-      <div className="ai-badge">
-        <div className="ai-pulse"></div>
-        AI-Powered Home Consultation
-      </div>
-
       {/* Prompt Container */}
       <div className="prompt-container">
         <textarea 
