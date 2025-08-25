@@ -44,16 +44,18 @@ export default function Chat() {
 
   return (
     <div ref={pageRef} className="chat-page">
-      <div className="chat-container-reduced">
-        <ChatInterface 
-          initialPrompt={initialPrompt} 
-          onClose={handleCloseChat}
-        />
-      </div>
-      
-      {/* Suggested Prompts below chat */}
-      <div className="container py-4">
-        <SuggestedPrompts onPromptClick={handlePromptClick} />
+      <div className="chat-container-with-prompts">
+        <div className="chat-main-section">
+          <ChatInterface 
+            initialPrompt={initialPrompt} 
+            onClose={handleCloseChat}
+          />
+          
+          {/* Suggested Prompts below main chat area only */}
+          <div className="chat-prompts-section">
+            <SuggestedPrompts onPromptClick={handlePromptClick} />
+          </div>
+        </div>
       </div>
     </div>
   );

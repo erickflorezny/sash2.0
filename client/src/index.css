@@ -1187,9 +1187,27 @@
   font-family: var(--font-sans);
 }
 
-.chat-container-reduced {
+.chat-container-with-prompts {
+  height: 100vh;
+  display: flex;
+}
+
+.chat-main-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-main-section .chat-page-layout {
   height: 70vh;
-  overflow: hidden;
+  flex: 0 0 auto;
+}
+
+.chat-prompts-section {
+  flex: 1;
+  padding: 2rem;
+  background: #fafafa;
+  overflow-y: auto;
 }
 
 /* Main Chat Area */
