@@ -51,7 +51,7 @@ export default function CyclingHeadings({ onSubmit }: CyclingHeadingsProps) {
       <div className="prompt-container">
         <textarea 
           ref={setTextareaRef}
-          className="prompt-input-field" 
+          className={`prompt-input-field ${!inputValue ? 'hide-cursor' : ''}`}
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
           onKeyPress={handleKeyPress}

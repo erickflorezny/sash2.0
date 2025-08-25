@@ -455,7 +455,7 @@
 }
 
 .typewriter-cursor {
-  color: #000000;
+  color: var(--elite-red);
   animation: blink 1s infinite;
 }
 
@@ -480,6 +480,10 @@
   font-family: inherit;
   transition: all 0.3s ease;
   min-height: 120px;
+}
+
+.prompt-input-field.hide-cursor {
+  caret-color: transparent;
 }
 
 .prompt-input-field::placeholder {
