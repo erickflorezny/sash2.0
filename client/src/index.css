@@ -447,6 +447,7 @@
   line-height: 1.2;
   color: #212529;
   text-align: center;
+  text-align-last: center;
   padding: 1rem;
   outline: none;
   resize: none;
@@ -454,6 +455,9 @@
   font-family: inherit;
   transition: all 0.3s ease;
   min-height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .prompt-input-field::placeholder {
