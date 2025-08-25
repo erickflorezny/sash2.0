@@ -41,17 +41,165 @@ export default function ChatInterface({ initialPrompt, onClose, showPrompts = fa
   const [liveAgentInput, setLiveAgentInput] = useState('');
   const [isLiveAgentTyping, setIsLiveAgentTyping] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [detectedKeywords, setDetectedKeywords] = useState<string[]>([]);
+  const [sidebarContent, setSidebarContent] = useState<string>('general');
   
   const slides = [
-    { icon: 'bi-window', title: 'Energy-Efficient Windows', gradient: 'linear-gradient(135deg, #dc3545, #6f42c1)' },
-    { icon: 'bi-droplet', title: 'Modern Bath Renovation', gradient: 'linear-gradient(135deg, #28a745, #17a2b8)' },
-    { icon: 'bi-house', title: 'Premium Siding Installation', gradient: 'linear-gradient(135deg, #fd7e14, #e83e8c)' },
-    { icon: 'bi-door-open', title: 'Custom Entry Doors', gradient: 'linear-gradient(135deg, #6610f2, #20c997)' }
+    { icon: 'bi-window', title: 'Energy-Efficient Windows', gradient: 'linear-gradient(135deg, #dc3545, #6f42c1)', category: 'window' },
+    { icon: 'bi-droplet', title: 'Modern Bath Renovation', gradient: 'linear-gradient(135deg, #28a745, #17a2b8)', category: 'bath' },
+    { icon: 'bi-house', title: 'Premium Siding Installation', gradient: 'linear-gradient(135deg, #fd7e14, #e83e8c)', category: 'siding' },
+    { icon: 'bi-door-open', title: 'Custom Entry Doors', gradient: 'linear-gradient(135deg, #6610f2, #20c997)', category: 'door' }
   ];
+
+  // Content data for different categories
+  const contentData = {
+    window: {
+      title: "Window Solutions",
+      sections: [
+        {
+          title: "Energy Efficient Windows",
+          content: "Our triple-pane windows can reduce energy bills by up to 40%. Available in vinyl, wood, and composite materials with lifetime warranties."
+        },
+        {
+          title: "Window Replacement Process", 
+          content: "Complete installation in 1-2 days with minimal disruption. We handle permits, disposal, and cleanup as part of our full-service approach."
+        },
+        {
+          title: "Popular Window Styles",
+          content: "Double-hung, casement, bay, bow, and picture windows. All styles available in custom sizes and colors to match your home's aesthetic."
+        }
+      ]
+    },
+    bath: {
+      title: "Bathroom Remodeling",
+      sections: [
+        {
+          title: "Complete Renovations",
+          content: "Full bathroom makeovers including plumbing, electrical, tiling, and fixtures. Transform your space with modern, functional designs."
+        },
+        {
+          title: "Luxury Upgrades",
+          content: "Heated floors, rainfall showers, smart toilets, and custom vanities. Create your personal spa experience at home."
+        },
+        {
+          title: "Timeline & Process",
+          content: "Most bathroom projects completed in 7-10 days. We provide detailed timelines and keep you informed at every step."
+        }
+      ]
+    },
+    siding: {
+      title: "Siding Installation",
+      sections: [
+        {
+          title: "Durable Materials",
+          content: "Vinyl, fiber cement, and wood siding options. All materials come with comprehensive warranties and weather-resistant features."
+        },
+        {
+          title: "Energy Benefits",
+          content: "Proper siding installation improves insulation and reduces heating costs by up to 20%. We include energy-efficient backing materials."
+        },
+        {
+          title: "Style Options",
+          content: "Traditional lap, board & batten, shingle, and modern panel styles. Wide selection of colors and textures available."
+        }
+      ]
+    },
+    door: {
+      title: "Door Installation",
+      sections: [
+        {
+          title: "Entry Doors",
+          content: "Steel, fiberglass, and wood entry doors with advanced security features. Includes weatherproofing and professional installation."
+        },
+        {
+          title: "Patio Doors",
+          content: "Sliding and French patio doors that maximize natural light. Energy-efficient glass options and smooth operating hardware."
+        },
+        {
+          title: "Storm & Screen Doors", 
+          content: "Protection and ventilation solutions. Retractable screens, decorative storm doors, and seasonal options available."
+        }
+      ]
+    },
+    general: {
+      title: "Our Services",
+      sections: [
+        {
+          title: "Windows",
+          content: "Energy-efficient window installation and replacement with lifetime warranties and professional service."
+        },
+        {
+          title: "Bathrooms", 
+          content: "Complete bathroom renovations from design to completion with luxury fixtures and modern amenities."
+        },
+        {
+          title: "Siding",
+          content: "Durable siding installation with weather-resistant materials and energy-efficient backing systems."
+        },
+        {
+          title: "Doors",
+          content: "Entry, patio, and storm door installation with security features and energy-efficient designs."
+        }
+      ]
+    }
+  };
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
 
+  // Function to analyze messages and detect keywords
+  const analyzeKeywords = (messages: Message[]): string[] => {
+    const keywords: string[] = [];
+    const messageText = messages.map(m => m.content).join(' ').toLowerCase();
+    
+    const keywordMap = {
+      'window': ['window', 'windows', 'glass', 'pane', 'sash', 'frame'],
+      'bath': ['bath', 'bathroom', 'shower', 'tub', 'toilet', 'vanity', 'tile', 'plumbing'],
+      'siding': ['siding', 'exterior', 'cladding', 'vinyl', 'fiber cement', 'weatherboard'],
+      'door': ['door', 'doors', 'entry', 'patio', 'storm', 'french doors', 'sliding door']
+    };
+
+    Object.entries(keywordMap).forEach(([category, terms]) => {
+      if (terms.some(term => messageText.includes(term))) {
+        keywords.push(category);
+      }
+    });
+
+    return keywords;
+  };
+
+  // Function to determine primary content category
+  const getPrimaryCategory = (keywords: string[]): string => {
+    if (keywords.length === 0) return 'general';
+    
+    // Get the most recent message that contains a keyword
+    const recentMessages = messages.slice(-5).reverse();
+    for (const message of recentMessages) {
+      const messageText = message.content.toLowerCase();
+      if (messageText.includes('window')) return 'window';
+      if (messageText.includes('bath') || messageText.includes('bathroom')) return 'bath';
+      if (messageText.includes('siding')) return 'siding';
+      if (messageText.includes('door')) return 'door';
+    }
+    
+    // Fallback to first detected keyword
+    return keywords[0];
+  };
+
+  // Effect to analyze messages and update sidebar content
+  useEffect(() => {
+    const keywords = analyzeKeywords(messages);
+    setDetectedKeywords(keywords);
+    
+    const primaryCategory = getPrimaryCategory(keywords);
+    setSidebarContent(primaryCategory);
+    
+    // Update slider to match primary category
+    const slideIndex = slides.findIndex(slide => slide.category === primaryCategory);
+    if (slideIndex !== -1) {
+      setCurrentSlide(slideIndex);
+    }
+  }, [messages]);
 
   useEffect(() => {
     if (initialPrompt) {
@@ -62,14 +210,17 @@ export default function ChatInterface({ initialPrompt, onClose, showPrompts = fa
     }
   }, [initialPrompt]);
 
-  // Auto-advance slider
+  // Auto-advance slider (only when no keywords are detected)
   useEffect(() => {
+    // Don't auto-advance if we have detected keywords and are showing relevant content
+    if (detectedKeywords.length > 0) return;
+    
     const interval = setInterval(() => {
       setCurrentSlide(prev => (prev + 1) % slides.length);
     }, 4000); // Change slide every 4 seconds
     
     return () => clearInterval(interval);
-  }, [slides.length]);
+  }, [slides.length, detectedKeywords]);
 
   const nextSlide = () => {
     setCurrentSlide(prev => (prev + 1) % slides.length);
@@ -329,24 +480,45 @@ export default function ChatInterface({ initialPrompt, onClose, showPrompts = fa
             </div>
           </div>
           
-          {/* Content Section */}
+          {/* Dynamic Content Section */}
           <div className="sidebar-content-area">
-            <h3>Related Information</h3>
-            <div className="content-placeholder">
-              <p>This sidebar will display relevant page content related to your conversation with our AI assistant.</p>
-              <div className="content-sections">
-                <div className="content-section">
-                  <h4>Windows</h4>
-                  <p>Learn about our energy-efficient window solutions.</p>
+            <div className="content-header">
+              <h3>{contentData[sidebarContent as keyof typeof contentData]?.title || 'Related Information'}</h3>
+              {detectedKeywords.length > 0 && (
+                <div className="detected-keywords">
+                  <span className="keywords-label">Topics:</span>
+                  {detectedKeywords.map(keyword => (
+                    <span key={keyword} className={`keyword-tag ${keyword}`}>
+                      {keyword === 'bath' ? 'bathroom' : keyword}
+                    </span>
+                  ))}
                 </div>
-                <div className="content-section">
-                  <h4>Siding</h4>
-                  <p>Discover our durable siding options.</p>
+              )}
+            </div>
+            
+            <div className="dynamic-content">
+              {contentData[sidebarContent as keyof typeof contentData]?.sections.map((section, index) => (
+                <div key={index} className="content-section">
+                  <h4>{section.title}</h4>
+                  <p>{section.content}</p>
                 </div>
+              )) || (
                 <div className="content-section">
-                  <h4>Doors</h4>
-                  <p>Explore our entry and patio door selections.</p>
+                  <h4>Chat with our AI Assistant</h4>
+                  <p>Start asking about windows, bathrooms, siding, or doors to see relevant information here!</p>
                 </div>
+              )}
+              
+              {/* Call to Action based on content */}
+              <div className="content-cta">
+                <button className="cta-button" data-testid={`button-learn-more-${sidebarContent}`}>
+                  <i className="bi bi-info-circle"></i>
+                  Learn More About {contentData[sidebarContent as keyof typeof contentData]?.title || 'Our Services'}
+                </button>
+                <button className="cta-button secondary" data-testid="button-get-quote">
+                  <i className="bi bi-calculator"></i>
+                  Get Free Quote
+                </button>
               </div>
             </div>
           </div>
