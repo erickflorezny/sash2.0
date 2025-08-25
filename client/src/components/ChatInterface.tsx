@@ -451,6 +451,126 @@ export default function ChatInterface({ initialPrompt, onClose, showPrompts = fa
       return;
     }
 
+    // Handle service information requests
+    if (serviceId === 'service-warranty') {
+      const userMessage: Message = { role: 'user', content: 'Tell me about warranty coverage' };
+      setMessages(prev => [...prev, userMessage]);
+      
+      setTimeout(() => {
+        const warrantyMessage: Message = {
+          role: 'assistant',
+          content: 'We offer comprehensive warranty protection! Our products come with manufacturer warranties ranging from 10-50 years, plus our 2-year installation warranty. We stand behind our work completely.',
+          selections: [
+            { id: 'service-financing', title: 'Financing Options', icon: 'bi-credit-card', description: 'Flexible payment solutions', category: 'windows' },
+            { id: 'service-quote', title: 'Get Free Quote', icon: 'bi-calculator', description: 'Schedule your free estimate', category: 'windows' },
+            { id: 'back-to-services', title: 'Back to Services', icon: 'bi-arrow-left', description: 'Choose different service', category: 'windows' }
+          ]
+        };
+        setMessages(prev => [...prev, warrantyMessage]);
+      }, 800);
+      return;
+    }
+
+    if (serviceId === 'service-financing') {
+      const userMessage: Message = { role: 'user', content: 'What financing options are available?' };
+      setMessages(prev => [...prev, userMessage]);
+      
+      setTimeout(() => {
+        const financingMessage: Message = {
+          role: 'assistant',
+          content: 'We make home improvements affordable! Options include 0% interest for 12 months, low monthly payments up to 120 months, and same-day approval. No prepayment penalties.',
+          selections: [
+            { id: 'service-warranty', title: 'Warranty Information', icon: 'bi-shield-check', description: 'Learn about our warranty coverage', category: 'windows' },
+            { id: 'service-quote', title: 'Get Free Quote', icon: 'bi-calculator', description: 'Schedule your free estimate', category: 'windows' },
+            { id: 'back-to-services', title: 'Back to Services', icon: 'bi-arrow-left', description: 'Choose different service', category: 'windows' }
+          ]
+        };
+        setMessages(prev => [...prev, financingMessage]);
+      }, 800);
+      return;
+    }
+
+    if (serviceId === 'service-quote') {
+      const userMessage: Message = { role: 'user', content: 'I\'d like to get a free quote' };
+      setMessages(prev => [...prev, userMessage]);
+      
+      setTimeout(() => {
+        const quoteMessage: Message = {
+          role: 'assistant',
+          content: 'Perfect! Our specialists will provide a detailed quote at no cost. We\'ll measure, assess your needs, and provide transparent pricing with no hidden fees. When works best for you?',
+          selections: [
+            { id: 'schedule-estimate', title: 'Schedule Estimate', icon: 'bi-calendar-plus', description: 'Book your free consultation', category: 'windows' },
+            { id: 'contact-info', title: 'Contact Information', icon: 'bi-person-lines-fill', description: 'Get our contact details', category: 'windows' },
+            { id: 'back-to-services', title: 'Back to Services', icon: 'bi-arrow-left', description: 'Choose different service', category: 'windows' }
+          ]
+        };
+        setMessages(prev => [...prev, quoteMessage]);
+      }, 800);
+      return;
+    }
+
+    // Handle back navigation to specific product categories
+    if (serviceId === 'back-to-windows') {
+      const userMessage: Message = { role: 'user', content: 'Show me other window types' };
+      setMessages(prev => [...prev, userMessage]);
+      
+      setTimeout(() => {
+        const backMessage: Message = {
+          role: 'assistant',
+          content: 'Here are all our window options. Each type offers unique benefits for your home.',
+          selections: [
+            { id: 'window-double-hung', title: 'Double-Hung Windows', icon: 'bi-window', description: 'Classic style, easy to clean', category: 'windows' },
+            { id: 'window-casement', title: 'Casement Windows', icon: 'bi-window-sidebar', description: 'Side-hinged, great ventilation', category: 'windows' },
+            { id: 'window-bay', title: 'Bay Windows', icon: 'bi-house-door', description: 'Adds space and natural light', category: 'windows' },
+            { id: 'window-sliding', title: 'Sliding Windows', icon: 'bi-arrows-move', description: 'Space-saving, smooth operation', category: 'windows' },
+            { id: 'back-to-services', title: 'Back to Services', icon: 'bi-arrow-left', description: 'Choose different service', category: 'windows' }
+          ]
+        };
+        setMessages(prev => [...prev, backMessage]);
+      }, 800);
+      return;
+    }
+
+    // Handle product type selections - show service information
+    if (serviceId.startsWith('window-') || serviceId.startsWith('siding-') || serviceId.startsWith('bath-') || serviceId.startsWith('door-')) {
+      const productTypes: Record<string, string> = {
+        'window-double-hung': 'Double-Hung Windows are our most popular choice! They feature two movable sashes and tilt inward for easy cleaning.',
+        'window-casement': 'Casement Windows are hinged on one side and open outward, providing excellent ventilation and unobstructed views.',
+        'window-bay': 'Bay Windows extend outward from your home, creating additional interior space and flooding rooms with natural light.',
+        'window-sliding': 'Sliding Windows are perfect for tight spaces and feature smooth horizontal operation with minimal maintenance.',
+        'siding-vinyl': 'Vinyl Siding offers exceptional durability and low maintenance with a wide variety of colors and styles.',
+        'siding-fiber-cement': 'Fiber Cement Siding provides the look of wood with superior durability and resistance to fire, insects, and rot.',
+        'siding-wood': 'Wood Siding delivers timeless natural beauty with customizable stain and paint options for a unique look.',
+        'siding-metal': 'Metal Siding offers unmatched durability and a sleek, modern appearance that lasts for decades.',
+        'bath-full-remodel': 'Complete Bathroom Remodel transforms your entire space with new fixtures, flooring, lighting, and custom design.',
+        'bath-shower-replacement': 'Shower Replacement gives you a brand new shower with modern fixtures, tile work, and efficient drainage.',
+        'bath-tub-to-shower': 'Tub to Shower Conversion creates a spacious, accessible walk-in shower perfect for daily use.',
+        'bath-vanity-upgrade': 'Vanity Upgrade refreshes your bathroom with new cabinetry, countertops, and modern storage solutions.',
+        'door-entry': 'Entry Doors are your home\'s first impression, combining security, energy efficiency, and beautiful design.',
+        'door-storm': 'Storm Doors provide an extra layer of protection while allowing natural light and ventilation when desired.',
+        'door-patio': 'Patio Doors connect indoor and outdoor living with smooth operation and excellent energy efficiency.',
+        'door-interior': 'Interior Doors enhance your home\'s style and functionality with quality craftsmanship and modern designs.'
+      };
+      
+      const userMessage: Message = { role: 'user', content: `Tell me about ${service.title}` };
+      setMessages(prev => [...prev, userMessage]);
+      
+      setTimeout(() => {
+        const productMessage: Message = {
+          role: 'assistant',
+          content: productTypes[serviceId] || 'Great choice! Let me tell you about this product.',
+          selections: [
+            { id: 'service-warranty', title: 'Warranty Information', icon: 'bi-shield-check', description: 'Learn about our warranty coverage', category: 'windows' },
+            { id: 'service-financing', title: 'Financing Options', icon: 'bi-credit-card', description: 'Flexible payment solutions', category: 'windows' },
+            { id: 'service-quote', title: 'Get Free Quote', icon: 'bi-calculator', description: 'Schedule your free estimate', category: 'windows' },
+            { id: 'back-to-services', title: 'Back to Services', icon: 'bi-arrow-left', description: 'Choose different service', category: 'windows' }
+          ]
+        };
+        setMessages(prev => [...prev, productMessage]);
+      }, 800);
+      return;
+    }
+
     // Add user message for the selection
     const userMessage: Message = { 
       role: 'user', 
@@ -465,38 +585,42 @@ export default function ChatInterface({ initialPrompt, onClose, showPrompts = fa
       
       switch (serviceId) {
         case 'windows':
-          response = mockResponses.window;
+          response = 'Perfect choice! We offer premium windows to improve your home\'s energy efficiency and appearance. What type of windows are you interested in?';
           nextSelections = [
-            { id: 'window-quote', title: 'Get Free Quote', icon: 'bi-calculator', description: 'Schedule a free estimate', category: 'windows' },
-            { id: 'window-types', title: 'View Window Types', icon: 'bi-grid', description: 'See our window options', category: 'windows' },
-            { id: 'window-process', title: 'Installation Process', icon: 'bi-tools', description: 'Learn about installation', category: 'windows' },
+            { id: 'window-double-hung', title: 'Double-Hung Windows', icon: 'bi-window', description: 'Classic style, easy to clean', category: 'windows' },
+            { id: 'window-casement', title: 'Casement Windows', icon: 'bi-window-sidebar', description: 'Side-hinged, great ventilation', category: 'windows' },
+            { id: 'window-bay', title: 'Bay Windows', icon: 'bi-house-door', description: 'Adds space and natural light', category: 'windows' },
+            { id: 'window-sliding', title: 'Sliding Windows', icon: 'bi-arrows-move', description: 'Space-saving, smooth operation', category: 'windows' },
             { id: 'back-to-services', title: 'Back to Services', icon: 'bi-arrow-left', description: 'Choose different service', category: 'windows' }
           ];
           break;
         case 'siding':
-          response = mockResponses.siding;
+          response = 'Excellent! Our siding solutions protect and beautify your home while improving energy efficiency. Which siding material interests you most?';
           nextSelections = [
-            { id: 'siding-quote', title: 'Get Free Quote', icon: 'bi-calculator', description: 'Schedule a free estimate', category: 'siding' },
-            { id: 'siding-materials', title: 'View Materials', icon: 'bi-palette', description: 'See material options', category: 'siding' },
-            { id: 'siding-process', title: 'Installation Process', icon: 'bi-tools', description: 'Learn about installation', category: 'siding' },
+            { id: 'siding-vinyl', title: 'Vinyl Siding', icon: 'bi-house', description: 'Low maintenance, affordable', category: 'siding' },
+            { id: 'siding-fiber-cement', title: 'Fiber Cement', icon: 'bi-bricks', description: 'Durable, fire-resistant', category: 'siding' },
+            { id: 'siding-wood', title: 'Wood Siding', icon: 'bi-tree', description: 'Natural beauty, timeless appeal', category: 'siding' },
+            { id: 'siding-metal', title: 'Metal Siding', icon: 'bi-shield', description: 'Ultra-durable, modern look', category: 'siding' },
             { id: 'back-to-services', title: 'Back to Services', icon: 'bi-arrow-left', description: 'Choose different service', category: 'siding' }
           ];
           break;
         case 'bathrooms':
-          response = mockResponses.bath;
+          response = 'Great choice! We transform bathrooms into beautiful, functional spaces. What type of bathroom renovation are you considering?';
           nextSelections = [
-            { id: 'bath-quote', title: 'Get Free Quote', icon: 'bi-calculator', description: 'Schedule a free estimate', category: 'bathrooms' },
-            { id: 'bath-designs', title: 'View Designs', icon: 'bi-image', description: 'See bathroom designs', category: 'bathrooms' },
-            { id: 'bath-timeline', title: 'Project Timeline', icon: 'bi-calendar', description: 'Learn about timeline', category: 'bathrooms' },
+            { id: 'bath-full-remodel', title: 'Complete Remodel', icon: 'bi-house-gear', description: 'Full bathroom transformation', category: 'bathrooms' },
+            { id: 'bath-shower-replacement', title: 'Shower Replacement', icon: 'bi-droplet', description: 'New shower installation', category: 'bathrooms' },
+            { id: 'bath-tub-to-shower', title: 'Tub to Shower', icon: 'bi-arrows-angle-expand', description: 'Convert tub to walk-in shower', category: 'bathrooms' },
+            { id: 'bath-vanity-upgrade', title: 'Vanity Upgrade', icon: 'bi-cabinet', description: 'New vanity and countertop', category: 'bathrooms' },
             { id: 'back-to-services', title: 'Back to Services', icon: 'bi-arrow-left', description: 'Choose different service', category: 'bathrooms' }
           ];
           break;
         case 'doors':
-          response = mockResponses.door;
+          response = 'Perfect! New doors enhance security, energy efficiency, and curb appeal. What type of door are you looking for?';
           nextSelections = [
-            { id: 'door-entry', title: 'Entry Doors', icon: 'bi-door-closed', description: 'Explore entry door options', category: 'doors' },
-            { id: 'door-storm', title: 'Storm Doors', icon: 'bi-shield', description: 'Browse storm doors', category: 'doors' },
-            { id: 'door-patio', title: 'Patio Doors', icon: 'bi-door-open', description: 'View patio doors', category: 'doors' },
+            { id: 'door-entry', title: 'Entry Doors', icon: 'bi-door-closed', description: 'Front door replacement options', category: 'doors' },
+            { id: 'door-storm', title: 'Storm Doors', icon: 'bi-shield', description: 'Extra protection and ventilation', category: 'doors' },
+            { id: 'door-patio', title: 'Patio Doors', icon: 'bi-door-open', description: 'Sliding and French patio doors', category: 'doors' },
+            { id: 'door-interior', title: 'Interior Doors', icon: 'bi-house-door', description: 'Indoor door replacement', category: 'doors' },
             { id: 'back-to-services', title: 'Back to Services', icon: 'bi-arrow-left', description: 'Choose different service', category: 'doors' }
           ];
           break;
