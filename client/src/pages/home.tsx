@@ -60,8 +60,8 @@ export default function Home() {
             initial={{ y: 0 }}
             exit={{ y: "-100vh" }}
             transition={{ 
-              duration: 0.6, 
-              ease: [0.4, 0, 0.2, 1] 
+              duration: 0.3, 
+              ease: [0.25, 0.46, 0.45, 0.94] 
             }}
             className="main-content"
           >
@@ -100,8 +100,8 @@ export default function Home() {
             animate={{ y: 0 }}
             exit={{ y: "100vh" }}
             transition={{ 
-              duration: 0.6, 
-              ease: [0.4, 0, 0.2, 1] 
+              duration: 0.3, 
+              ease: [0.25, 0.46, 0.45, 0.94] 
             }}
             className="chat-screen-react"
           >

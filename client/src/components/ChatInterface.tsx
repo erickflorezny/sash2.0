@@ -32,22 +32,6 @@ export default function ChatInterface({ initialPrompt, onClose }: ChatInterfaceP
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
 
-  const scrollToTop = () => {
-    if (chatContainerRef.current) {
-      const elementTop = chatContainerRef.current.getBoundingClientRect().top + window.scrollY;
-      window.scrollTo({ 
-        top: elementTop - 10, // 10px margin from top
-        behavior: 'smooth' 
-      });
-    }
-  };
-
-  useEffect(() => {
-    // Only scroll to top when chat is first activated, not on every message
-    if (messages.length === 1) {
-      scrollToTop();
-    }
-  }, [messages]);
 
   useEffect(() => {
     if (initialPrompt) {
