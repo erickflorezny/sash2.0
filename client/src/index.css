@@ -458,7 +458,7 @@
 }
 
 .prompt-input-field::placeholder {
-  color: #6c757d;
+  color: #000000;
 }
 
 .prompt-input-field:focus {
