@@ -1,0 +1,136 @@
+Create a new Replit project titled "EliteHomeRemodeling-Homepage" using React with TypeScript. The goal is to build a modern, flat homepage for a home remodeling company specializing in windows, baths, and siding. The core feature is an integrated AI chat interface directly on the page (not a modal), with cycling clickable headings to activate the chat, suggested prompt boxes below, and navigation links in the top right. Use Bootstrap for styling with a red and black color scheme. The app should be set up for future AI model integration using a database of company information.
+
+Project Setup:
+
+Initialize a new React project in Replit with TypeScript support (use the React template and enable TypeScript via tsconfig.json).
+Install necessary dependencies: Run npm install bootstrap react-bootstrap in the Replit console.
+Import Bootstrap in src/index.tsx: Add import 'bootstrap/dist/css/bootstrap.min.css';.
+Create a custom CSS file src/styles.css for overrides (red: #dc3545, black: #000000, with flat design: no gradients, minimal shadows).
+Project structure:
+
+src/App.tsx: Main component with layout.
+src/components/ChatInterface.tsx: Handles the AI chat logic and UI.
+src/components/CyclingHeadings.tsx: Component for cycling clickable headings.
+src/components/SuggestedPrompts.tsx: Component for the 3 suggested prompt boxes.
+src/styles.css: Custom styles for red/black theme and flat UI.
+
+
+
+
+Design Requirements:
+
+Color Scheme: Primary red (#dc3545) for accents/buttons, black (#000000) for text/background elements. Use white (#ffffff) for backgrounds to keep it flat and clean. Override Bootstrap variables in styles.css (e.g., --bs-primary: #dc3545; --bs-dark: #000000;).
+Navigation: No full header bar. Place links ("Windows", "Siding", "Bath", "Doors") in the top-right corner using Bootstrap's position-absolute and d-flex for a floating nav.
+Cycling Headings: In the hero section, cycle through 2-3 headings (e.g., "Ask About Our Window Installations", "Inquire About Bath Remodeling", "Explore Siding Options") every 3-5 seconds using React useState and useEffect. Make them clickable; on click, activate the chat interface below.
+AI Chat Interface: Integrated directly into the page (below headings). Initially hidden/inactive. Once activated (via heading click or suggested prompt), show a flat chat window with message history, input field, and send button. Use Bootstrap Card for the chat container with minimal borders/shadows for flat design.
+Suggested Prompts: Below the chat, display 3 Bootstrap Card boxes side-by-side (use Row/Col grid). Each with a suggested prompt (e.g., "What are your window options?", "Tell me about bath remodeling costs", "How durable is your siding?"). Clickable to populate the chat input and activate if needed.
+Overall Layout: Use Bootstrap Container, Row, Col for responsiveness. Flat UI: No rounded corners if possible, or minimal; focus on clean lines.
+Responsiveness: Mobile-first with Bootstrap breakpoints.
+
+
+Functionality:
+
+Cycling Headings: Use React hooks to rotate headings. On click, set state to show chat and pre-populate input with the heading text.
+Chat Logic: In ChatInterface.tsx, manage state for messages (array of {role: 'user' | 'assistant', content: string}). Simulate AI responses initially (e.g., hardcoded based on keywords). Add typing indicator for realism.
+Suggested Prompts: On click, add the prompt to chat input and simulate/send.
+AI Integration Placeholder: In ChatInterface.tsx, create a function sendToAI(prompt: string) that logs the prompt for now. Note: Later, integrate with an AI model (e.g., via API like xAI Grok at https://x.ai/api) and a database (e.g., Firebase or Supabase for company info). Fetch responses asynchronously.
+TypeScript: Use interfaces for props/state (e.g., interface Message { role: string; content: string; }).
+
+
+Development Tasks:
+
+Start with App.tsx layout: Nav links, CyclingHeadings, conditional ChatInterface, SuggestedPrompts.
+Style in styles.css: Flat buttons (btn-flat), red accents, black text.
+Implement animations subtly (CSS transitions for heading cycle and chat reveal).
+Test in Replit preview for desktop/mobile.
+
+
+Future Enhancements:
+
+Connect sendToAI to a real AI API, passing database-fetched company info (e.g., query a JSON DB for windows/siding details).
+Add authentication if needed for personalized chats.
+Enhance with React Router for linking to other pages (windows, siding, etc.).
+
+
+Testing:
+
+Use Replit's live preview.
+Ensure TypeScript compiles without errors.
+Test clicks, chat activation, and responsiveness.
+
+
+
+Sample Starter Code for src/App.tsx:
+tsximport React, { useState } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './styles.css';
+import CyclingHeadings from './components/CyclingHeadings';
+import ChatInterface from './components/ChatInterface';
+import SuggestedPrompts from './components/SuggestedPrompts';
+
+const App: React.FC = () => {
+  const [isChatActive, setIsChatActive] = useState(false);
+  const [initialPrompt, setInitialPrompt] = useState('');
+
+  const handleHeadingClick = (prompt: string) => {
+    setInitialPrompt(prompt);
+    setIsChatActive(true);
+  };
+
+  return (
+    <div className="container py-5">
+      <nav className="position-absolute top-0 end-0 p-3">
+        <ul className="d-flex gap-3 list-unstyled">
+          <li><a href="/windows" className="text-dark">Windows</a></li>
+          <li><a href="/siding" className="text-dark">Siding</a></li>
+          <li><a href="/bath" className="text-dark">Bath</a></li>
+          <li><a href="/doors" className="text-dark">Doors</a></li>
+        </ul>
+      </nav>
+      <main>
+        <CyclingHeadings onClick={handleHeadingClick} />
+        {isChatActive && <ChatInterface initialPrompt={initialPrompt} />}
+        <SuggestedPrompts onPromptClick={handleHeadingClick} />
+      </main>
+    </div>
+  );
+};
+
+export default App;
+Sample Starter Code for src/components/CyclingHeadings.tsx:
+tsximport React, { useState, useEffect } from 'react';
+
+interface Props {
+  onClick: (prompt: string) => void;
+}
+
+const headings = [
+  'Ask About Our Window Installations',
+  'Inquire About Bath Remodeling',
+  'Explore Siding Options',
+];
+
+const CyclingHeadings: React.FC<Props> = ({ onClick }) => {
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIndex((prev) => (prev + 1) % headings.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <h1 className="display-4 fw-bold text-center text-danger cursor-pointer" onClick={() => onClick(headings[index])}>
+      {headings[index]}
+    </h1>
+  );
+};
+
+export default CyclingHeadings;
+Next Steps:
+
+Implement ChatInterface.tsx with message state and simulated responses.
+Add SuggestedPrompts.tsx with 3 cards.
+Customize styles.css for flat, red/black theme.
+Prepare for AI/DB integration by adding placeholders.
