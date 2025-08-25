@@ -1,20 +1,20 @@
 import { useState } from 'react';
-import HeroSection from '@/components/CyclingHeadings';
+import CyclingHeadings from '@/components/CyclingHeadings';
 import ChatInterface from '@/components/ChatInterface';
 import SuggestedPrompts from '@/components/SuggestedPrompts';
 
 export default function Home() {
-  const [isChatOpen, setIsChatOpen] = useState(false);
-  const [initialQuestion, setInitialQuestion] = useState('');
+  const [isChatActive, setIsChatActive] = useState(false);
+  const [initialPrompt, setInitialPrompt] = useState('');
 
-  const handleQuestionSubmit = (question: string) => {
-    setInitialQuestion(question);
-    setIsChatOpen(true);
+  const handleHeadingClick = (prompt: string) => {
+    setInitialPrompt(prompt);
+    setIsChatActive(true);
   };
 
   const handleCloseChat = () => {
-    setIsChatOpen(false);
-    setInitialQuestion('');
+    setIsChatActive(false);
+    setInitialPrompt('');
   };
 
   return (
@@ -45,18 +45,27 @@ export default function Home() {
         <main>
           {/* Hero Section */}
           <section className="hero-section text-center mb-5">
-            <HeroSection onSubmit={handleQuestionSubmit} />
+            <div className="company-logo">
+              <i className="bi bi-house-gear-fill"></i> Elite Home Remodeling
+            </div>
+            
+            <CyclingHeadings onClick={handleHeadingClick} />
+            
+            <p className="lead text-muted mt-3">
+              Transform your home with our expert remodeling services. Click above to get started with our AI assistant.
+            </p>
           </section>
 
-          {/* Suggested Prompts */}
-          <SuggestedPrompts onPromptClick={handleQuestionSubmit} />
+          {/* Chat Interface */}
+          {isChatActive && (
+            <ChatInterface 
+              initialPrompt={initialPrompt} 
+              onClose={handleCloseChat}
+            />
+          )}
 
-          {/* Chat Modal */}
-          <ChatInterface 
-            initialQuestion={initialQuestion}
-            isOpen={isChatOpen}
-            onClose={handleCloseChat}
-          />
+          {/* Suggested Prompts */}
+          <SuggestedPrompts onPromptClick={handleHeadingClick} />
         </main>
       </div>
 
