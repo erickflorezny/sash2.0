@@ -437,6 +437,31 @@
   margin: 0 auto 2rem auto;
   padding: 0 2rem;
   animation: slideInUp 0.8s ease-out 0.2s both;
+  position: relative;
+}
+
+.typewriter-overlay {
+  position: absolute;
+  top: 1rem;
+  left: 3rem;
+  right: 3rem;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 700;
+  line-height: 1.1;
+  color: #000000;
+  text-align: left;
+  font-family: inherit;
+  cursor: text;
+}
+
+.typewriter-cursor {
+  color: #000000;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
 }
 
 .prompt-input-field {
