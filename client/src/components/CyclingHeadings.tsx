@@ -117,7 +117,7 @@ export default function CyclingHeadings({ onSubmit }: CyclingHeadingsProps) {
 
       {/* Input Hint */}
       <div className="input-hint">
-        Start typing above to ask our AI agent a question about your next project. Ready to get started?
+        Tell us your name and what brings you to New York Sash today!
       </div>
 
       {/* Ask Button */}
