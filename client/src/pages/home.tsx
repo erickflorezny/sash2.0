@@ -7,7 +7,7 @@ export default function Home() {
   const [isChatActive, setIsChatActive] = useState(false);
   const [initialPrompt, setInitialPrompt] = useState('');
 
-  const handleHeadingClick = (prompt: string) => {
+  const handleQuestionSubmit = (prompt: string) => {
     setInitialPrompt(prompt);
     setIsChatActive(true);
   };
@@ -45,7 +45,7 @@ export default function Home() {
         <main>
           {/* Hero Section */}
           <section className="text-center mb-5">            
-            <CyclingHeadings onClick={handleHeadingClick} />
+            <CyclingHeadings onSubmit={handleQuestionSubmit} />
             
             <p className="lead text-muted mt-3">
               Transform your home with our expert remodeling services. Click above to get started with our AI assistant.
@@ -61,7 +61,7 @@ export default function Home() {
           )}
 
           {/* Suggested Prompts */}
-          <SuggestedPrompts onPromptClick={handleHeadingClick} />
+          <SuggestedPrompts onPromptClick={handleQuestionSubmit} />
         </main>
       </div>
 
