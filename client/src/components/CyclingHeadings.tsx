@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import logoImage from '@assets/new-york-sash_1756146470803.png';
 
 interface CyclingHeadingsProps {
   onSubmit: (prompt: string) => void;
@@ -47,6 +48,15 @@ export default function CyclingHeadings({ onSubmit }: CyclingHeadingsProps) {
 
   return (
     <div className="text-center">
+      {/* Logo and Heading Section */}
+      <div className="logo-heading-container">
+        <img 
+          src={logoImage} 
+          alt="New York Sash"
+          className="company-logo"
+        />
+      </div>
+
       {/* Prompt Container */}
       <div className="prompt-container">
         <textarea 
