@@ -770,6 +770,9 @@
     padding: 0;
     justify-content: center;
     min-width: unset;
+    background: transparent;
+    border: none;
+    color: var(--elite-red);
   }
   
   .live-agent-text {
@@ -779,6 +782,7 @@
   .mobile-chat-icon {
     display: block;
     font-size: 1.2rem;
+    color: var(--elite-red);
   }
   
   .live-indicator {
