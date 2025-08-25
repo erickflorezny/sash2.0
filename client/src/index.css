@@ -1179,9 +1179,17 @@
 
 /* GSAP handles page transitions */
 
+/* Chat Page Container */
+.chat-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: white;
+}
+
 /* Modern Chat Page Layout */
 .chat-page-layout {
-  height: 100vh;
+  flex: 1;
   display: flex;
   background: white;
   font-family: var(--font-sans);
