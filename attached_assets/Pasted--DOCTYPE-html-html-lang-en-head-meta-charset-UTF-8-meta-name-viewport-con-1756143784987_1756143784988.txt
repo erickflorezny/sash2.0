@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elite Home Solutions - AI-Powered Consultations</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #ffffff;
+            color: #212529;
+            line-height: 1.6;
+        }
+
+        .hero-section {
+            min-height: 100vh;
+            padding: 2rem 0;
+            position: relative;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+
+        .nav-links {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            z-index: 100;
+        }
+
+        .nav-links ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links a {
+            color: #6c757d;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #0d6efd;
+            background: rgba(13, 110, 253, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .container-custom {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .ai-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(135deg, #0d6efd, #6f42c1);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(13, 110, 253, 0.3);
+            margin-bottom: 3rem;
+            animation: slideInUp 0.8s ease-out;
+        }
+
+        .ai-pulse {
+            width: 8px;
+            height: 8px;
+            background: #20c997;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.3); }
+        }
+
+        .prompt-container {
+            margin-bottom: 2rem;
+            animation: slideInUp 0.8s ease-out 0.2s both;
+        }
+
+        .prompt-input {
+            width: 100%;
+            background: transparent;
+            border: none;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            line-height: 1.2;
+            color: #212529;
+            text-align: center;
+            padding: 1rem;
+            outline: none;
+            resize: none;
+            overflow: hidden;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        .prompt-input::placeholder {
+            color: #6c757d;
+        }
+
+        .prompt-input:focus {
+            color: #0d6efd;
+            transform: scale(1.02);
+        }
+
+        .input-hint {
+            text-align: center;
+            color: #6c757d;
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        .ask-button {
+            text-align: center;
+            margin-bottom: 3rem;
+            animation: slideInUp 0.8s ease-out 0.4s both;
+        }
+
+        .btn-ask {
+            background: linear-gradient(135deg, #0d6efd, #6f42c1);
+            color: white;
+            border: none;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(13, 110, 253, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-ask::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-ask:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(13, 110, 253, 0.4);
+        }
+
+        .btn-ask:hover::before {
+            left: 100%;
+        }
+
+        .response-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e9ecef;
+            margin-bottom: 3rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+            animation: slideInUp 0.8s ease-out 0.6s both;
+        }
+
+        .response-card.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .response-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #f8f9fa;
+        }
+
+        .ai-avatar {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #0d6efd, #6f42c1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 15px rgba(13, 110, 253, 0.2);
+        }
+
+        .response-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #212529;
+            margin: 0;
+        }
+
+        .response-subtitle {
+            font-size: 0.9rem;
+            color: #6c757d;
+            margin: 0;
+        }
+
+        .typing-indicator {
+            display: none;
+            align-items: center;
+            gap: 1rem;
+            color: #6c757d;
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+
+        .typing-dots {
+            display: flex;
+            gap: 4px;
+        }
+
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            background: #0d6efd;
+            border-radius: 50%;
+            animation: typingDot 1.5s infinite;
+        }
+
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typingDot {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-10px); }
+        }
+
+        .ai-response {
+            display: none;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: #495057;
+        }
+
+        .ai-response.show {
+            display: block;
+            animation: fadeInResponse 0.8s ease-out;
+        }
+
+        @keyframes fadeInResponse {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .services-section {
+            padding: 4rem 0;
+            background: white;
+        }
+
+        .service-cards {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .service-card {
+            background: white;
+            border: 2px solid #f8f9fa;
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            min-width: 250px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            border-color: #0d6efd;
+            box-shadow: 0 8px 25px rgba(13, 110, 253, 0.15);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .service-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #212529;
+        }
+
+        .service-desc {
+            color: #6c757d;
+            font-size: 1rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #212529;
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: #6c757d;
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                position: relative;
+                top: 0;
+                right: 0;
+                text-align: center;
+                margin-bottom: 2rem;
+            }
+
+            .nav-links ul {
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+
+            .hero-section {
+                padding: 1rem 0;
+            }
+
+            .container-custom {
+                padding: 0 1rem;
+            }
+
+            .prompt-input {
+                font-size: 1.8rem;
+            }
+
+            .service-card {
+                width: 100%;
+                max-width: 350px;
+            }
+
+            .service-cards {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        /* Bootstrap overrides for better integration */
+        .btn:focus {
+            box-shadow: none;
+        }
+
+        .form-control:focus {
+            border-color: #0d6efd;
+            box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+        }
+    </style>
+</head>
+<body>
+    <section class="hero-section">
+        <div class="nav-links">
+            <ul>
+                <li><a href="#windows">Windows</a></li>
+                <li><a href="#bathroom">Bathroom</a></li>
+                <li><a href="#siding">Siding</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+
+        <div class="container-custom">
+            <div class="text-center">
+                <div class="ai-badge">
+                    <div class="ai-pulse"></div>
+                    AI-Powered Home Consultation
+                </div>
+            </div>
+
+            <div class="prompt-container">
+                <textarea 
+                    class="prompt-input" 
+                    id="promptInput"
+                    placeholder="What home improvement project can we help you with today?"
+                    rows="2"
+                ></textarea>
+            </div>
+
+            <div class="input-hint">
+                Click above to ask about windows, bathrooms, siding, costs, timelines, or anything else
+            </div>
+
+            <div class="ask-button">
+                <button class="btn-ask" onclick="askAI()">
+                    Ask Our AI Assistant
+                </button>
+            </div>
+
+            <div class="response-card" id="responseCard">
+                <div class="response-header">
+                    <div class="ai-avatar">🤖</div>
+                    <div>
+                        <div class="response-title">AI Home Improvement Specialist</div>
+                        <div class="response-subtitle">Expert advice in seconds</div>
+                    </div>
+                </div>
+
+                <div class="typing-indicator" id="typingIndicator">
+                    <span>Analyzing your question...</span>
+                    <div class="typing-dots">
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                    </div>
+                </div>
+
+                <div class="ai-response" id="aiResponse"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="services-section">
+        <div class="container">
+            <h2 class="section-title">Our Specialties</h2>
+            <p class="section-subtitle">
+                Premium home improvement solutions with expert installation and lifetime warranties
+            </p>
+            
+            <div class="service-cards">
+                <div class="service-card">
+                    <span class="service-icon">🪟</span>
+                    <div class="service-title">Premium Windows</div>
+                    <div class="service-desc">Energy-efficient windows with lifetime warranties. Professional installation in 1-2 days.</div>
+                </div>
+                <div class="service-card">
+                    <span class="service-icon">🛁</span>
+                    <div class="service-title">Luxury Bathrooms</div>
+                    <div class="service-desc">Complete bathroom remodels finished in just 5-7 days. From design to final touches.</div>
+                </div>
+                <div class="service-card">
+                    <span class="service-icon">🏠</span>
+                    <div class="service-title">Durable Siding</div>
+                    <div class="service-desc">Weather-resistant siding that won't rot, warp, or fade. Low maintenance and beautiful.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const promptInput = document.getElementById('promptInput');
+        const responseCard = document.getElementById('responseCard');
+        const typingIndicator = document.getElementById('typingIndicator');
+        const aiResponse = document.getElementById('aiResponse');
+
+        // Auto-resize textarea
+        promptInput.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = this.scrollHeight + 'px';
+        });
+
+        // Enter key handling
+        promptInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                askAI();
+            }
+        });
+
+        const aiResponses = {
+            windows: "I'd recommend our energy-efficient double-hung windows for your project. They feature Low-E glass, argon gas filling, and come with a lifetime warranty. Installation typically takes 1-2 days per room, and we offer 0% financing for qualified customers. Our windows can reduce your energy bills by up to 30%. Would you like to schedule a free consultation to see samples and get an exact quote?",
+            
+            bathroom: "Our luxury bathroom remodels are completed in just 5-7 days! We handle everything from design to final touches - new tiles, vanities, showers, and fixtures. Popular upgrades include walk-in showers, heated floors, and smart mirrors. Most projects range from $15,000-$35,000 depending on size and finishes. We provide 3D designs before starting so you can visualize your new space. Ready to transform your bathroom?",
+            
+            siding: "Our premium vinyl siding is perfect for durability and low maintenance. It resists weather, won't rot or warp, and comes in dozens of colors and styles. Installation typically takes 3-5 days for an average home. We also offer fiber cement and wood options. All siding includes insulation upgrades and lifetime warranties. Most homeowners see improved curb appeal and energy efficiency. What style of home do you have?",
+            
+            cost: "Our pricing is very competitive and includes everything - materials, labor, permits, and cleanup. Windows typically range $400-$800 per window installed. Bathroom remodels start around $15,000. Siding projects average $12,000-$25,000 for a full home. We offer free estimates, 0% financing, and lifetime warranties. Every project includes a detailed quote with no hidden fees. Would you like to schedule a free consultation?",
+            
+            financing: "We offer excellent financing options! Qualified customers can get 0% APR for up to 12 months, or extended terms up to 10 years with competitive rates. We work with multiple lenders to find the best option for your budget. Most approvals are instant, and you can use financing for any of our services. Our team handles all the paperwork. Would you like to check your financing options?",
+            
+            timeline: "Here are our typical project timelines: Windows take 1-2 days per room, bathroom remodels are completed in 5-7 days, and full home siding takes 3-5 days. We schedule around your convenience and provide exact start dates. Our crews are fully licensed, insured, and professional. We clean up completely each day and protect your landscaping. Weather can sometimes extend outdoor projects by a day or two.",
+            
+            default: "I'd be happy to help with your home improvement project! We specialize in premium windows, luxury bathroom remodels, and durable siding installations. All our work comes with lifetime warranties and we offer 0% financing for qualified customers. Our expert team has been serving homeowners for over 20 years with thousands of satisfied customers. What specific questions do you have about your project?"
+        };
+
+        function askAI() {
+            const question = promptInput.value.trim().toLowerCase();
+            if (!question) {
+                promptInput.focus();
+                return;
+            }
+
+            responseCard.classList.add('active');
+            typingIndicator.style.display = 'flex';
+            aiResponse.classList.remove('show');
+
+            // Smooth scroll to response
+            setTimeout(() => {
+                responseCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 100);
+
+            // Simulate AI processing time
+            setTimeout(() => {
+                typingIndicator.style.display = 'none';
+                
+                let response = aiResponses.default;
+                
+                if (question.includes('window')) response = aiResponses.windows;
+                else if (question.includes('bath') || question.includes('shower')) response = aiResponses.bathroom;
+                else if (question.includes('siding') || question.includes('exterior')) response = aiResponses.siding;
+                else if (question.includes('cost') || question.includes('price') || question.includes('money')) response = aiResponses.cost;
+                else if (question.includes('financing') || question.includes('payment')) response = aiResponses.financing;
+                else if (question.includes('time') || question.includes('long') || question.includes('schedule')) response = aiResponses.timeline;
+
+                aiResponse.textContent = response;
+                aiResponse.classList.add('show');
+            }, 2000);
+        }
+
+        // Demo interaction after page load
+        setTimeout(() => {
+            promptInput.placeholder = "Try asking: How much do new windows cost?";
+        }, 3000);
+
+        setTimeout(() => {
+            promptInput.placeholder = "Or ask: What's included in a bathroom remodel?";
+        }, 6000);
+
+        setTimeout(() => {
+            promptInput.placeholder = "What home improvement project can we help you with today?";
+        }, 9000);
+    </script>
+</body>
+</html>

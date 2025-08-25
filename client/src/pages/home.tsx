@@ -19,50 +19,35 @@ export default function Home() {
 
   return (
     <div>
-      {/* Floating Navigation */}
-      <nav className="floating-nav d-none d-md-block">
-        <div className="d-flex">
-          <a href="#windows" data-testid="nav-windows">Windows</a>
-          <a href="#siding" data-testid="nav-siding">Siding</a>
-          <a href="#bath" data-testid="nav-bath">Bath</a>
-          <a href="#doors" data-testid="nav-doors">Doors</a>
-        </div>
-      </nav>
-
-      {/* Mobile Navigation */}
-      <div className="container-fluid d-md-none">
-        <nav className="floating-nav">
-          <div className="d-flex flex-wrap justify-content-center">
-            <a href="#windows" data-testid="nav-mobile-windows">Windows</a>
-            <a href="#siding" data-testid="nav-mobile-siding">Siding</a>
-            <a href="#bath" data-testid="nav-mobile-bath">Bath</a>
-            <a href="#doors" data-testid="nav-mobile-doors">Doors</a>
-          </div>
-        </nav>
+      {/* Navigation */}
+      <div className="floating-nav">
+        <ul>
+          <li><a href="#windows" data-testid="nav-windows">Windows</a></li>
+          <li><a href="#siding" data-testid="nav-siding">Siding</a></li>
+          <li><a href="#bath" data-testid="nav-bath">Bath</a></li>
+          <li><a href="#doors" data-testid="nav-doors">Doors</a></li>
+        </ul>
       </div>
 
-      <div className="container py-5">
-        <main>
-          {/* Hero Section */}
-          <section className="text-center mb-5">            
-            <CyclingHeadings onSubmit={handleQuestionSubmit} />
-            
-            <p className="lead text-muted mt-3">
-              Transform your home with our expert remodeling services. Click above to get started with our AI assistant.
-            </p>
-          </section>
-
-          {/* Chat Interface */}
-          {isChatActive && (
-            <ChatInterface 
-              initialPrompt={initialPrompt} 
-              onClose={handleCloseChat}
-            />
-          )}
-
-          {/* Suggested Prompts */}
-          <SuggestedPrompts onPromptClick={handleQuestionSubmit} />
+      <div className="hero-section">
+        <main className="container-fluid">
+          <CyclingHeadings onSubmit={handleQuestionSubmit} />
         </main>
+      </div>
+
+      {/* Chat Interface */}
+      {isChatActive && (
+        <div className="container py-5">
+          <ChatInterface 
+            initialPrompt={initialPrompt} 
+            onClose={handleCloseChat}
+          />
+        </div>
+      )}
+
+      {/* Suggested Prompts */}
+      <div className="container py-5">
+        <SuggestedPrompts onPromptClick={handleQuestionSubmit} />
       </div>
 
       {/* Footer */}
