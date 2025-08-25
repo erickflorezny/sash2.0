@@ -14,6 +14,34 @@ interface ChatInterfaceProps {
   onPromptClick?: (prompt: string) => void;
 }
 
+// Comprehensive door knowledge base for contextual responses
+const doorKnowledgeBase = {
+  entry: {
+    materials: "20-gauge steel (49% stronger than standard) and fiberglass with superior insulation",
+    security: "Multi-point locking systems, kick-in-proof security plates, solid oak laminated construction",
+    customization: "Wood and paint finishes, decorative glass, hardware in oil-rubbed bronze, satin nickel, bright brass",
+    benefits: "Enhanced curb appeal, increased home value, improved energy efficiency and security"
+  },
+  storm: {
+    series: ["Spectrum™ (retractable screens)", "Decorator™ (stylish designs)", "Deluxe™ (full/top screens)", "Duraguard™ (child/pet safe)", "Superview™ (style & value)"],
+    materials: "Custom-sized aluminum construction",
+    features: "Multiple colors, Inspirations™ Art Glass options, flexible ventilation",
+    benefits: "Extra protection, enhanced curb appeal, improved ventilation and natural light"
+  },
+  patio: {
+    construction: "Durable vinyl with 0.090\" wall thickness, fully welded panels and frames",
+    operation: "Dual tandem rollers, smooth-gliding, fully interlocking panels",
+    efficiency: "1\" LowE Argon-filled glass, vinyl thermal breaks, standard 4 9/16\" jamb depth",
+    customization: "Woodgrain interiors, various exterior colors, optional stainless steel hardware"
+  },
+  general: {
+    warranty: "All doors come with comprehensive warranties",
+    energyStar: "Energy Star rated for efficiency",
+    installation: "Professional installation by certified technicians",
+    financing: "Flexible financing options available"
+  }
+};
+
 const mockResponses = {
   window: "I'd be happy to help with window installations! We offer vinyl, wood, and composite windows with energy-efficient features. Our team can provide a free estimate. What type of windows are you interested in?",
   bath: "Our bathroom remodeling services include complete renovations, tile work, fixtures, and plumbing. The typical timeline is 5-10 days depending on scope. Would you like to discuss your specific bathroom needs?",
@@ -268,14 +296,28 @@ export default function ChatInterface({ initialPrompt, onClose, showPrompts = fa
       return `Nice to meet you ${extractedName}, where are you located?`;
     }
     
-    if (lowerMessage.includes('window')) {
+    // Enhanced door response logic using knowledge base
+    if (lowerMessage.includes('door')) {
+      // Specific door type questions
+      if (lowerMessage.includes('entry') || lowerMessage.includes('front')) {
+        return `Great choice! Our entry doors feature ${doorKnowledgeBase.entry.materials}. They offer ${doorKnowledgeBase.entry.security} for maximum security. You can customize with ${doorKnowledgeBase.entry.customization}. Would you like to know more about our security features or customization options?`;
+      } else if (lowerMessage.includes('storm')) {
+        return `Perfect for extra protection! We offer 5 storm door series: ${doorKnowledgeBase.storm.series.join(', ')}. All feature ${doorKnowledgeBase.storm.materials} with ${doorKnowledgeBase.storm.features}. Which series sounds most interesting to you?`;
+      } else if (lowerMessage.includes('patio') || lowerMessage.includes('sliding')) {
+        return `Excellent for indoor-outdoor living! Our patio doors feature ${doorKnowledgeBase.patio.construction} with ${doorKnowledgeBase.patio.operation}. They include ${doorKnowledgeBase.patio.efficiency} for superior energy efficiency. Interested in customization options?`;
+      } else if (lowerMessage.includes('security') || lowerMessage.includes('safe')) {
+        return `Security is our priority! Our doors feature ${doorKnowledgeBase.entry.security}. All materials are ${doorKnowledgeBase.entry.materials} for maximum strength. Plus, ${doorKnowledgeBase.general.installation} ensures proper security setup.`;
+      } else if (lowerMessage.includes('energy') || lowerMessage.includes('efficient')) {
+        return `Great question about efficiency! All our doors are ${doorKnowledgeBase.general.energyStar}. Our patio doors feature ${doorKnowledgeBase.patio.efficiency}, while entry doors use ${doorKnowledgeBase.entry.materials}. This can significantly lower your energy bills!`;
+      } else {
+        return mockResponses.door;
+      }
+    } else if (lowerMessage.includes('window')) {
       return mockResponses.window;
     } else if (lowerMessage.includes('bath') || lowerMessage.includes('bathroom')) {
       return mockResponses.bath;
     } else if (lowerMessage.includes('siding')) {
       return mockResponses.siding;
-    } else if (lowerMessage.includes('door')) {
-      return mockResponses.door;
     }
     
     return mockResponses.default;
