@@ -128,7 +128,7 @@ export default function CyclingHeadings({ onSubmit }: CyclingHeadingsProps) {
           disabled={!inputValue.trim()}
           data-testid="button-submit-question"
         >
-          Ask Our AI Assistant
+          Let's Get Started
         </button>
       </div>
     </div>
