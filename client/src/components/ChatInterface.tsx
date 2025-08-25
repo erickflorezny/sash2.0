@@ -5,6 +5,15 @@ import SuggestedPrompts from './SuggestedPrompts';
 interface Message {
   role: 'user' | 'assistant';
   content: string;
+  selections?: ServiceSelection[];
+}
+
+interface ServiceSelection {
+  id: string;
+  title: string;
+  icon: string;
+  description: string;
+  category: 'windows' | 'siding' | 'bathrooms' | 'doors';
 }
 
 interface ChatInterfaceProps {
@@ -71,6 +80,9 @@ export default function ChatInterface({ initialPrompt, onClose, showPrompts = fa
   const [currentSlide, setCurrentSlide] = useState(0);
   const [detectedKeywords, setDetectedKeywords] = useState<string[]>([]);
   const [sidebarContent, setSidebarContent] = useState<string>('general');
+  const [userLocation, setUserLocation] = useState<string | null>(null);
+  const [userName, setUserName] = useState<string | null>(null);
+  const [isDetectingLocation, setIsDetectingLocation] = useState(false);
   
   const slides = [
     { icon: 'bi-window', title: 'Energy-Efficient Windows', gradient: 'linear-gradient(135deg, #dc3545, #6f42c1)', category: 'window' },
@@ -266,6 +278,62 @@ export default function ChatInterface({ initialPrompt, onClose, showPrompts = fa
     setCurrentSlide(index);
   };
 
+  // Geolocation functions
+  const requestUserLocation = async (): Promise<string | null> => {
+    if (!navigator.geolocation) {
+      return 'Location not supported';
+    }
+
+    return new Promise((resolve) => {
+      setIsDetectingLocation(true);
+      navigator.geolocation.getCurrentPosition(
+        async (position) => {
+          try {
+            const { latitude, longitude } = position.coords;
+            const locationName = await reverseGeocode(latitude, longitude);
+            setIsDetectingLocation(false);
+            resolve(locationName);
+          } catch (error) {
+            setIsDetectingLocation(false);
+            resolve('your location');
+          }
+        },
+        (error) => {
+          setIsDetectingLocation(false);
+          console.log('Location access denied or failed:', error);
+          resolve('your area');
+        },
+        { timeout: 10000 }
+      );
+    });
+  };
+
+  const reverseGeocode = async (lat: number, lon: number): Promise<string> => {
+    try {
+      // Using a free geocoding service (OpenStreetMap Nominatim)
+      const response = await fetch(
+        `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&zoom=10`
+      );
+      const data = await response.json();
+      
+      if (data && data.address) {
+        const city = data.address.city || data.address.town || data.address.village;
+        const state = data.address.state;
+        if (city && state) {
+          return `${city}, ${state}`;
+        } else if (city) {
+          return city;
+        } else if (state) {
+          return state;
+        }
+      }
+      return 'your area';
+    } catch (error) {
+      console.log('Reverse geocoding failed:', error);
+      return 'your area';
+    }
+  };
+
   const extractName = (message: string): string | null => {
     const lowerMessage = message.toLowerCase();
     const namePatterns = [
@@ -287,13 +355,100 @@ export default function ChatInterface({ initialPrompt, onClose, showPrompts = fa
     return null;
   };
 
-  const generateResponse = (message: string): string => {
+  // Service selections data
+  const serviceSelections: ServiceSelection[] = [
+    {
+      id: 'windows',
+      title: 'Windows',
+      icon: 'bi-window',
+      description: 'Energy-efficient window installation & replacement',
+      category: 'windows'
+    },
+    {
+      id: 'siding',
+      title: 'Siding',
+      icon: 'bi-house',
+      description: 'Durable siding installation & repair',
+      category: 'siding'
+    },
+    {
+      id: 'bathrooms',
+      title: 'Bathrooms',
+      icon: 'bi-droplet',
+      description: 'Complete bathroom renovation & remodeling',
+      category: 'bathrooms'
+    },
+    {
+      id: 'doors',
+      title: 'Doors',
+      icon: 'bi-door-open',
+      description: 'Entry, patio & storm door installation',
+      category: 'doors'
+    }
+  ];
+
+  // Handle service selection
+  const handleServiceSelection = (serviceId: string) => {
+    const service = serviceSelections.find(s => s.id === serviceId);
+    if (!service) return;
+
+    // Add user message for the selection
+    const userMessage: Message = { 
+      role: 'user', 
+      content: `I'm interested in ${service.title.toLowerCase()}` 
+    };
+    setMessages(prev => [...prev, userMessage]);
+
+    // Generate appropriate response based on service
+    setTimeout(() => {
+      let response = '';
+      switch (serviceId) {
+        case 'windows':
+          response = mockResponses.window;
+          break;
+        case 'siding':
+          response = mockResponses.siding;
+          break;
+        case 'bathrooms':
+          response = mockResponses.bath;
+          break;
+        case 'doors':
+          response = mockResponses.door;
+          break;
+        default:
+          response = mockResponses.default;
+      }
+      
+      const assistantMessage: Message = { role: 'assistant', content: response };
+      setMessages(prev => [...prev, assistantMessage]);
+    }, 800);
+  };
+
+  const generateResponse = async (message: string): Promise<string> => {
     const lowerMessage = message.toLowerCase();
     const extractedName = extractName(message);
     
-    // If user introduced themselves, ask for location
-    if (extractedName && (lowerMessage.includes('name is') || lowerMessage.includes("i'm") || lowerMessage.includes('i am') || lowerMessage.includes('hello') || lowerMessage.includes('hi') || message.trim().split(' ').length === 1)) {
-      return `Nice to meet you ${extractedName}, where are you located?`;
+    // If user introduced themselves, get location and provide personalized greeting
+    if (extractedName && !userName && (lowerMessage.includes('name is') || lowerMessage.includes("i'm") || lowerMessage.includes('i am') || lowerMessage.includes('hello') || lowerMessage.includes('hi') || message.trim().split(' ').length === 1)) {
+      setUserName(extractedName);
+      
+      // Request location
+      const location = await requestUserLocation();
+      setUserLocation(location);
+      
+      // Create welcome message with selections
+      setTimeout(() => {
+        const welcomeMessage: Message = {
+          role: 'assistant',
+          content: `Hi ${extractedName}! Welcome to New York Sash${location ? ` - we're glad to serve customers in ${location}` : ''}! How can we help you today? Please select the service you're interested in:`,
+          selections: serviceSelections
+        };
+        setMessages(prev => [...prev, welcomeMessage]);
+      }, isDetectingLocation ? 2000 : 500);
+      
+      return isDetectingLocation ? 
+        `Nice to meet you ${extractedName}! Let me get your location to better serve you...` :
+        `Nice to meet you ${extractedName}! Let me show you our services...`;
     }
     
     // Enhanced door response logic using knowledge base
@@ -338,13 +493,19 @@ export default function ChatInterface({ initialPrompt, onClose, showPrompts = fa
     // Show typing indicator
     setIsTyping(true);
     
-    // Simulate AI response delay
-    setTimeout(() => {
-      setIsTyping(false);
-      const response = generateResponse(message);
-      const assistantMessage: Message = { role: 'assistant', content: response };
-      setMessages(prev => [...prev, assistantMessage]);
-    }, 1500);
+    // Generate AI response with async support
+    setTimeout(async () => {
+      try {
+        const response = await generateResponse(message);
+        setIsTyping(false);
+        const assistantMessage: Message = { role: 'assistant', content: response };
+        setMessages(prev => [...prev, assistantMessage]);
+      } catch (error) {
+        setIsTyping(false);
+        const assistantMessage: Message = { role: 'assistant', content: mockResponses.default };
+        setMessages(prev => [...prev, assistantMessage]);
+      }
+    }, 800);
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -445,6 +606,30 @@ export default function ChatInterface({ initialPrompt, onClose, showPrompts = fa
               <div className="message-content">
                 {message.content}
               </div>
+              {/* Service Selection Bubbles */}
+              {message.selections && (
+                <div className="service-selections" data-testid="service-selections">
+                  {message.selections.map((selection) => (
+                    <div 
+                      key={selection.id}
+                      className="service-selection-bubble"
+                      onClick={() => handleServiceSelection(selection.id)}
+                      data-testid={`selection-${selection.id}`}
+                    >
+                      <div className="selection-icon">
+                        <i className={`bi ${selection.icon}`}></i>
+                      </div>
+                      <div className="selection-content">
+                        <h4>{selection.title}</h4>
+                        <p>{selection.description}</p>
+                      </div>
+                      <div className="selection-arrow">
+                        <i className="bi bi-arrow-right"></i>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           ))}
           
