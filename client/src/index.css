@@ -456,7 +456,7 @@
 
 .typewriter-cursor {
   color: var(--elite-red);
-  animation: blink 1s infinite;
+  animation: blink 1.5s infinite;
 }
 
 @keyframes blink {
