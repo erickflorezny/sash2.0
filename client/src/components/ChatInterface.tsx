@@ -60,7 +60,42 @@ const mockResponses = {
 };
 
 export default function ChatInterface({ initialPrompt, onClose, showPrompts = false, onPromptClick }: ChatInterfaceProps) {
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<Message[]>([
+    {
+      role: 'assistant',
+      content: `Hi Justin! Welcome to New York Sash - we're glad to serve customers in Central New York! How can we help you today? Please select the service you're interested in:`,
+      selections: [
+        {
+          id: 'windows',
+          title: 'Windows',
+          icon: 'bi-window',
+          description: 'Energy-efficient window installation & replacement',
+          category: 'windows'
+        },
+        {
+          id: 'siding',
+          title: 'Siding',
+          icon: 'bi-house',
+          description: 'Durable siding installation & repair',
+          category: 'siding'
+        },
+        {
+          id: 'bathrooms',
+          title: 'Bathrooms',
+          icon: 'bi-droplet',
+          description: 'Complete bathroom renovation & remodeling',
+          category: 'bathrooms'
+        },
+        {
+          id: 'doors',
+          title: 'Doors',
+          icon: 'bi-door-open',
+          description: 'Entry, patio & storm door installation',
+          category: 'doors'
+        }
+      ]
+    }
+  ]);
   const [inputValue, setInputValue] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const [isLiveAgentOpen, setIsLiveAgentOpen] = useState(false);
@@ -249,28 +284,28 @@ export default function ChatInterface({ initialPrompt, onClose, showPrompts = fa
     }
   }, [initialPrompt]);
 
-  // Auto-initialize with personalized greeting for Justin
+  // Initialize user as Justin
   useEffect(() => {
-    if (messages.length === 0 && !initialPrompt && !userName) {
-      const initializeChat = async () => {
-        setUserName('Justin');
-        
-        // Request location
-        const location = await requestUserLocation();
-        setUserLocation(location);
-        
-        // Add the personalized welcome message with service selections
-        const welcomeMessage: Message = {
-          role: 'assistant',
-          content: `Hi Justin! Welcome to New York Sash - we're glad to serve customers in ${location}! How can we help you today? Please select the service you're interested in:`,
-          selections: serviceSelections
-        };
-        setMessages([welcomeMessage]);
-      };
+    if (!userName) {
+      setUserName('Justin');
       
-      initializeChat();
+      // Try to get location and update the message if possible
+      requestUserLocation().then(location => {
+        if (location && location !== 'Central New York') {
+          setUserLocation(location);
+          setMessages(prev => prev.map((msg, index) => {
+            if (index === 0 && msg.role === 'assistant') {
+              return {
+                ...msg,
+                content: `Hi Justin! Welcome to New York Sash - we're glad to serve customers in ${location}! How can we help you today? Please select the service you're interested in:`
+              };
+            }
+            return msg;
+          }));
+        }
+      });
     }
-  }, [messages.length, initialPrompt, userName]);
+  }, []);
 
   // Auto-advance slider (only when no keywords are detected)
   useEffect(() => {
@@ -373,41 +408,11 @@ export default function ChatInterface({ initialPrompt, onClose, showPrompts = fa
     return null;
   };
 
-  // Service selections data
-  const serviceSelections: ServiceSelection[] = [
-    {
-      id: 'windows',
-      title: 'Windows',
-      icon: 'bi-window',
-      description: 'Energy-efficient window installation & replacement',
-      category: 'windows'
-    },
-    {
-      id: 'siding',
-      title: 'Siding',
-      icon: 'bi-house',
-      description: 'Durable siding installation & repair',
-      category: 'siding'
-    },
-    {
-      id: 'bathrooms',
-      title: 'Bathrooms',
-      icon: 'bi-droplet',
-      description: 'Complete bathroom renovation & remodeling',
-      category: 'bathrooms'
-    },
-    {
-      id: 'doors',
-      title: 'Doors',
-      icon: 'bi-door-open',
-      description: 'Entry, patio & storm door installation',
-      category: 'doors'
-    }
-  ];
-
   // Handle service selection
   const handleServiceSelection = (serviceId: string) => {
-    const service = serviceSelections.find(s => s.id === serviceId);
+    // Get service data from the initial message selections
+    const initialMessage = messages[0];
+    const service = initialMessage.selections?.find(s => s.id === serviceId);
     if (!service) return;
 
     // Add user message for the selection
