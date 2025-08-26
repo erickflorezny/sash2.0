@@ -758,25 +758,32 @@ export default function ChatInterface({ initialPrompt, onClose, showPrompts = fa
 
   return (
     <div className="chat-page-layout" data-testid="chat-section">
-      {/* Main Chat Area */}
-      <div className="chat-main-area">
-        <div className="chat-header-modern">
-          <div className="chat-header-content">
-            <div className="chat-brand">
-              <img src={chatLogo} alt="New York Sash" className="chat-logo" />
-              <span>New York Sash AI Assistant</span>
-            </div>
-            <button 
-              className="live-agent-button"
-              onClick={() => setIsLiveAgentOpen(true)}
-              data-testid="button-live-agent"
-            >
-              <div className="live-indicator"></div>
-              <i className="bi bi-chat-dots mobile-chat-icon"></i>
-              <span className="live-agent-text">Talk to Live Person</span>
-            </button>
+      {/* Full Width Header */}
+      <div className="chat-header-fullwidth">
+        <div className="header-content-wrapper">
+          <button className="hamburger-menu" data-testid="hamburger-menu">
+            <i className="bi bi-list"></i>
+          </button>
+          <div className="chat-brand">
+            <img src={chatLogo} alt="New York Sash" className="chat-logo" />
+            <span>New York Sash AI Assistant</span>
           </div>
+          <button 
+            className="live-agent-button"
+            onClick={() => setIsLiveAgentOpen(true)}
+            data-testid="button-live-agent"
+          >
+            <div className="live-indicator"></div>
+            <i className="bi bi-chat-dots mobile-chat-icon"></i>
+            <span className="live-agent-text">Ask A Question</span>
+          </button>
         </div>
+      </div>
+      
+      {/* Content Area with Main Chat and Sidebar */}
+      <div className="content-layout">
+        {/* Main Chat Area */}
+        <div className="chat-main-area">
         
         <div ref={chatContainerRef} className="chat-messages-modern" data-testid="chat-messages">
           {messages.map((message, index) => (
@@ -852,8 +859,8 @@ export default function ChatInterface({ initialPrompt, onClose, showPrompts = fa
         )}
       </div>
 
-      {/* Right Sidebar */}
-      <div className="chat-sidebar">
+        {/* Right Sidebar */}
+        <div className="chat-sidebar">
         <div className="sidebar-content">
           {/* Image Slider Section */}
           <div className="sidebar-slider">
@@ -930,6 +937,7 @@ export default function ChatInterface({ initialPrompt, onClose, showPrompts = fa
             </div>
           </div>
         </div>
+      </div>
       </div>
 
       {/* Live Agent Dialog */}
