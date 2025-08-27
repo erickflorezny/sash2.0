@@ -185,7 +185,7 @@ export default function SuggestedPrompts({
   // Generate conversation summary
   const getConversationSummary = () => {
     if (messageCount === 0) {
-      return "Start exploring our home improvement services";
+      return "Say Explore our home improvement services";
     } else if (userSelections.length > 0) {
       return `Discussing ${userSelections.join(', ')} solutions • ${messageCount} messages`;
     } else {
@@ -207,7 +207,17 @@ export default function SuggestedPrompts({
               <div className="col-md-4 text-md-end">
                 <div className="conversation-tracker">
                   <small className="text-muted d-block">Conversation Status</small>
-                  <span className="badge bg-primary">{getConversationSummary()}</span>
+                  {messageCount === 0 ? (
+                    <button 
+                      className="btn btn-primary btn-sm"
+                      onClick={() => onPromptClick("Explore our home improvement services")}
+                      data-testid="button-explore-services"
+                    >
+                      {getConversationSummary()}
+                    </button>
+                  ) : (
+                    <span className="badge bg-primary">{getConversationSummary()}</span>
+                  )}
                 </div>
               </div>
             </div>
