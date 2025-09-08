@@ -1788,6 +1788,60 @@
   color: var(--elite-red);
 }
 
+/* Footer Service Groups */
+.service-groups {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.service-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.service-group h5 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.service-group h5 a {
+  color: var(--elite-red);
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.service-group h5 a:hover {
+  color: white;
+  text-decoration: none;
+}
+
+.footer-sub-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.footer-sub-links li a {
+  color: #aaa;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-size: 0.85rem;
+  padding-left: 0.5rem;
+}
+
+.footer-sub-links li a:hover {
+  color: var(--elite-red);
+  text-decoration: none;
+  transform: translateX(5px);
+}
+
 .contact-info {
   margin-bottom: 2rem;
 }
