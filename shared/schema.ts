@@ -47,3 +47,119 @@ export type ChatSession = typeof chatSessions.$inferSelect;
 export type InsertChatSession = z.infer<typeof insertChatSessionSchema>;
 export type ChatMessage = typeof chatMessages.$inferSelect;
 export type InsertChatMessage = z.infer<typeof insertChatMessageSchema>;
+
+// WordPress Content Types
+export interface WordPressPage {
+  id: string;
+  title: {
+    rendered: string;
+  };
+  content: {
+    rendered: string;
+  };
+  slug: string;
+  status: string;
+  date: string;
+  modified: string;
+  excerpt: {
+    rendered: string;
+  };
+  featuredImage?: {
+    node?: {
+      sourceUrl: string;
+      altText: string;
+    };
+  };
+  seo?: {
+    title: string;
+    metaDesc: string;
+    opengraphTitle: string;
+    opengraphDescription: string;
+  };
+}
+
+export interface WordPressPost {
+  id: string;
+  title: {
+    rendered: string;
+  };
+  content: {
+    rendered: string;
+  };
+  slug: string;
+  status: string;
+  date: string;
+  modified: string;
+  excerpt: {
+    rendered: string;
+  };
+  categories: {
+    nodes: Array<{
+      name: string;
+      slug: string;
+    }>;
+  };
+  tags: {
+    nodes: Array<{
+      name: string;
+      slug: string;
+    }>;
+  };
+  author: {
+    node: {
+      name: string;
+      slug: string;
+    };
+  };
+  featuredImage?: {
+    node?: {
+      sourceUrl: string;
+      altText: string;
+    };
+  };
+  seo?: {
+    title: string;
+    metaDesc: string;
+    opengraphTitle: string;
+    opengraphDescription: string;
+  };
+}
+
+export interface WordPressMenuItem {
+  id: string;
+  label: string;
+  url: string;
+  target: string;
+  title: string;
+  cssClasses: string[];
+  childItems?: {
+    nodes: WordPressMenuItem[];
+  };
+}
+
+// GraphQL Response Types
+export interface WordPressPageResponse {
+  page: WordPressPage | null;
+}
+
+export interface WordPressPostResponse {
+  post: WordPressPost | null;
+}
+
+export interface WordPressPagesResponse {
+  pages: {
+    nodes: WordPressPage[];
+  };
+}
+
+export interface WordPressPostsResponse {
+  posts: {
+    nodes: WordPressPost[];
+  };
+}
+
+export interface WordPressMenuResponse {
+  menuItems: {
+    nodes: WordPressMenuItem[];
+  };
+}
