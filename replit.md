@@ -70,6 +70,13 @@ Preferred communication style: Simple, everyday language.
 - **Replit Integration**: Custom plugins for development environment integration
 - **Code Quality**: TypeScript strict mode, ESM modules throughout
 
+## WordPress Integration
+- **CMS Integration**: Full WordPress GraphQL integration for dynamic content management
+- **Content Types**: Support for WordPress pages and posts with automatic routing
+- **SEO Optimization**: Automatic meta tag management and Open Graph support
+- **Template System**: Dedicated page and post templates with responsive design
+- **Dynamic Routing**: URL-based content loading (e.g., `/windows` loads WordPress page with slug "windows")
+
 ## Planned Integrations
 - **AI Service**: Future integration with xAI Grok API for intelligent chat responses
 - **Session Storage**: PostgreSQL-backed session management with connect-pg-simple
