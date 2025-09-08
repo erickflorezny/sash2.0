@@ -14,6 +14,10 @@ function WordPressPageRoute({ params }: { params: { slug: string } }) {
   return <WordPressPageTemplate slug={params.slug} />;
 }
 
+function WordPressNestedPageRoute({ params }: { params: { category: string; slug: string } }) {
+  return <WordPressPageTemplate slug={params.slug} />;
+}
+
 function WordPressPostRoute({ params }: { params: { slug: string } }) {
   return <WordPressPostTemplate slug={params.slug} />;
 }
@@ -27,6 +31,12 @@ function Router() {
       {/* WordPress Post Routes */}
       <Route path="/blog/:slug" component={WordPressPostRoute} />
       <Route path="/post/:slug" component={WordPressPostRoute} />
+      
+      {/* Service Category Nested Page Routes */}
+      <Route path="/windows/:slug" component={WordPressNestedPageRoute} />
+      <Route path="/siding/:slug" component={WordPressNestedPageRoute} />
+      <Route path="/bathrooms/:slug" component={WordPressNestedPageRoute} />
+      <Route path="/doors/:slug" component={WordPressNestedPageRoute} />
       
       {/* WordPress Page Routes - These should come last to catch all other URLs */}
       <Route path="/:slug" component={WordPressPageRoute} />
