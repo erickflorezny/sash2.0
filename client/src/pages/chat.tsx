@@ -72,50 +72,62 @@ export default function Chat() {
           </button>
           <nav className="nav-links">
             <div className="nav-section">
+              <Link href="/about" className="nav-main" onClick={() => setIsMenuOpen(false)}>About Us</Link>
+              <div className="nav-submenu">
+                <Link href="/showroom" onClick={() => setIsMenuOpen(false)}>Showroom</Link>
+                <Link href="/staff" onClick={() => setIsMenuOpen(false)}>Meet Our Team</Link>
+                <Link href="/jobs" onClick={() => setIsMenuOpen(false)}>Job Openings</Link>
+              </div>
+            </div>
+            
+            <div className="nav-section">
               <Link href="/windows" className="nav-main" data-testid="nav-windows" onClick={() => setIsMenuOpen(false)}>Windows</Link>
               <div className="nav-submenu">
-                <Link href="/window-replacement" onClick={() => setIsMenuOpen(false)}>Replacement Windows</Link>
-                <Link href="/new-construction-windows" onClick={() => setIsMenuOpen(false)}>New Construction</Link>
-                <Link href="/energy-efficient-windows" onClick={() => setIsMenuOpen(false)}>Energy Efficient</Link>
-                <Link href="/window-types" onClick={() => setIsMenuOpen(false)}>Window Types</Link>
+                <Link href="/windows/double-hung" onClick={() => setIsMenuOpen(false)}>Double Hung Windows</Link>
+                <Link href="/windows/bay-bow-picture-windows" onClick={() => setIsMenuOpen(false)}>Bay, Bow and Picture Windows</Link>
+                <Link href="/windows/slider-windows" onClick={() => setIsMenuOpen(false)}>Slider Windows</Link>
+                <Link href="/windows/vinyl-awning-windows" onClick={() => setIsMenuOpen(false)}>Awning Windows</Link>
+                <Link href="/windows/hopper-casement" onClick={() => setIsMenuOpen(false)}>Hopper Windows</Link>
               </div>
             </div>
             
             <div className="nav-section">
               <Link href="/siding" className="nav-main" data-testid="nav-siding" onClick={() => setIsMenuOpen(false)}>Siding</Link>
               <div className="nav-submenu">
-                <Link href="/vinyl-siding" onClick={() => setIsMenuOpen(false)}>Vinyl Siding</Link>
-                <Link href="/fiber-cement-siding" onClick={() => setIsMenuOpen(false)}>Fiber Cement</Link>
-                <Link href="/siding-installation" onClick={() => setIsMenuOpen(false)}>Siding Installation</Link>
-                <Link href="/siding-repair" onClick={() => setIsMenuOpen(false)}>Siding Repair</Link>
+                <Link href="/siding/engineered-wood-siding" onClick={() => setIsMenuOpen(false)}>Engineered Wood Siding</Link>
+                <Link href="/siding/reinforced-vinyl-siding" onClick={() => setIsMenuOpen(false)}>Reinforced Vinyl Siding</Link>
+                <Link href="/siding/monogram-46-vinyl-clapboard-siding" onClick={() => setIsMenuOpen(false)}>Traditional Vinyl Siding</Link>
+                <Link href="/siding/shake-shingle-vinyl-siding" onClick={() => setIsMenuOpen(false)}>Cedar Shake Vinyl Siding</Link>
+                <Link href="/siding/board-batten-vinyl-siding" onClick={() => setIsMenuOpen(false)}>Board & Batten Vertical Vinyl Siding</Link>
+                <Link href="/siding/exteria-stacked-stone-vinyl-siding" onClick={() => setIsMenuOpen(false)}>Stacked Stone</Link>
               </div>
             </div>
             
             <div className="nav-section">
-              <Link href="/bathroom" className="nav-main" data-testid="nav-bath" onClick={() => setIsMenuOpen(false)}>Bathrooms</Link>
+              <Link href="/bathrooms" className="nav-main" data-testid="nav-bath" onClick={() => setIsMenuOpen(false)}>Baths</Link>
               <div className="nav-submenu">
-                <Link href="/bathroom-remodeling" onClick={() => setIsMenuOpen(false)}>Full Remodel</Link>
-                <Link href="/walk-in-showers" onClick={() => setIsMenuOpen(false)}>Walk-in Showers</Link>
-                <Link href="/tub-to-shower" onClick={() => setIsMenuOpen(false)}>Tub to Shower</Link>
-                <Link href="/bathroom-repair" onClick={() => setIsMenuOpen(false)}>Bathroom Repair</Link>
+                <Link href="/bathrooms/tub-shower-conversion" onClick={() => setIsMenuOpen(false)}>Tub To Shower Conversion</Link>
+                <Link href="/bathrooms/safety-tubs" onClick={() => setIsMenuOpen(false)}>Safety Tubs</Link>
+                <Link href="/bathrooms/premium-shower-doors" onClick={() => setIsMenuOpen(false)}>Shower Doors</Link>
+                <Link href="/bathrooms/toilets" onClick={() => setIsMenuOpen(false)}>Toilets</Link>
+                <Link href="/bathrooms/bathroom-accessories" onClick={() => setIsMenuOpen(false)}>Accessories</Link>
+                <Link href="/bathrooms/bathroom-color-texture-wall-options" onClick={() => setIsMenuOpen(false)}>Color & Texture Options</Link>
               </div>
             </div>
             
             <div className="nav-section">
               <Link href="/doors" className="nav-main" data-testid="nav-doors" onClick={() => setIsMenuOpen(false)}>Doors</Link>
               <div className="nav-submenu">
-                <Link href="/entry-doors" onClick={() => setIsMenuOpen(false)}>Entry Doors</Link>
-                <Link href="/patio-doors" onClick={() => setIsMenuOpen(false)}>Patio Doors</Link>
-                <Link href="/storm-doors" onClick={() => setIsMenuOpen(false)}>Storm Doors</Link>
-                <Link href="/french-doors" onClick={() => setIsMenuOpen(false)}>French Doors</Link>
+                <Link href="/doors/entry-doors" onClick={() => setIsMenuOpen(false)}>Entry Doors</Link>
+                <Link href="/doors/storm-doors" onClick={() => setIsMenuOpen(false)}>Storm Doors</Link>
+                <Link href="/doors/patio-doors" onClick={() => setIsMenuOpen(false)}>Patio Doors</Link>
               </div>
             </div>
             
             <div className="nav-section">
-              <Link href="/about" className="nav-main" onClick={() => setIsMenuOpen(false)}>About</Link>
-              <Link href="/gallery" className="nav-main" onClick={() => setIsMenuOpen(false)}>Gallery</Link>
-              <Link href="/testimonials" className="nav-main" onClick={() => setIsMenuOpen(false)}>Reviews</Link>
-              <Link href="/contact" className="nav-main" onClick={() => setIsMenuOpen(false)}>Contact</Link>
+              <Link href="/quote" className="nav-main" onClick={() => setIsMenuOpen(false)}>Free Quote</Link>
+              <Link href="/financing" className="nav-main" onClick={() => setIsMenuOpen(false)}>Financing</Link>
+              <Link href="/review-new-york-sash" className="nav-main" onClick={() => setIsMenuOpen(false)}>Reviews</Link>
               <Link href="/chat" className="nav-main" data-testid="nav-chat" onClick={() => setIsMenuOpen(false)}>Chat with AI</Link>
             </div>
           </nav>
@@ -158,36 +170,36 @@ export default function Chat() {
                 <div className="service-group">
                   <h5><Link href="/windows">Windows</Link></h5>
                   <ul className="footer-sub-links">
-                    <li><Link href="/window-replacement">Replacement</Link></li>
-                    <li><Link href="/new-construction-windows">New Construction</Link></li>
-                    <li><Link href="/energy-efficient-windows">Energy Efficient</Link></li>
+                    <li><Link href="/windows/double-hung">Double Hung</Link></li>
+                    <li><Link href="/windows/bay-bow-picture-windows">Bay, Bow & Picture</Link></li>
+                    <li><Link href="/windows/slider-windows">Slider Windows</Link></li>
                   </ul>
                 </div>
                 
                 <div className="service-group">
                   <h5><Link href="/siding">Siding</Link></h5>
                   <ul className="footer-sub-links">
-                    <li><Link href="/vinyl-siding">Vinyl Siding</Link></li>
-                    <li><Link href="/fiber-cement-siding">Fiber Cement</Link></li>
-                    <li><Link href="/siding-installation">Installation</Link></li>
+                    <li><Link href="/siding/engineered-wood-siding">Engineered Wood</Link></li>
+                    <li><Link href="/siding/reinforced-vinyl-siding">Reinforced Vinyl</Link></li>
+                    <li><Link href="/siding/monogram-46-vinyl-clapboard-siding">Traditional Vinyl</Link></li>
                   </ul>
                 </div>
                 
                 <div className="service-group">
-                  <h5><Link href="/bathroom">Bathrooms</Link></h5>
+                  <h5><Link href="/bathrooms">Baths</Link></h5>
                   <ul className="footer-sub-links">
-                    <li><Link href="/bathroom-remodeling">Full Remodel</Link></li>
-                    <li><Link href="/walk-in-showers">Walk-in Showers</Link></li>
-                    <li><Link href="/tub-to-shower">Tub to Shower</Link></li>
+                    <li><Link href="/bathrooms/tub-shower-conversion">Tub to Shower</Link></li>
+                    <li><Link href="/bathrooms/safety-tubs">Safety Tubs</Link></li>
+                    <li><Link href="/bathrooms/premium-shower-doors">Shower Doors</Link></li>
                   </ul>
                 </div>
                 
                 <div className="service-group">
                   <h5><Link href="/doors">Doors</Link></h5>
                   <ul className="footer-sub-links">
-                    <li><Link href="/entry-doors">Entry Doors</Link></li>
-                    <li><Link href="/patio-doors">Patio Doors</Link></li>
-                    <li><Link href="/storm-doors">Storm Doors</Link></li>
+                    <li><Link href="/doors/entry-doors">Entry Doors</Link></li>
+                    <li><Link href="/doors/storm-doors">Storm Doors</Link></li>
+                    <li><Link href="/doors/patio-doors">Patio Doors</Link></li>
                   </ul>
                 </div>
               </div>

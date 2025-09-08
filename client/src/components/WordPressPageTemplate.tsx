@@ -7,132 +7,87 @@ import logoImage from '@assets/new-york-sash_1756146470803.png';
 
 const getRelatedServices = (currentSlug: string) => {
   const services = {
+    // About Us related
+    about: [
+      { title: 'Showroom', href: '/showroom' },
+      { title: 'Meet Our Team', href: '/staff' },
+      { title: 'Job Openings', href: '/jobs' }
+    ],
+    showroom: [
+      { title: 'About Us', href: '/about' },
+      { title: 'Meet Our Team', href: '/staff' },
+      { title: 'Job Openings', href: '/jobs' }
+    ],
+    staff: [
+      { title: 'About Us', href: '/about' },
+      { title: 'Showroom', href: '/showroom' },
+      { title: 'Job Openings', href: '/jobs' }
+    ],
+    jobs: [
+      { title: 'About Us', href: '/about' },
+      { title: 'Showroom', href: '/showroom' },
+      { title: 'Meet Our Team', href: '/staff' }
+    ],
+    
+    // Windows related
     windows: [
-      { title: 'Replacement Windows', href: '/window-replacement' },
-      { title: 'New Construction', href: '/new-construction-windows' },
-      { title: 'Energy Efficient', href: '/energy-efficient-windows' },
-      { title: 'Window Types', href: '/window-types' }
+      { title: 'Double Hung Windows', href: '/windows/double-hung' },
+      { title: 'Bay, Bow and Picture Windows', href: '/windows/bay-bow-picture-windows' },
+      { title: 'Slider Windows', href: '/windows/slider-windows' },
+      { title: 'Awning Windows', href: '/windows/vinyl-awning-windows' }
     ],
-    'window-replacement': [
+    'double-hung': [
       { title: 'All Windows', href: '/windows' },
-      { title: 'New Construction', href: '/new-construction-windows' },
-      { title: 'Energy Efficient', href: '/energy-efficient-windows' },
-      { title: 'Window Types', href: '/window-types' }
+      { title: 'Bay, Bow and Picture Windows', href: '/windows/bay-bow-picture-windows' },
+      { title: 'Slider Windows', href: '/windows/slider-windows' },
+      { title: 'Awning Windows', href: '/windows/vinyl-awning-windows' }
     ],
-    'new-construction-windows': [
-      { title: 'All Windows', href: '/windows' },
-      { title: 'Replacement Windows', href: '/window-replacement' },
-      { title: 'Energy Efficient', href: '/energy-efficient-windows' },
-      { title: 'Window Types', href: '/window-types' }
-    ],
-    'energy-efficient-windows': [
-      { title: 'All Windows', href: '/windows' },
-      { title: 'Replacement Windows', href: '/window-replacement' },
-      { title: 'New Construction', href: '/new-construction-windows' },
-      { title: 'Window Types', href: '/window-types' }
-    ],
-    'window-types': [
-      { title: 'All Windows', href: '/windows' },
-      { title: 'Replacement Windows', href: '/window-replacement' },
-      { title: 'New Construction', href: '/new-construction-windows' },
-      { title: 'Energy Efficient', href: '/energy-efficient-windows' }
-    ],
+    
+    // Siding related
     siding: [
-      { title: 'Vinyl Siding', href: '/vinyl-siding' },
-      { title: 'Fiber Cement', href: '/fiber-cement-siding' },
-      { title: 'Siding Installation', href: '/siding-installation' },
-      { title: 'Siding Repair', href: '/siding-repair' }
+      { title: 'Engineered Wood Siding', href: '/siding/engineered-wood-siding' },
+      { title: 'Reinforced Vinyl Siding', href: '/siding/reinforced-vinyl-siding' },
+      { title: 'Traditional Vinyl Siding', href: '/siding/monogram-46-vinyl-clapboard-siding' },
+      { title: 'Cedar Shake Vinyl Siding', href: '/siding/shake-shingle-vinyl-siding' }
     ],
-    'vinyl-siding': [
+    'engineered-wood-siding': [
       { title: 'All Siding', href: '/siding' },
-      { title: 'Fiber Cement', href: '/fiber-cement-siding' },
-      { title: 'Siding Installation', href: '/siding-installation' },
-      { title: 'Siding Repair', href: '/siding-repair' }
+      { title: 'Reinforced Vinyl Siding', href: '/siding/reinforced-vinyl-siding' },
+      { title: 'Traditional Vinyl Siding', href: '/siding/monogram-46-vinyl-clapboard-siding' },
+      { title: 'Cedar Shake Vinyl Siding', href: '/siding/shake-shingle-vinyl-siding' }
     ],
-    'fiber-cement-siding': [
-      { title: 'All Siding', href: '/siding' },
-      { title: 'Vinyl Siding', href: '/vinyl-siding' },
-      { title: 'Siding Installation', href: '/siding-installation' },
-      { title: 'Siding Repair', href: '/siding-repair' }
+    
+    // Baths related
+    bathrooms: [
+      { title: 'Tub To Shower Conversion', href: '/bathrooms/tub-shower-conversion' },
+      { title: 'Safety Tubs', href: '/bathrooms/safety-tubs' },
+      { title: 'Shower Doors', href: '/bathrooms/premium-shower-doors' },
+      { title: 'Toilets', href: '/bathrooms/toilets' }
     ],
-    'siding-installation': [
-      { title: 'All Siding', href: '/siding' },
-      { title: 'Vinyl Siding', href: '/vinyl-siding' },
-      { title: 'Fiber Cement', href: '/fiber-cement-siding' },
-      { title: 'Siding Repair', href: '/siding-repair' }
+    'tub-shower-conversion': [
+      { title: 'All Baths', href: '/bathrooms' },
+      { title: 'Safety Tubs', href: '/bathrooms/safety-tubs' },
+      { title: 'Shower Doors', href: '/bathrooms/premium-shower-doors' },
+      { title: 'Toilets', href: '/bathrooms/toilets' }
     ],
-    'siding-repair': [
-      { title: 'All Siding', href: '/siding' },
-      { title: 'Vinyl Siding', href: '/vinyl-siding' },
-      { title: 'Fiber Cement', href: '/fiber-cement-siding' },
-      { title: 'Siding Installation', href: '/siding-installation' }
-    ],
-    bathroom: [
-      { title: 'Full Remodel', href: '/bathroom-remodeling' },
-      { title: 'Walk-in Showers', href: '/walk-in-showers' },
-      { title: 'Tub to Shower', href: '/tub-to-shower' },
-      { title: 'Bathroom Repair', href: '/bathroom-repair' }
-    ],
-    'bathroom-remodeling': [
-      { title: 'All Bathrooms', href: '/bathroom' },
-      { title: 'Walk-in Showers', href: '/walk-in-showers' },
-      { title: 'Tub to Shower', href: '/tub-to-shower' },
-      { title: 'Bathroom Repair', href: '/bathroom-repair' }
-    ],
-    'walk-in-showers': [
-      { title: 'All Bathrooms', href: '/bathroom' },
-      { title: 'Full Remodel', href: '/bathroom-remodeling' },
-      { title: 'Tub to Shower', href: '/tub-to-shower' },
-      { title: 'Bathroom Repair', href: '/bathroom-repair' }
-    ],
-    'tub-to-shower': [
-      { title: 'All Bathrooms', href: '/bathroom' },
-      { title: 'Full Remodel', href: '/bathroom-remodeling' },
-      { title: 'Walk-in Showers', href: '/walk-in-showers' },
-      { title: 'Bathroom Repair', href: '/bathroom-repair' }
-    ],
-    'bathroom-repair': [
-      { title: 'All Bathrooms', href: '/bathroom' },
-      { title: 'Full Remodel', href: '/bathroom-remodeling' },
-      { title: 'Walk-in Showers', href: '/walk-in-showers' },
-      { title: 'Tub to Shower', href: '/tub-to-shower' }
-    ],
+    
+    // Doors related
     doors: [
-      { title: 'Entry Doors', href: '/entry-doors' },
-      { title: 'Patio Doors', href: '/patio-doors' },
-      { title: 'Storm Doors', href: '/storm-doors' },
-      { title: 'French Doors', href: '/french-doors' }
+      { title: 'Entry Doors', href: '/doors/entry-doors' },
+      { title: 'Storm Doors', href: '/doors/storm-doors' },
+      { title: 'Patio Doors', href: '/doors/patio-doors' }
     ],
     'entry-doors': [
       { title: 'All Doors', href: '/doors' },
-      { title: 'Patio Doors', href: '/patio-doors' },
-      { title: 'Storm Doors', href: '/storm-doors' },
-      { title: 'French Doors', href: '/french-doors' }
-    ],
-    'patio-doors': [
-      { title: 'All Doors', href: '/doors' },
-      { title: 'Entry Doors', href: '/entry-doors' },
-      { title: 'Storm Doors', href: '/storm-doors' },
-      { title: 'French Doors', href: '/french-doors' }
-    ],
-    'storm-doors': [
-      { title: 'All Doors', href: '/doors' },
-      { title: 'Entry Doors', href: '/entry-doors' },
-      { title: 'Patio Doors', href: '/patio-doors' },
-      { title: 'French Doors', href: '/french-doors' }
-    ],
-    'french-doors': [
-      { title: 'All Doors', href: '/doors' },
-      { title: 'Entry Doors', href: '/entry-doors' },
-      { title: 'Patio Doors', href: '/patio-doors' },
-      { title: 'Storm Doors', href: '/storm-doors' }
+      { title: 'Storm Doors', href: '/doors/storm-doors' },
+      { title: 'Patio Doors', href: '/doors/patio-doors' }
     ]
   };
 
   return services[currentSlug as keyof typeof services] || [
     { title: 'Windows', href: '/windows' },
     { title: 'Siding', href: '/siding' },
-    { title: 'Bathrooms', href: '/bathroom' },
+    { title: 'Baths', href: '/bathrooms' },
     { title: 'Doors', href: '/doors' }
   ];
 };
@@ -381,50 +336,62 @@ export function WordPressPageTemplate({ slug: propSlug }: WordPressPageTemplateP
             </button>
             <nav className="nav-links">
               <div className="nav-section">
+                <Link href="/about" className="nav-main" onClick={() => setIsMenuOpen(false)}>About Us</Link>
+                <div className="nav-submenu">
+                  <Link href="/showroom" onClick={() => setIsMenuOpen(false)}>Showroom</Link>
+                  <Link href="/staff" onClick={() => setIsMenuOpen(false)}>Meet Our Team</Link>
+                  <Link href="/jobs" onClick={() => setIsMenuOpen(false)}>Job Openings</Link>
+                </div>
+              </div>
+              
+              <div className="nav-section">
                 <Link href="/windows" className="nav-main" data-testid="nav-windows" onClick={() => setIsMenuOpen(false)}>Windows</Link>
                 <div className="nav-submenu">
-                  <Link href="/window-replacement" onClick={() => setIsMenuOpen(false)}>Replacement Windows</Link>
-                  <Link href="/new-construction-windows" onClick={() => setIsMenuOpen(false)}>New Construction</Link>
-                  <Link href="/energy-efficient-windows" onClick={() => setIsMenuOpen(false)}>Energy Efficient</Link>
-                  <Link href="/window-types" onClick={() => setIsMenuOpen(false)}>Window Types</Link>
+                  <Link href="/windows/double-hung" onClick={() => setIsMenuOpen(false)}>Double Hung Windows</Link>
+                  <Link href="/windows/bay-bow-picture-windows" onClick={() => setIsMenuOpen(false)}>Bay, Bow and Picture Windows</Link>
+                  <Link href="/windows/slider-windows" onClick={() => setIsMenuOpen(false)}>Slider Windows</Link>
+                  <Link href="/windows/vinyl-awning-windows" onClick={() => setIsMenuOpen(false)}>Awning Windows</Link>
+                  <Link href="/windows/hopper-casement" onClick={() => setIsMenuOpen(false)}>Hopper Windows</Link>
                 </div>
               </div>
               
               <div className="nav-section">
                 <Link href="/siding" className="nav-main" data-testid="nav-siding" onClick={() => setIsMenuOpen(false)}>Siding</Link>
                 <div className="nav-submenu">
-                  <Link href="/vinyl-siding" onClick={() => setIsMenuOpen(false)}>Vinyl Siding</Link>
-                  <Link href="/fiber-cement-siding" onClick={() => setIsMenuOpen(false)}>Fiber Cement</Link>
-                  <Link href="/siding-installation" onClick={() => setIsMenuOpen(false)}>Siding Installation</Link>
-                  <Link href="/siding-repair" onClick={() => setIsMenuOpen(false)}>Siding Repair</Link>
+                  <Link href="/siding/engineered-wood-siding" onClick={() => setIsMenuOpen(false)}>Engineered Wood Siding</Link>
+                  <Link href="/siding/reinforced-vinyl-siding" onClick={() => setIsMenuOpen(false)}>Reinforced Vinyl Siding</Link>
+                  <Link href="/siding/monogram-46-vinyl-clapboard-siding" onClick={() => setIsMenuOpen(false)}>Traditional Vinyl Siding</Link>
+                  <Link href="/siding/shake-shingle-vinyl-siding" onClick={() => setIsMenuOpen(false)}>Cedar Shake Vinyl Siding</Link>
+                  <Link href="/siding/board-batten-vinyl-siding" onClick={() => setIsMenuOpen(false)}>Board & Batten Vertical Vinyl Siding</Link>
+                  <Link href="/siding/exteria-stacked-stone-vinyl-siding" onClick={() => setIsMenuOpen(false)}>Stacked Stone</Link>
                 </div>
               </div>
               
               <div className="nav-section">
-                <Link href="/bathroom" className="nav-main" data-testid="nav-bath" onClick={() => setIsMenuOpen(false)}>Bathrooms</Link>
+                <Link href="/bathrooms" className="nav-main" data-testid="nav-bath" onClick={() => setIsMenuOpen(false)}>Baths</Link>
                 <div className="nav-submenu">
-                  <Link href="/bathroom-remodeling" onClick={() => setIsMenuOpen(false)}>Full Remodel</Link>
-                  <Link href="/walk-in-showers" onClick={() => setIsMenuOpen(false)}>Walk-in Showers</Link>
-                  <Link href="/tub-to-shower" onClick={() => setIsMenuOpen(false)}>Tub to Shower</Link>
-                  <Link href="/bathroom-repair" onClick={() => setIsMenuOpen(false)}>Bathroom Repair</Link>
+                  <Link href="/bathrooms/tub-shower-conversion" onClick={() => setIsMenuOpen(false)}>Tub To Shower Conversion</Link>
+                  <Link href="/bathrooms/safety-tubs" onClick={() => setIsMenuOpen(false)}>Safety Tubs</Link>
+                  <Link href="/bathrooms/premium-shower-doors" onClick={() => setIsMenuOpen(false)}>Shower Doors</Link>
+                  <Link href="/bathrooms/toilets" onClick={() => setIsMenuOpen(false)}>Toilets</Link>
+                  <Link href="/bathrooms/bathroom-accessories" onClick={() => setIsMenuOpen(false)}>Accessories</Link>
+                  <Link href="/bathrooms/bathroom-color-texture-wall-options" onClick={() => setIsMenuOpen(false)}>Color & Texture Options</Link>
                 </div>
               </div>
               
               <div className="nav-section">
                 <Link href="/doors" className="nav-main" data-testid="nav-doors" onClick={() => setIsMenuOpen(false)}>Doors</Link>
                 <div className="nav-submenu">
-                  <Link href="/entry-doors" onClick={() => setIsMenuOpen(false)}>Entry Doors</Link>
-                  <Link href="/patio-doors" onClick={() => setIsMenuOpen(false)}>Patio Doors</Link>
-                  <Link href="/storm-doors" onClick={() => setIsMenuOpen(false)}>Storm Doors</Link>
-                  <Link href="/french-doors" onClick={() => setIsMenuOpen(false)}>French Doors</Link>
+                  <Link href="/doors/entry-doors" onClick={() => setIsMenuOpen(false)}>Entry Doors</Link>
+                  <Link href="/doors/storm-doors" onClick={() => setIsMenuOpen(false)}>Storm Doors</Link>
+                  <Link href="/doors/patio-doors" onClick={() => setIsMenuOpen(false)}>Patio Doors</Link>
                 </div>
               </div>
               
               <div className="nav-section">
-                <Link href="/about" className="nav-main" onClick={() => setIsMenuOpen(false)}>About</Link>
-                <Link href="/gallery" className="nav-main" onClick={() => setIsMenuOpen(false)}>Gallery</Link>
-                <Link href="/testimonials" className="nav-main" onClick={() => setIsMenuOpen(false)}>Reviews</Link>
-                <Link href="/contact" className="nav-main" onClick={() => setIsMenuOpen(false)}>Contact</Link>
+                <Link href="/quote" className="nav-main" onClick={() => setIsMenuOpen(false)}>Free Quote</Link>
+                <Link href="/financing" className="nav-main" onClick={() => setIsMenuOpen(false)}>Financing</Link>
+                <Link href="/review-new-york-sash" className="nav-main" onClick={() => setIsMenuOpen(false)}>Reviews</Link>
                 <Link href="/chat" className="nav-main" data-testid="nav-chat" onClick={() => setIsMenuOpen(false)}>Chat with AI</Link>
               </div>
             </nav>
