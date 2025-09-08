@@ -235,6 +235,14 @@ export function WordPressPageTemplate({ slug: propSlug }: WordPressPageTemplateP
   const params = useParams();
   const slug = propSlug || params.slug || '';
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [openDropdowns, setOpenDropdowns] = useState<{[key: string]: boolean}>({});
+  
+  const toggleDropdown = (section: string) => {
+    setOpenDropdowns(prev => ({
+      ...prev,
+      [section]: !prev[section]
+    }));
+  };
 
   const {
     data: page,
@@ -403,14 +411,103 @@ export function WordPressPageTemplate({ slug: propSlug }: WordPressPageTemplateP
             {/* Sidebar */}
             <div className="col-lg-3 col-md-4">
               <div className="wp-page-sidebar">
-                <h4>Related Services</h4>
-                <ul className="sidebar-nav">
-                  {getRelatedServices(slug).map((service, index) => (
-                    <li key={index}>
-                      <Link href={service.href}>{service.title}</Link>
-                    </li>
-                  ))}
-                </ul>
+                <h4>Our Services</h4>
+                <div className="sidebar-dropdown-nav">
+                  
+                  {/* About Us */}
+                  <div className="sidebar-section">
+                    <button 
+                      className={`sidebar-dropdown-toggle ${openDropdowns.about ? 'active' : ''}`}
+                      onClick={() => toggleDropdown('about')}
+                      data-testid="dropdown-about"
+                    >
+                      <span>About Us</span>
+                      <i className={`bi ${openDropdowns.about ? 'bi-chevron-up' : 'bi-chevron-down'}`}></i>
+                    </button>
+                    <div className={`sidebar-dropdown-content ${openDropdowns.about ? 'open' : ''}`}>
+                      <Link href="/showroom" data-testid="link-showroom">Showroom</Link>
+                      <Link href="/staff" data-testid="link-staff">Meet Our Team</Link>
+                      <Link href="/jobs" data-testid="link-jobs">Job Openings</Link>
+                    </div>
+                  </div>
+                  
+                  {/* Windows */}
+                  <div className="sidebar-section">
+                    <button 
+                      className={`sidebar-dropdown-toggle ${openDropdowns.windows ? 'active' : ''}`}
+                      onClick={() => toggleDropdown('windows')}
+                      data-testid="dropdown-windows"
+                    >
+                      <span>Windows</span>
+                      <i className={`bi ${openDropdowns.windows ? 'bi-chevron-up' : 'bi-chevron-down'}`}></i>
+                    </button>
+                    <div className={`sidebar-dropdown-content ${openDropdowns.windows ? 'open' : ''}`}>
+                      <Link href="/windows/double-hung" data-testid="link-double-hung">Double Hung Windows</Link>
+                      <Link href="/windows/bay-bow-picture-windows" data-testid="link-bay-bow">Bay, Bow and Picture Windows</Link>
+                      <Link href="/windows/slider-windows" data-testid="link-slider">Slider Windows</Link>
+                      <Link href="/windows/vinyl-awning-windows" data-testid="link-awning">Awning Windows</Link>
+                      <Link href="/windows/hopper-casement" data-testid="link-hopper">Hopper Windows</Link>
+                    </div>
+                  </div>
+                  
+                  {/* Siding */}
+                  <div className="sidebar-section">
+                    <button 
+                      className={`sidebar-dropdown-toggle ${openDropdowns.siding ? 'active' : ''}`}
+                      onClick={() => toggleDropdown('siding')}
+                      data-testid="dropdown-siding"
+                    >
+                      <span>Siding</span>
+                      <i className={`bi ${openDropdowns.siding ? 'bi-chevron-up' : 'bi-chevron-down'}`}></i>
+                    </button>
+                    <div className={`sidebar-dropdown-content ${openDropdowns.siding ? 'open' : ''}`}>
+                      <Link href="/siding/engineered-wood-siding" data-testid="link-engineered-wood">Engineered Wood Siding</Link>
+                      <Link href="/siding/reinforced-vinyl-siding" data-testid="link-reinforced-vinyl">Reinforced Vinyl Siding</Link>
+                      <Link href="/siding/monogram-46-vinyl-clapboard-siding" data-testid="link-traditional-vinyl">Traditional Vinyl Siding</Link>
+                      <Link href="/siding/shake-shingle-vinyl-siding" data-testid="link-cedar-shake">Cedar Shake Vinyl Siding</Link>
+                      <Link href="/siding/board-batten-vinyl-siding" data-testid="link-board-batten">Board & Batten Vertical Vinyl Siding</Link>
+                      <Link href="/siding/exteria-stacked-stone-vinyl-siding" data-testid="link-stacked-stone">Stacked Stone</Link>
+                    </div>
+                  </div>
+                  
+                  {/* Baths */}
+                  <div className="sidebar-section">
+                    <button 
+                      className={`sidebar-dropdown-toggle ${openDropdowns.baths ? 'active' : ''}`}
+                      onClick={() => toggleDropdown('baths')}
+                      data-testid="dropdown-baths"
+                    >
+                      <span>Baths</span>
+                      <i className={`bi ${openDropdowns.baths ? 'bi-chevron-up' : 'bi-chevron-down'}`}></i>
+                    </button>
+                    <div className={`sidebar-dropdown-content ${openDropdowns.baths ? 'open' : ''}`}>
+                      <Link href="/bathrooms/tub-shower-conversion" data-testid="link-tub-shower">Tub To Shower Conversion</Link>
+                      <Link href="/bathrooms/safety-tubs" data-testid="link-safety-tubs">Safety Tubs</Link>
+                      <Link href="/bathrooms/premium-shower-doors" data-testid="link-shower-doors">Shower Doors</Link>
+                      <Link href="/bathrooms/toilets" data-testid="link-toilets">Toilets</Link>
+                      <Link href="/bathrooms/bathroom-accessories" data-testid="link-accessories">Accessories</Link>
+                      <Link href="/bathrooms/bathroom-color-texture-wall-options" data-testid="link-color-texture">Color & Texture Options</Link>
+                    </div>
+                  </div>
+                  
+                  {/* Doors */}
+                  <div className="sidebar-section">
+                    <button 
+                      className={`sidebar-dropdown-toggle ${openDropdowns.doors ? 'active' : ''}`}
+                      onClick={() => toggleDropdown('doors')}
+                      data-testid="dropdown-doors"
+                    >
+                      <span>Doors</span>
+                      <i className={`bi ${openDropdowns.doors ? 'bi-chevron-up' : 'bi-chevron-down'}`}></i>
+                    </button>
+                    <div className={`sidebar-dropdown-content ${openDropdowns.doors ? 'open' : ''}`}>
+                      <Link href="/doors/entry-doors" data-testid="link-entry-doors">Entry Doors</Link>
+                      <Link href="/doors/storm-doors" data-testid="link-storm-doors">Storm Doors</Link>
+                      <Link href="/doors/patio-doors" data-testid="link-patio-doors">Patio Doors</Link>
+                    </div>
+                  </div>
+                  
+                </div>
                 
                 <div className="sidebar-cta">
                   <h5>Need Help?</h5>
