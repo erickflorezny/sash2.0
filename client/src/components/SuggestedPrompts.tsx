@@ -197,28 +197,34 @@ export default function SuggestedPrompts({
     <section className="mb-5">
       <div className="row justify-content-center">
         <div className="col-lg-11">
-          {/* Dashboard Header */}
-          <div className="featured-dashboard-header mb-4">
-            <div className="row align-items-center">
-              <div className="col-md-8">
-                <h3 className="fw-bold mb-1">{content.title}</h3>
-                <p className="text-muted mb-0">{content.summary}</p>
-              </div>
-              <div className="col-md-4 text-md-end">
-                <div className="conversation-tracker">
-                  <small className="text-muted d-block">Conversation Status</small>
-                  {messageCount === 0 ? (
-                    <button 
-                      className="btn btn-primary btn-sm"
-                      onClick={() => onPromptClick("Explore our home improvement services")}
-                      data-testid="button-explore-services"
-                    >
-                      {getConversationSummary()}
-                    </button>
-                  ) : (
-                    <span className="badge bg-primary">{getConversationSummary()}</span>
-                  )}
+          {/* Modern Dashboard Header */}
+          <div className="modern-dashboard-header mb-4">
+            <div className="dashboard-content">
+              <div className="dashboard-main">
+                <div className="dashboard-icon">
+                  <i className="bi bi-house-gear"></i>
                 </div>
+                <div className="dashboard-text">
+                  <h2 className="dashboard-title">{content.title}</h2>
+                  <p className="dashboard-subtitle">{content.summary}</p>
+                </div>
+              </div>
+              <div className="dashboard-action">
+                <div className="status-label">Ready to Start</div>
+                {messageCount === 0 ? (
+                  <button 
+                    className="dashboard-cta-button"
+                    onClick={() => onPromptClick("Explore our home improvement services")}
+                    data-testid="button-explore-services"
+                  >
+                    <span className="dashboard-button-text">Get Started Now</span>
+                    <div className="dashboard-button-icon">
+                      <i className="bi bi-arrow-right"></i>
+                    </div>
+                  </button>
+                ) : (
+                  <div className="conversation-status">{getConversationSummary()}</div>
+                )}
               </div>
             </div>
           </div>
