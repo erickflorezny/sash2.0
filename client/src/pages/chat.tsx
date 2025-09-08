@@ -1,5 +1,5 @@
 import { useLocation, Link } from 'wouter';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import ChatInterface from '@/components/ChatInterface';
 import SuggestedPrompts from '@/components/SuggestedPrompts';
@@ -8,6 +8,7 @@ import logoImage from '@assets/new-york-sash_1756146470803.png';
 export default function Chat() {
   const [, setLocation] = useLocation();
   const pageRef = useRef<HTMLDivElement>(null);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
     // Animate page in from bottom with GSAP
@@ -46,6 +47,81 @@ export default function Chat() {
 
   return (
     <div ref={pageRef} className="chat-page">
+      {/* Hamburger Menu Button */}
+      <button 
+        className="hamburger-btn"
+        onClick={() => setIsMenuOpen(true)}
+        data-testid="hamburger-menu"
+        aria-label="Open menu"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      {/* Full Page Navigation Overlay */}
+      {isMenuOpen && (
+        <div className="nav-overlay">
+          <button 
+            className="close-btn"
+            onClick={() => setIsMenuOpen(false)}
+            data-testid="close-menu"
+            aria-label="Close menu"
+          >
+            ×
+          </button>
+          <nav className="nav-links">
+            <div className="nav-section">
+              <Link href="/windows" className="nav-main" data-testid="nav-windows" onClick={() => setIsMenuOpen(false)}>Windows</Link>
+              <div className="nav-submenu">
+                <Link href="/window-replacement" onClick={() => setIsMenuOpen(false)}>Replacement Windows</Link>
+                <Link href="/new-construction-windows" onClick={() => setIsMenuOpen(false)}>New Construction</Link>
+                <Link href="/energy-efficient-windows" onClick={() => setIsMenuOpen(false)}>Energy Efficient</Link>
+                <Link href="/window-types" onClick={() => setIsMenuOpen(false)}>Window Types</Link>
+              </div>
+            </div>
+            
+            <div className="nav-section">
+              <Link href="/siding" className="nav-main" data-testid="nav-siding" onClick={() => setIsMenuOpen(false)}>Siding</Link>
+              <div className="nav-submenu">
+                <Link href="/vinyl-siding" onClick={() => setIsMenuOpen(false)}>Vinyl Siding</Link>
+                <Link href="/fiber-cement-siding" onClick={() => setIsMenuOpen(false)}>Fiber Cement</Link>
+                <Link href="/siding-installation" onClick={() => setIsMenuOpen(false)}>Siding Installation</Link>
+                <Link href="/siding-repair" onClick={() => setIsMenuOpen(false)}>Siding Repair</Link>
+              </div>
+            </div>
+            
+            <div className="nav-section">
+              <Link href="/bathroom" className="nav-main" data-testid="nav-bath" onClick={() => setIsMenuOpen(false)}>Bathrooms</Link>
+              <div className="nav-submenu">
+                <Link href="/bathroom-remodeling" onClick={() => setIsMenuOpen(false)}>Full Remodel</Link>
+                <Link href="/walk-in-showers" onClick={() => setIsMenuOpen(false)}>Walk-in Showers</Link>
+                <Link href="/tub-to-shower" onClick={() => setIsMenuOpen(false)}>Tub to Shower</Link>
+                <Link href="/bathroom-repair" onClick={() => setIsMenuOpen(false)}>Bathroom Repair</Link>
+              </div>
+            </div>
+            
+            <div className="nav-section">
+              <Link href="/doors" className="nav-main" data-testid="nav-doors" onClick={() => setIsMenuOpen(false)}>Doors</Link>
+              <div className="nav-submenu">
+                <Link href="/entry-doors" onClick={() => setIsMenuOpen(false)}>Entry Doors</Link>
+                <Link href="/patio-doors" onClick={() => setIsMenuOpen(false)}>Patio Doors</Link>
+                <Link href="/storm-doors" onClick={() => setIsMenuOpen(false)}>Storm Doors</Link>
+                <Link href="/french-doors" onClick={() => setIsMenuOpen(false)}>French Doors</Link>
+              </div>
+            </div>
+            
+            <div className="nav-section">
+              <Link href="/about" className="nav-main" onClick={() => setIsMenuOpen(false)}>About</Link>
+              <Link href="/gallery" className="nav-main" onClick={() => setIsMenuOpen(false)}>Gallery</Link>
+              <Link href="/testimonials" className="nav-main" onClick={() => setIsMenuOpen(false)}>Reviews</Link>
+              <Link href="/contact" className="nav-main" onClick={() => setIsMenuOpen(false)}>Contact</Link>
+              <Link href="/chat" className="nav-main" data-testid="nav-chat" onClick={() => setIsMenuOpen(false)}>Chat with AI</Link>
+            </div>
+          </nav>
+        </div>
+      )}
+
       <ChatInterface 
         initialPrompt={initialPrompt} 
         onClose={handleCloseChat}
@@ -77,16 +153,43 @@ export default function Chat() {
             {/* Services */}
             <div className="footer-section">
               <h4>Our Services</h4>
-              <ul className="footer-links">
-                <li><Link href="/windows">Window Installation</Link></li>
-                <li><Link href="/window-replacement">Window Replacement</Link></li>
-                <li><Link href="/bathroom">Bathroom Remodeling</Link></li>
-                <li><Link href="/siding">Siding Installation</Link></li>
-                <li><Link href="/doors">Entry Doors</Link></li>
-                <li><Link href="/patio-doors">Patio Doors</Link></li>
-                <li><Link href="/storm-doors">Storm Doors</Link></li>
-                <li><Link href="/consultation">Free Consultation</Link></li>
-              </ul>
+              <div className="service-groups">
+                <div className="service-group">
+                  <h5><Link href="/windows">Windows</Link></h5>
+                  <ul className="footer-sub-links">
+                    <li><Link href="/window-replacement">Replacement</Link></li>
+                    <li><Link href="/new-construction-windows">New Construction</Link></li>
+                    <li><Link href="/energy-efficient-windows">Energy Efficient</Link></li>
+                  </ul>
+                </div>
+                
+                <div className="service-group">
+                  <h5><Link href="/siding">Siding</Link></h5>
+                  <ul className="footer-sub-links">
+                    <li><Link href="/vinyl-siding">Vinyl Siding</Link></li>
+                    <li><Link href="/fiber-cement-siding">Fiber Cement</Link></li>
+                    <li><Link href="/siding-installation">Installation</Link></li>
+                  </ul>
+                </div>
+                
+                <div className="service-group">
+                  <h5><Link href="/bathroom">Bathrooms</Link></h5>
+                  <ul className="footer-sub-links">
+                    <li><Link href="/bathroom-remodeling">Full Remodel</Link></li>
+                    <li><Link href="/walk-in-showers">Walk-in Showers</Link></li>
+                    <li><Link href="/tub-to-shower">Tub to Shower</Link></li>
+                  </ul>
+                </div>
+                
+                <div className="service-group">
+                  <h5><Link href="/doors">Doors</Link></h5>
+                  <ul className="footer-sub-links">
+                    <li><Link href="/entry-doors">Entry Doors</Link></li>
+                    <li><Link href="/patio-doors">Patio Doors</Link></li>
+                    <li><Link href="/storm-doors">Storm Doors</Link></li>
+                  </ul>
+                </div>
+              </div>
             </div>
 
             {/* Service Areas */}
