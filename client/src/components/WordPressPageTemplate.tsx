@@ -1,8 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
-import { useParams } from 'wouter';
+import { useParams, Link } from 'wouter';
 import { fetchPageBySlug } from '@/lib/wordpressClient';
 import type { WordPressPage } from '@shared/schema';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import logoImage from '@assets/new-york-sash_1756146470803.png';
 
 // Dummy content for development/fallback
 interface DummyContent {
@@ -146,6 +147,7 @@ interface WordPressPageTemplateProps {
 export function WordPressPageTemplate({ slug: propSlug }: WordPressPageTemplateProps) {
   const params = useParams();
   const slug = propSlug || params.slug || '';
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const {
     data: page,
@@ -212,6 +214,50 @@ export function WordPressPageTemplate({ slug: propSlug }: WordPressPageTemplateP
     
     return (
       <div className="wp-page-container">
+        {/* Top Bar */}
+        <div className="wp-top-bar">
+          <div className="container-fluid">
+            <div className="top-bar-content">
+              <Link href="/" className="top-bar-logo">
+                <img src={logoImage} alt="New York Sash" />
+                <span>New York Sash</span>
+              </Link>
+              
+              <button 
+                className="top-bar-menu-btn"
+                onClick={() => setIsMenuOpen(true)}
+                data-testid="top-bar-menu"
+                aria-label="Open menu"
+              >
+                <span></span>
+                <span></span>
+                <span></span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Full Page Navigation Overlay */}
+        {isMenuOpen && (
+          <div className="nav-overlay">
+            <button 
+              className="close-btn"
+              onClick={() => setIsMenuOpen(false)}
+              data-testid="close-menu"
+              aria-label="Close menu"
+            >
+              ×
+            </button>
+            <nav className="nav-links">
+              <Link href="/windows" data-testid="nav-windows" onClick={() => setIsMenuOpen(false)}>Windows</Link>
+              <Link href="/siding" data-testid="nav-siding" onClick={() => setIsMenuOpen(false)}>Siding</Link>
+              <Link href="/bathroom" data-testid="nav-bath" onClick={() => setIsMenuOpen(false)}>Bath</Link>
+              <Link href="/doors" data-testid="nav-doors" onClick={() => setIsMenuOpen(false)}>Doors</Link>
+              <Link href="/chat" data-testid="nav-chat" onClick={() => setIsMenuOpen(false)}>Chat with AI</Link>
+            </nav>
+          </div>
+        )}
+
         <div className="container-fluid">
           <div className="row">
             {/* Sidebar */}
