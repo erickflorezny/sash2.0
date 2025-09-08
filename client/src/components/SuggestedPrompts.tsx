@@ -242,25 +242,30 @@ export default function SuggestedPrompts({
             {content.upsells.map((upsell, index) => (
               <div key={index} className="col-md-4">
                 <div 
-                  className="card upsell-card h-100" 
+                  className="modern-cta-card" 
                   onClick={() => onPromptClick(upsell.action)}
                   data-testid={`upsell-${conversationTopic}-${index}`}
                 >
-                  <div className="card-body d-flex flex-column">
-                    <div className="upsell-header mb-3">
-                      <div className="upsell-icon">
-                        <i className={`bi ${upsell.icon}`}></i>
+                  <div className="cta-card-inner">
+                    <div className="cta-icon-wrapper">
+                      <div className="cta-icon-bg">
+                        <i className={`bi ${upsell.icon} cta-icon`}></i>
                       </div>
-                      <h5 className="card-title fw-bold mb-1">{upsell.title}</h5>
                     </div>
-                    <p className="card-text text-muted flex-grow-1 small">
-                      {upsell.description}
-                    </p>
-                    <div className="upsell-cta mt-auto">
-                      <span className="btn btn-outline-danger btn-sm w-100">
-                        {upsell.cta} <i className="bi bi-arrow-right"></i>
-                      </span>
+                    
+                    <div className="cta-content">
+                      <h3 className="cta-title">{upsell.title}</h3>
+                      <p className="cta-description">{upsell.description}</p>
+                      
+                      <button className="cta-button">
+                        <span className="cta-button-text">{upsell.cta}</span>
+                        <div className="cta-button-icon">
+                          <i className="bi bi-arrow-right"></i>
+                        </div>
+                      </button>
                     </div>
+                    
+                    <div className="cta-decoration"></div>
                   </div>
                 </div>
               </div>
