@@ -3025,9 +3025,15 @@
 
 .top-bar-content {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   padding: 0.5rem 0;
+  position: relative;
+}
+
+.top-bar-menu-btn {
+  position: absolute;
+  right: 0;
 }
 
 .top-bar-logo {
@@ -3060,7 +3066,6 @@
   border: none;
   cursor: pointer;
   padding: 0;
-  position: relative;
 }
 
 .top-bar-menu-btn span {
