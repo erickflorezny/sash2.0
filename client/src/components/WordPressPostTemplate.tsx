@@ -73,17 +73,120 @@ export function WordPressPostTemplate({ slug: propSlug }: WordPressPostTemplateP
   }
 
   if (error || !post) {
+    // Show dummy blog content while WordPress is not connected
     return (
-      <div className="error-container">
+      <div className="wp-post-container">
         <div className="container-fluid">
-          <div className="row justify-content-center">
-            <div className="col-12 col-lg-8">
-              <div className="wp-post-error">
-                <h1>Post Not Found</h1>
-                <p>The post you're looking for doesn't exist or couldn't be loaded.</p>
-                <a href="/" className="btn btn-primary">
-                  Return Home
-                </a>
+          <div className="row">
+            {/* Sidebar */}
+            <div className="col-lg-3 col-md-4">
+              <div className="wp-page-sidebar">
+                <h4>Recent Posts</h4>
+                <ul className="sidebar-nav">
+                  <li><a href="/blog/energy-efficient-windows">Energy Efficient Windows Guide</a></li>
+                  <li><a href="/blog/bathroom-renovation-tips">Bathroom Renovation Tips</a></li>
+                  <li><a href="/blog/siding-maintenance">Siding Maintenance Guide</a></li>
+                  <li><a href="/blog/door-security">Door Security Features</a></li>
+                </ul>
+                
+                <div className="sidebar-cta">
+                  <h5>Get Updates</h5>
+                  <p>Subscribe to our newsletter for home improvement tips!</p>
+                  <a href="/newsletter" className="btn btn-outline-primary btn-sm">
+                    Subscribe Now
+                  </a>
+                </div>
+              </div>
+            </div>
+            
+            {/* Main Content */}
+            <div className="col-lg-9 col-md-8">
+              <div className="wp-post-content">
+                {/* Featured Image */}
+                <div className="wp-post-featured-image">
+                  <img 
+                    src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&h=400&fit=crop"
+                    alt="Home improvement blog post"
+                    className="img-fluid"
+                    data-testid={`img-featured-${slug}`}
+                  />
+                </div>
+
+                {/* Post Header */}
+                <header className="wp-post-header">
+                  <h1 className="wp-post-title" data-testid={`title-${slug}`}>
+                    {slug.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())} Guide
+                  </h1>
+                  
+                  <div className="wp-post-meta" data-testid={`meta-${slug}`}>
+                    <div className="meta-author">
+                      By <span className="author-name">New York Sash Team</span>
+                    </div>
+                    <div className="meta-date">
+                      Published: {new Date().toLocaleDateString()}
+                    </div>
+                    <div className="meta-categories">
+                      Categories: Home Improvement, Tips
+                    </div>
+                  </div>
+
+                  <div className="wp-post-excerpt" data-testid={`excerpt-${slug}`}>
+                    Expert advice and insights for your home improvement projects.
+                  </div>
+                </header>
+
+                {/* Post Content */}
+                <div className="wp-post-body" data-testid={`content-${slug}`}>
+                  <h2>Professional Home Improvement Insights</h2>
+                  <p>Welcome to our home improvement blog! Here you'll find expert tips, guides, and insights to help you make informed decisions about your home renovation projects.</p>
+                  
+                  <h3>Why Choose Professional Installation?</h3>
+                  <p>Professional installation ensures your home improvement projects are completed safely, efficiently, and to the highest standards. Our experienced team brings years of expertise to every project.</p>
+                  
+                  <div className="content-images">
+                    <img 
+                      src="https://images.unsplash.com/photo-1484154218962-a197022b5858?w=400&h=300&fit=crop"
+                      alt="Professional installation work"
+                      className="img-fluid content-image"
+                    />
+                    <img 
+                      src="https://images.unsplash.com/photo-1562259949-e8e7689d7828?w=400&h=300&fit=crop"
+                      alt="Quality craftsmanship"
+                      className="img-fluid content-image"
+                    />
+                  </div>
+                  
+                  <h3>Get Started Today</h3>
+                  <p>Ready to transform your home? Contact our team for a free consultation and learn how we can help bring your vision to life.</p>
+                </div>
+
+                {/* Post Footer */}
+                <footer className="wp-post-footer">
+                  <div className="post-tags" data-testid={`tags-${slug}`}>
+                    <span className="tags-label">Tags:</span>
+                    <span className="tag-item">Home Improvement, Professional Installation, Quality</span>
+                  </div>
+
+                  <div className="post-updated">
+                    Last updated: {new Date().toLocaleDateString()}
+                  </div>
+                </footer>
+
+                {/* Call to Action */}
+                <div className="wp-page-cta">
+                  <div className="cta-content">
+                    <h3>Ready for Your Next Project?</h3>
+                    <p>Let our experts help you transform your home with professional installation and quality craftsmanship.</p>
+                    <div className="cta-buttons">
+                      <a href="tel:+15184442321" className="btn btn-primary">
+                        Call Now: (518) 444-2321
+                      </a>
+                      <a href="/consultation" className="btn btn-outline-primary">
+                        Free Consultation
+                      </a>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
