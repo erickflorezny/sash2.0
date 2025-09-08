@@ -155,6 +155,10 @@ export interface WordPressPagesResponse {
 export interface WordPressPostsResponse {
   posts: {
     nodes: WordPressPost[];
+    pageInfo?: {
+      hasNextPage: boolean;
+      endCursor: string | null;
+    };
   };
 }
 
