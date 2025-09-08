@@ -84,7 +84,6 @@ export function WordPressPostTemplate({ slug: propSlug }: WordPressPostTemplateP
             <div className="top-bar-content">
               <Link href="/" className="top-bar-logo">
                 <img src={logoImage} alt="New York Sash" />
-                <span>New York Sash</span>
               </Link>
               
               <button 
