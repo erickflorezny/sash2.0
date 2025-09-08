@@ -1,4 +1,4 @@
-import { useLocation } from 'wouter';
+import { useLocation, Link } from 'wouter';
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import ChatInterface from '@/components/ChatInterface';
@@ -78,14 +78,14 @@ export default function Chat() {
             <div className="footer-section">
               <h4>Our Services</h4>
               <ul className="footer-links">
-                <li><a href="#windows">Window Installation</a></li>
-                <li><a href="#replacement">Window Replacement</a></li>
-                <li><a href="#bathroom">Bathroom Remodeling</a></li>
-                <li><a href="#siding">Siding Installation</a></li>
-                <li><a href="#doors">Entry Doors</a></li>
-                <li><a href="#patio">Patio Doors</a></li>
-                <li><a href="#storm">Storm Doors</a></li>
-                <li><a href="#consultation">Free Consultation</a></li>
+                <li><Link href="/windows">Window Installation</Link></li>
+                <li><Link href="/window-replacement">Window Replacement</Link></li>
+                <li><Link href="/bathroom">Bathroom Remodeling</Link></li>
+                <li><Link href="/siding">Siding Installation</Link></li>
+                <li><Link href="/doors">Entry Doors</Link></li>
+                <li><Link href="/patio-doors">Patio Doors</Link></li>
+                <li><Link href="/storm-doors">Storm Doors</Link></li>
+                <li><Link href="/consultation">Free Consultation</Link></li>
               </ul>
             </div>
 

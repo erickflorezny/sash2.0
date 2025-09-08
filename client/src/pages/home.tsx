@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { useLocation } from 'wouter';
+import { useLocation, Link } from 'wouter';
 import { gsap } from 'gsap';
 import CyclingHeadings from '@/components/CyclingHeadings';
 import SuggestedPrompts from '@/components/SuggestedPrompts';
@@ -57,10 +57,10 @@ export default function Home() {
             ×
           </button>
           <nav className="nav-links">
-            <a href="#windows" data-testid="nav-windows" onClick={() => setIsMenuOpen(false)}>Windows</a>
-            <a href="#siding" data-testid="nav-siding" onClick={() => setIsMenuOpen(false)}>Siding</a>
-            <a href="#bath" data-testid="nav-bath" onClick={() => setIsMenuOpen(false)}>Bath</a>
-            <a href="#doors" data-testid="nav-doors" onClick={() => setIsMenuOpen(false)}>Doors</a>
+            <Link href="/windows" data-testid="nav-windows" onClick={() => setIsMenuOpen(false)}>Windows</Link>
+            <Link href="/siding" data-testid="nav-siding" onClick={() => setIsMenuOpen(false)}>Siding</Link>
+            <Link href="/bath" data-testid="nav-bath" onClick={() => setIsMenuOpen(false)}>Bath</Link>
+            <Link href="/doors" data-testid="nav-doors" onClick={() => setIsMenuOpen(false)}>Doors</Link>
           </nav>
         </div>
       )}
@@ -102,14 +102,14 @@ export default function Home() {
             <div className="footer-section">
               <h4>Our Services</h4>
               <ul className="footer-links">
-                <li><a href="#windows">Window Installation</a></li>
-                <li><a href="#replacement">Window Replacement</a></li>
-                <li><a href="#bathroom">Bathroom Remodeling</a></li>
-                <li><a href="#siding">Siding Installation</a></li>
-                <li><a href="#doors">Entry Doors</a></li>
-                <li><a href="#patio">Patio Doors</a></li>
-                <li><a href="#storm">Storm Doors</a></li>
-                <li><a href="#consultation">Free Consultation</a></li>
+                <li><Link href="/windows">Window Installation</Link></li>
+                <li><Link href="/window-replacement">Window Replacement</Link></li>
+                <li><Link href="/bathroom">Bathroom Remodeling</Link></li>
+                <li><Link href="/siding">Siding Installation</Link></li>
+                <li><Link href="/doors">Entry Doors</Link></li>
+                <li><Link href="/patio-doors">Patio Doors</Link></li>
+                <li><Link href="/storm-doors">Storm Doors</Link></li>
+                <li><Link href="/consultation">Free Consultation</Link></li>
               </ul>
             </div>
 
