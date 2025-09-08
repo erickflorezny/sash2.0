@@ -5,6 +5,138 @@ import type { WordPressPage } from '@shared/schema';
 import { useEffect, useState } from 'react';
 import logoImage from '@assets/new-york-sash_1756146470803.png';
 
+const getRelatedServices = (currentSlug: string) => {
+  const services = {
+    windows: [
+      { title: 'Replacement Windows', href: '/window-replacement' },
+      { title: 'New Construction', href: '/new-construction-windows' },
+      { title: 'Energy Efficient', href: '/energy-efficient-windows' },
+      { title: 'Window Types', href: '/window-types' }
+    ],
+    'window-replacement': [
+      { title: 'All Windows', href: '/windows' },
+      { title: 'New Construction', href: '/new-construction-windows' },
+      { title: 'Energy Efficient', href: '/energy-efficient-windows' },
+      { title: 'Window Types', href: '/window-types' }
+    ],
+    'new-construction-windows': [
+      { title: 'All Windows', href: '/windows' },
+      { title: 'Replacement Windows', href: '/window-replacement' },
+      { title: 'Energy Efficient', href: '/energy-efficient-windows' },
+      { title: 'Window Types', href: '/window-types' }
+    ],
+    'energy-efficient-windows': [
+      { title: 'All Windows', href: '/windows' },
+      { title: 'Replacement Windows', href: '/window-replacement' },
+      { title: 'New Construction', href: '/new-construction-windows' },
+      { title: 'Window Types', href: '/window-types' }
+    ],
+    'window-types': [
+      { title: 'All Windows', href: '/windows' },
+      { title: 'Replacement Windows', href: '/window-replacement' },
+      { title: 'New Construction', href: '/new-construction-windows' },
+      { title: 'Energy Efficient', href: '/energy-efficient-windows' }
+    ],
+    siding: [
+      { title: 'Vinyl Siding', href: '/vinyl-siding' },
+      { title: 'Fiber Cement', href: '/fiber-cement-siding' },
+      { title: 'Siding Installation', href: '/siding-installation' },
+      { title: 'Siding Repair', href: '/siding-repair' }
+    ],
+    'vinyl-siding': [
+      { title: 'All Siding', href: '/siding' },
+      { title: 'Fiber Cement', href: '/fiber-cement-siding' },
+      { title: 'Siding Installation', href: '/siding-installation' },
+      { title: 'Siding Repair', href: '/siding-repair' }
+    ],
+    'fiber-cement-siding': [
+      { title: 'All Siding', href: '/siding' },
+      { title: 'Vinyl Siding', href: '/vinyl-siding' },
+      { title: 'Siding Installation', href: '/siding-installation' },
+      { title: 'Siding Repair', href: '/siding-repair' }
+    ],
+    'siding-installation': [
+      { title: 'All Siding', href: '/siding' },
+      { title: 'Vinyl Siding', href: '/vinyl-siding' },
+      { title: 'Fiber Cement', href: '/fiber-cement-siding' },
+      { title: 'Siding Repair', href: '/siding-repair' }
+    ],
+    'siding-repair': [
+      { title: 'All Siding', href: '/siding' },
+      { title: 'Vinyl Siding', href: '/vinyl-siding' },
+      { title: 'Fiber Cement', href: '/fiber-cement-siding' },
+      { title: 'Siding Installation', href: '/siding-installation' }
+    ],
+    bathroom: [
+      { title: 'Full Remodel', href: '/bathroom-remodeling' },
+      { title: 'Walk-in Showers', href: '/walk-in-showers' },
+      { title: 'Tub to Shower', href: '/tub-to-shower' },
+      { title: 'Bathroom Repair', href: '/bathroom-repair' }
+    ],
+    'bathroom-remodeling': [
+      { title: 'All Bathrooms', href: '/bathroom' },
+      { title: 'Walk-in Showers', href: '/walk-in-showers' },
+      { title: 'Tub to Shower', href: '/tub-to-shower' },
+      { title: 'Bathroom Repair', href: '/bathroom-repair' }
+    ],
+    'walk-in-showers': [
+      { title: 'All Bathrooms', href: '/bathroom' },
+      { title: 'Full Remodel', href: '/bathroom-remodeling' },
+      { title: 'Tub to Shower', href: '/tub-to-shower' },
+      { title: 'Bathroom Repair', href: '/bathroom-repair' }
+    ],
+    'tub-to-shower': [
+      { title: 'All Bathrooms', href: '/bathroom' },
+      { title: 'Full Remodel', href: '/bathroom-remodeling' },
+      { title: 'Walk-in Showers', href: '/walk-in-showers' },
+      { title: 'Bathroom Repair', href: '/bathroom-repair' }
+    ],
+    'bathroom-repair': [
+      { title: 'All Bathrooms', href: '/bathroom' },
+      { title: 'Full Remodel', href: '/bathroom-remodeling' },
+      { title: 'Walk-in Showers', href: '/walk-in-showers' },
+      { title: 'Tub to Shower', href: '/tub-to-shower' }
+    ],
+    doors: [
+      { title: 'Entry Doors', href: '/entry-doors' },
+      { title: 'Patio Doors', href: '/patio-doors' },
+      { title: 'Storm Doors', href: '/storm-doors' },
+      { title: 'French Doors', href: '/french-doors' }
+    ],
+    'entry-doors': [
+      { title: 'All Doors', href: '/doors' },
+      { title: 'Patio Doors', href: '/patio-doors' },
+      { title: 'Storm Doors', href: '/storm-doors' },
+      { title: 'French Doors', href: '/french-doors' }
+    ],
+    'patio-doors': [
+      { title: 'All Doors', href: '/doors' },
+      { title: 'Entry Doors', href: '/entry-doors' },
+      { title: 'Storm Doors', href: '/storm-doors' },
+      { title: 'French Doors', href: '/french-doors' }
+    ],
+    'storm-doors': [
+      { title: 'All Doors', href: '/doors' },
+      { title: 'Entry Doors', href: '/entry-doors' },
+      { title: 'Patio Doors', href: '/patio-doors' },
+      { title: 'French Doors', href: '/french-doors' }
+    ],
+    'french-doors': [
+      { title: 'All Doors', href: '/doors' },
+      { title: 'Entry Doors', href: '/entry-doors' },
+      { title: 'Patio Doors', href: '/patio-doors' },
+      { title: 'Storm Doors', href: '/storm-doors' }
+    ]
+  };
+
+  return services[currentSlug as keyof typeof services] || [
+    { title: 'Windows', href: '/windows' },
+    { title: 'Siding', href: '/siding' },
+    { title: 'Bathrooms', href: '/bathroom' },
+    { title: 'Doors', href: '/doors' }
+  ];
+};
+
 // Dummy content for development/fallback
 interface DummyContent {
   title: string;
@@ -248,11 +380,53 @@ export function WordPressPageTemplate({ slug: propSlug }: WordPressPageTemplateP
               ×
             </button>
             <nav className="nav-links">
-              <Link href="/windows" data-testid="nav-windows" onClick={() => setIsMenuOpen(false)}>Windows</Link>
-              <Link href="/siding" data-testid="nav-siding" onClick={() => setIsMenuOpen(false)}>Siding</Link>
-              <Link href="/bathroom" data-testid="nav-bath" onClick={() => setIsMenuOpen(false)}>Bath</Link>
-              <Link href="/doors" data-testid="nav-doors" onClick={() => setIsMenuOpen(false)}>Doors</Link>
-              <Link href="/chat" data-testid="nav-chat" onClick={() => setIsMenuOpen(false)}>Chat with AI</Link>
+              <div className="nav-section">
+                <Link href="/windows" className="nav-main" data-testid="nav-windows" onClick={() => setIsMenuOpen(false)}>Windows</Link>
+                <div className="nav-submenu">
+                  <Link href="/window-replacement" onClick={() => setIsMenuOpen(false)}>Replacement Windows</Link>
+                  <Link href="/new-construction-windows" onClick={() => setIsMenuOpen(false)}>New Construction</Link>
+                  <Link href="/energy-efficient-windows" onClick={() => setIsMenuOpen(false)}>Energy Efficient</Link>
+                  <Link href="/window-types" onClick={() => setIsMenuOpen(false)}>Window Types</Link>
+                </div>
+              </div>
+              
+              <div className="nav-section">
+                <Link href="/siding" className="nav-main" data-testid="nav-siding" onClick={() => setIsMenuOpen(false)}>Siding</Link>
+                <div className="nav-submenu">
+                  <Link href="/vinyl-siding" onClick={() => setIsMenuOpen(false)}>Vinyl Siding</Link>
+                  <Link href="/fiber-cement-siding" onClick={() => setIsMenuOpen(false)}>Fiber Cement</Link>
+                  <Link href="/siding-installation" onClick={() => setIsMenuOpen(false)}>Siding Installation</Link>
+                  <Link href="/siding-repair" onClick={() => setIsMenuOpen(false)}>Siding Repair</Link>
+                </div>
+              </div>
+              
+              <div className="nav-section">
+                <Link href="/bathroom" className="nav-main" data-testid="nav-bath" onClick={() => setIsMenuOpen(false)}>Bathrooms</Link>
+                <div className="nav-submenu">
+                  <Link href="/bathroom-remodeling" onClick={() => setIsMenuOpen(false)}>Full Remodel</Link>
+                  <Link href="/walk-in-showers" onClick={() => setIsMenuOpen(false)}>Walk-in Showers</Link>
+                  <Link href="/tub-to-shower" onClick={() => setIsMenuOpen(false)}>Tub to Shower</Link>
+                  <Link href="/bathroom-repair" onClick={() => setIsMenuOpen(false)}>Bathroom Repair</Link>
+                </div>
+              </div>
+              
+              <div className="nav-section">
+                <Link href="/doors" className="nav-main" data-testid="nav-doors" onClick={() => setIsMenuOpen(false)}>Doors</Link>
+                <div className="nav-submenu">
+                  <Link href="/entry-doors" onClick={() => setIsMenuOpen(false)}>Entry Doors</Link>
+                  <Link href="/patio-doors" onClick={() => setIsMenuOpen(false)}>Patio Doors</Link>
+                  <Link href="/storm-doors" onClick={() => setIsMenuOpen(false)}>Storm Doors</Link>
+                  <Link href="/french-doors" onClick={() => setIsMenuOpen(false)}>French Doors</Link>
+                </div>
+              </div>
+              
+              <div className="nav-section">
+                <Link href="/about" className="nav-main" onClick={() => setIsMenuOpen(false)}>About</Link>
+                <Link href="/gallery" className="nav-main" onClick={() => setIsMenuOpen(false)}>Gallery</Link>
+                <Link href="/testimonials" className="nav-main" onClick={() => setIsMenuOpen(false)}>Reviews</Link>
+                <Link href="/contact" className="nav-main" onClick={() => setIsMenuOpen(false)}>Contact</Link>
+                <Link href="/chat" className="nav-main" data-testid="nav-chat" onClick={() => setIsMenuOpen(false)}>Chat with AI</Link>
+              </div>
             </nav>
           </div>
         )}
@@ -264,10 +438,11 @@ export function WordPressPageTemplate({ slug: propSlug }: WordPressPageTemplateP
               <div className="wp-page-sidebar">
                 <h4>Related Services</h4>
                 <ul className="sidebar-nav">
-                  <li><a href="/windows">Windows</a></li>
-                  <li><a href="/siding">Siding</a></li>
-                  <li><a href="/bathroom">Bathrooms</a></li>
-                  <li><a href="/doors">Doors</a></li>
+                  {getRelatedServices(slug).map((service, index) => (
+                    <li key={index}>
+                      <Link href={service.href}>{service.title}</Link>
+                    </li>
+                  ))}
                 </ul>
                 
                 <div className="sidebar-cta">

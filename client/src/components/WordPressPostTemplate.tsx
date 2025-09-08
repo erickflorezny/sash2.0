@@ -112,11 +112,53 @@ export function WordPressPostTemplate({ slug: propSlug }: WordPressPostTemplateP
               ×
             </button>
             <nav className="nav-links">
-              <Link href="/windows" data-testid="nav-windows" onClick={() => setIsMenuOpen(false)}>Windows</Link>
-              <Link href="/siding" data-testid="nav-siding" onClick={() => setIsMenuOpen(false)}>Siding</Link>
-              <Link href="/bathroom" data-testid="nav-bath" onClick={() => setIsMenuOpen(false)}>Bath</Link>
-              <Link href="/doors" data-testid="nav-doors" onClick={() => setIsMenuOpen(false)}>Doors</Link>
-              <Link href="/chat" data-testid="nav-chat" onClick={() => setIsMenuOpen(false)}>Chat with AI</Link>
+              <div className="nav-section">
+                <Link href="/windows" className="nav-main" data-testid="nav-windows" onClick={() => setIsMenuOpen(false)}>Windows</Link>
+                <div className="nav-submenu">
+                  <Link href="/window-replacement" onClick={() => setIsMenuOpen(false)}>Replacement Windows</Link>
+                  <Link href="/new-construction-windows" onClick={() => setIsMenuOpen(false)}>New Construction</Link>
+                  <Link href="/energy-efficient-windows" onClick={() => setIsMenuOpen(false)}>Energy Efficient</Link>
+                  <Link href="/window-types" onClick={() => setIsMenuOpen(false)}>Window Types</Link>
+                </div>
+              </div>
+              
+              <div className="nav-section">
+                <Link href="/siding" className="nav-main" data-testid="nav-siding" onClick={() => setIsMenuOpen(false)}>Siding</Link>
+                <div className="nav-submenu">
+                  <Link href="/vinyl-siding" onClick={() => setIsMenuOpen(false)}>Vinyl Siding</Link>
+                  <Link href="/fiber-cement-siding" onClick={() => setIsMenuOpen(false)}>Fiber Cement</Link>
+                  <Link href="/siding-installation" onClick={() => setIsMenuOpen(false)}>Siding Installation</Link>
+                  <Link href="/siding-repair" onClick={() => setIsMenuOpen(false)}>Siding Repair</Link>
+                </div>
+              </div>
+              
+              <div className="nav-section">
+                <Link href="/bathroom" className="nav-main" data-testid="nav-bath" onClick={() => setIsMenuOpen(false)}>Bathrooms</Link>
+                <div className="nav-submenu">
+                  <Link href="/bathroom-remodeling" onClick={() => setIsMenuOpen(false)}>Full Remodel</Link>
+                  <Link href="/walk-in-showers" onClick={() => setIsMenuOpen(false)}>Walk-in Showers</Link>
+                  <Link href="/tub-to-shower" onClick={() => setIsMenuOpen(false)}>Tub to Shower</Link>
+                  <Link href="/bathroom-repair" onClick={() => setIsMenuOpen(false)}>Bathroom Repair</Link>
+                </div>
+              </div>
+              
+              <div className="nav-section">
+                <Link href="/doors" className="nav-main" data-testid="nav-doors" onClick={() => setIsMenuOpen(false)}>Doors</Link>
+                <div className="nav-submenu">
+                  <Link href="/entry-doors" onClick={() => setIsMenuOpen(false)}>Entry Doors</Link>
+                  <Link href="/patio-doors" onClick={() => setIsMenuOpen(false)}>Patio Doors</Link>
+                  <Link href="/storm-doors" onClick={() => setIsMenuOpen(false)}>Storm Doors</Link>
+                  <Link href="/french-doors" onClick={() => setIsMenuOpen(false)}>French Doors</Link>
+                </div>
+              </div>
+              
+              <div className="nav-section">
+                <Link href="/about" className="nav-main" onClick={() => setIsMenuOpen(false)}>About</Link>
+                <Link href="/gallery" className="nav-main" onClick={() => setIsMenuOpen(false)}>Gallery</Link>
+                <Link href="/testimonials" className="nav-main" onClick={() => setIsMenuOpen(false)}>Reviews</Link>
+                <Link href="/contact" className="nav-main" onClick={() => setIsMenuOpen(false)}>Contact</Link>
+                <Link href="/chat" className="nav-main" data-testid="nav-chat" onClick={() => setIsMenuOpen(false)}>Chat with AI</Link>
+              </div>
             </nav>
           </div>
         )}
