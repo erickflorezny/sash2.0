@@ -23,6 +23,7 @@ interface ChatInterfaceProps {
   showPrompts?: boolean;
   onPromptClick?: (prompt: string) => void;
   userName?: string;
+  onMenuOpen?: () => void;
 }
 
 // Comprehensive door knowledge base for contextual responses
@@ -61,7 +62,7 @@ const mockResponses = {
   default: "Thank you for your question! Our team specializes in windows, bathrooms, siding, and doors. We provide free estimates and have over 15 years of experience. How can we help transform your home?"
 };
 
-export default function ChatInterface({ initialPrompt, onClose, showPrompts = false, onPromptClick, userName: initialUserName }: ChatInterfaceProps) {
+export default function ChatInterface({ initialPrompt, onClose, showPrompts = false, onPromptClick, userName: initialUserName, onMenuOpen }: ChatInterfaceProps) {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
@@ -761,7 +762,11 @@ export default function ChatInterface({ initialPrompt, onClose, showPrompts = fa
       {/* Full Width Header */}
       <div className="chat-header-fullwidth">
         <div className="header-content-wrapper">
-          <button className="hamburger-menu" data-testid="hamburger-menu">
+          <button 
+            className="hamburger-menu" 
+            data-testid="hamburger-menu"
+            onClick={onMenuOpen}
+          >
             <i className="bi bi-list"></i>
           </button>
           <div className="chat-brand">

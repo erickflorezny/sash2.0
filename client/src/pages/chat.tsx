@@ -128,6 +128,7 @@ export default function Chat() {
         showPrompts={true}
         onPromptClick={handlePromptClick}
         userName={userName}
+        onMenuOpen={() => setIsMenuOpen(true)}
       />
       
       {/* Mega Footer */}
