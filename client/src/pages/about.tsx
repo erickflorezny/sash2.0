@@ -130,7 +130,7 @@ const About: React.FC = () => {
                         <div className="absolute -bottom-20 -right-20 w-40 h-40 bg-red-600 rounded-full opacity-20 blur-2xl"></div>
                         <div className="bg-white/10 backdrop-blur-sm rounded-lg p-8 relative">
                           <div className="aspect-video rounded-lg overflow-hidden mb-8">
-                            <iframe className="w-full h-full" src="https://www.youtube.com/embed/mWuLqrQ-rIU" title="About New York Sash" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen loading="lazy"></iframe>
+                            <iframe className="w-full h-full" src="https://www.youtube.com/embed/3wKPyfZBFCM" title="About New York Sash" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen loading="lazy"></iframe>
                           </div>
                           <div className="grid grid-cols-3 gap-4">
                             <div className="bg-white/10 rounded-lg p-4 text-center">
@@ -149,15 +149,6 @@ const About: React.FC = () => {
                         </div>
                       </div>
                     </div>
-                  </div>
-                </div>
-
-                <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white text-center">
-                  <p className="text-sm mb-2">Our Story</p>
-                  <div className="animate-bounce">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
-                    </svg>
                   </div>
                 </div>
               </section>
@@ -194,7 +185,7 @@ const About: React.FC = () => {
                       </div>
                     </div>
                     <div>
-                      <img src="https://placehold.co/600x400/000000/FFFFFF?text=Company+Building" alt="New York Sash Building" className="w-full rounded-lg shadow-lg" />
+                      <img src="/src/assets/nysash-showroom.webp" alt="New York Sash Showroom" className="w-full rounded-lg shadow-lg" />
                     </div>
                   </div>
                 </div>

@@ -4,7 +4,7 @@
   "buildCommand": "npm run build:client",
   "outputDirectory": "dist/public",
   "installCommand": "npm install",
-  "devCommand": false,
+  "devCommand": null,
   "routes": [
     {
       "src": "/api/(.*)",

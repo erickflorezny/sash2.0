@@ -144,19 +144,10 @@ const Doors: React.FC = () => {
                         <div className="absolute -top-20 -left-20 w-40 h-40 bg-ny-red rounded-full opacity-20 blur-2xl"></div>
                         <div className="absolute -bottom-20 -right-20 w-40 h-40 bg-ny-red rounded-full opacity-20 blur-2xl"></div>
                         <div className="bg-white/10 backdrop-blur-sm rounded-lg p-8 relative">
-                          <iframe className="w-full rounded-lg shadow-lg" height="315" src="https://www.youtube.com/embed/VcNEaFZPY7I" title="Entry Door Installation Process" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen loading="lazy"></iframe>
+                          <iframe className="w-full rounded-lg shadow-lg" height="315" src="https://www.youtube.com/embed/UCIoddlpE0M" title="Entry Door Installation Process" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen loading="lazy"></iframe>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </div>
-
-                <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white text-center">
-                  <p className="text-sm mb-2">Explore Door Options</p>
-                  <div className="animate-bounce">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
-                    </svg>
                   </div>
                 </div>
               </section>
