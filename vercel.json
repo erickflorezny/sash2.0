@@ -1,18 +1,3 @@
 {
-  "version": 2,
-  "framework": null,
-  "buildCommand": "vite build",
-  "outputDirectory": "dist/public",
-  "installCommand": "npm install",
-  "devCommand": null,
-  "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "/api/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/$1"
-    }
-  ]
+  "buildCommand": "vite build"
 }
