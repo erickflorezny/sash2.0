@@ -1,6 +1,8 @@
 import React from 'react';
 import WordPressContent from '@/components/WordPressContent';
 import MegaFooter from '@/components/MegaFooter';
+import CustomerMapGallery from '@/components/CustomerMapGallery';
+import { sampleProjects } from '@/data/projects';
 
 const Bathrooms: React.FC = () => {
   return (
@@ -376,6 +378,18 @@ const Bathrooms: React.FC = () => {
               </section>
             </div>
           }
+        />
+        <CustomerMapGallery
+          projects={sampleProjects}
+          mapConfig={{
+            center: { latitude: 42.8, longitude: -73.9 },
+            zoom: 8,
+            apiKey: import.meta.env.VITE_MAPBOX_API_KEY || 'pk.eyJ1IjoiZWZsb3JlenNhc2giLCJhIjoiY21mcHJkYjR5MGo0cjJtb2xoZjd4Zmd2ZyJ9.mu2PN6vioX71RvV5J-HhWA'
+          }}
+          galleryConfig={{
+            maxThumbnails: 6,
+            showProjectInfo: true
+          }}
         />
         <MegaFooter />
     </div>
