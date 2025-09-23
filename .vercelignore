@@ -1,0 +1,9 @@
+server/
+*.ts
+*.tsx
+tsconfig.json
+drizzle.config.ts
+migrations/
+shared/
+!api/
+!dist/

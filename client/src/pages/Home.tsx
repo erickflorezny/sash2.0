@@ -88,6 +88,14 @@ export default function Home() {
           <div className="absolute inset-0">
             <img src="/images/home-hero-house.jpg" alt="Beautiful Central New York home with premium windows and siding" className="w-full h-full object-cover" loading="lazy" />
             <div className="absolute inset-0 bg-gradient-to-r from-black/90 to-black/70"></div>
+            <div className="absolute inset-0">
+              <div className="h-full w-full grid grid-cols-4 gap-px opacity-30">
+                <div className="bg-white/10"></div>
+                <div className="bg-white/10"></div>
+                <div className="bg-white/10"></div>
+                <div className="bg-white/10"></div>
+              </div>
+            </div>
           </div>
 
           {/* Hero Content */}

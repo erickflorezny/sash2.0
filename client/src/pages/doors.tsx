@@ -144,33 +144,7 @@ const Doors: React.FC = () => {
                         <div className="absolute -top-20 -left-20 w-40 h-40 bg-ny-red rounded-full opacity-20 blur-2xl"></div>
                         <div className="absolute -bottom-20 -right-20 w-40 h-40 bg-ny-red rounded-full opacity-20 blur-2xl"></div>
                         <div className="bg-white/10 backdrop-blur-sm rounded-lg p-8 relative">
-                          <iframe className="w-full rounded-lg shadow-lg mb-8" height="315" src="https://www.youtube.com/embed/VcNEaFZPY7I" title="Entry Door Installation Process" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen loading="lazy"></iframe>
-                          <div className="grid grid-cols-3 gap-4">
-                            <div className="relative group overflow-hidden rounded-lg">
-                              <div className="w-full aspect-square bg-gradient-to-br from-amber-100 to-amber-200 flex items-center justify-center">
-                                <span className="text-2xl">🏠</span>
-                              </div>
-                              <div className="absolute inset-0 bg-ny-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                                <span className="text-white font-semibold">Classic</span>
-                              </div>
-                            </div>
-                            <div className="relative group overflow-hidden rounded-lg">
-                              <div className="w-full aspect-square bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center">
-                                <span className="text-2xl">🏢</span>
-                              </div>
-                              <div className="absolute inset-0 bg-ny-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                                <span className="text-white font-semibold">Modern</span>
-                              </div>
-                            </div>
-                            <div className="relative group overflow-hidden rounded-lg">
-                              <div className="w-full aspect-square bg-gradient-to-br from-orange-100 to-orange-200 flex items-center justify-center">
-                                <span className="text-2xl">🏘️</span>
-                              </div>
-                              <div className="absolute inset-0 bg-ny-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                                <span className="text-white font-semibold">Craftsman</span>
-                              </div>
-                            </div>
-                          </div>
+                          <iframe className="w-full rounded-lg shadow-lg" height="315" src="https://www.youtube.com/embed/VcNEaFZPY7I" title="Entry Door Installation Process" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen loading="lazy"></iframe>
                         </div>
                       </div>
                     </div>
