@@ -154,7 +154,18 @@ sash2.0/
 
 ## 🚀 Deployment
 
-### Environment Variables
+### Vercel Deployment
+1. **Connect your GitHub repository** to Vercel
+2. **Set environment variables** in Vercel dashboard:
+   ```
+   NODE_ENV=production
+   DATABASE_URL=your_production_db_url
+   WORDPRESS_API_URL=your_wordpress_graphql_endpoint
+   ```
+3. **Deploy**: Vercel will automatically build and deploy using the `vercel.json` configuration
+
+### Manual Deployment
+#### Environment Variables
 Create `.env.production` with:
 ```env
 NODE_ENV=production
@@ -162,7 +173,7 @@ DATABASE_URL=your_production_db_url
 VITE_WORDPRESS_API_URL=your_wordpress_graphql_endpoint
 ```
 
-### Build Process
+#### Build Process
 ```bash
 npm run build
 npm start

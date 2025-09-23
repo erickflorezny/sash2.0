@@ -73,7 +73,7 @@ const Windows: React.FC = () => {
                     <img src="[PLACEHOLDER_IMAGE_URL_window_project_2.jpg]" alt="Energy efficient window replacement" className="w-full h-screen object-cover" />
                     <img src="[PLACEHOLDER_IMAGE_URL_window_project_3.jpg]" alt="Custom window installation" className="w-full h-screen object-cover" />
                   </div>
-                  <div className="absolute inset-0 bg-gradient-to-b from-ny-black via-ny-black/90 to-ny-black/80 blueprint-overlay"></div>
+                  <div className="absolute inset-0 bg-gradient-to-b from-ny-black via-ny-black/95 to-ny-black/90 blueprint-overlay"></div>
                 </div>
 
                 <div className="container mx-auto px-6 relative z-10">

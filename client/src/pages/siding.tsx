@@ -63,7 +63,7 @@ const Siding: React.FC = () => {
                         <span className="text-6xl">🏠</span>
                       </div>
                     </div>
-                    <div className="absolute inset-0 bg-gradient-to-r from-ny-black/90 to-ny-black/70 blueprint-overlay"></div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-ny-black/95 to-ny-black/85 blueprint-overlay"></div>
                   </div>
                 </div>
 
