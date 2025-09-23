@@ -1,19 +1,9 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "client/package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "dist/public"
-      }
-    }
-  ],
-  "functions": {
-    "api/**/*.js": {
-      "runtime": "nodejs18.x"
-    }
-  },
+  "buildCommand": "npm run build:client",
+  "outputDirectory": "dist/public",
+  "installCommand": "npm install",
+  "devCommand": false,
   "routes": [
     {
       "src": "/api/(.*)",
@@ -21,7 +11,7 @@
     },
     {
       "src": "/(.*)",
-      "dest": "/dist/public/$1"
+      "dest": "/$1"
     }
   ]
 }

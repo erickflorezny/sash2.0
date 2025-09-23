@@ -5,5 +5,15 @@ tsconfig.json
 drizzle.config.ts
 migrations/
 shared/
+node_modules/
+.env*
+!.env.production
 !api/
 !dist/
+!client/
+client/src/
+client/node_modules/
+client/*.ts
+client/*.tsx
+client/tsconfig.json
+client/vite.config.ts
