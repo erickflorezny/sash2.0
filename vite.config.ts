@@ -29,9 +29,14 @@ export default defineConfig({
     emptyOutDir: true,
   },
   server: {
+    port: 3001,
+    strictPort: false, // Allow fallback to next available port
     fs: {
       strict: true,
       deny: ["**/.*"],
+    },
+    hmr: {
+      overlay: true
     },
   },
 });

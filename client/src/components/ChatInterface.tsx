@@ -1,6 +1,4 @@
 import { useState, useEffect, useRef } from 'react';
-import { Link } from 'wouter';
-import chatLogo from '@assets/image_1756148189859.png';
 import SuggestedPrompts from './SuggestedPrompts';
 import QuickConnect from './QuickConnect';
 
@@ -760,32 +758,6 @@ export default function ChatInterface({ initialPrompt, onClose, showPrompts = fa
 
   return (
     <div className="chat-page-layout" data-testid="chat-section">
-      {/* Full Width Header */}
-      <div className="chat-header-fullwidth">
-        <div className="header-content-wrapper">
-          <button 
-            className="hamburger-menu" 
-            data-testid="hamburger-menu"
-            onClick={onMenuOpen}
-          >
-            <i className="bi bi-list"></i>
-          </button>
-          <Link href="/" className="chat-brand" data-testid="logo-home-link">
-            <img src={chatLogo} alt="New York Sash" className="chat-logo" />
-            <span>New York Sash AI Assistant</span>
-          </Link>
-          <button 
-            className="live-agent-button"
-            onClick={() => setIsLiveAgentOpen(true)}
-            data-testid="button-live-agent"
-          >
-            <div className="live-indicator"></div>
-            <i className="bi bi-chat-dots mobile-chat-icon"></i>
-            <span className="live-agent-text">Ask A Question</span>
-          </button>
-        </div>
-      </div>
-      
       {/* Content Area with Main Chat and Sidebar */}
       <div className="content-layout">
         {/* Main Chat Area */}

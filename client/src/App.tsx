@@ -5,43 +5,28 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import Home from "@/pages/home";
 import Chat from "@/pages/chat";
+import About from "@/pages/about";
+import Windows from "@/pages/windows";
+import Siding from "@/pages/siding";
+import Bathrooms from "@/pages/bathrooms";
+import Doors from "@/pages/doors";
+import Contact from "@/pages/Contact";
+import ComingSoon from "@/pages/ComingSoon";
 import NotFound from "@/pages/not-found";
-import WordPressPageTemplate from "@/components/WordPressPageTemplate";
-import WordPressPostTemplate from "@/components/WordPressPostTemplate";
-
-// Route wrapper components to handle router params
-function WordPressPageRoute({ params }: { params: { slug: string } }) {
-  return <WordPressPageTemplate slug={params.slug} />;
-}
-
-function WordPressNestedPageRoute({ params }: { params: { category: string; slug: string } }) {
-  return <WordPressPageTemplate slug={params.slug} />;
-}
-
-function WordPressPostRoute({ params }: { params: { slug: string } }) {
-  return <WordPressPostTemplate slug={params.slug} />;
-}
+import Header from "@/components/Header";
 
 function Router() {
   return (
     <Switch>
       <Route path="/" component={Home} />
       <Route path="/chat" component={Chat} />
-      
-      {/* WordPress Post Routes */}
-      <Route path="/blog/:slug" component={WordPressPostRoute} />
-      <Route path="/post/:slug" component={WordPressPostRoute} />
-      
-      {/* Service Category Nested Page Routes */}
-      <Route path="/windows/:slug" component={WordPressNestedPageRoute} />
-      <Route path="/siding/:slug" component={WordPressNestedPageRoute} />
-      <Route path="/bathrooms/:slug" component={WordPressNestedPageRoute} />
-      <Route path="/doors/:slug" component={WordPressNestedPageRoute} />
-      
-      {/* WordPress Page Routes - These should come last to catch all other URLs */}
-      <Route path="/:slug" component={WordPressPageRoute} />
-      
-      {/* 404 Fallback */}
+      <Route path="/about" component={About} />
+      <Route path="/windows" component={Windows} />
+      <Route path="/siding" component={Siding} />
+      <Route path="/bathrooms" component={Bathrooms} />
+      <Route path="/doors" component={Doors} />
+      <Route path="/contact" component={Contact} />
+      <Route path="/coming-soon" component={ComingSoon} />
       <Route component={NotFound} />
     </Switch>
   );
@@ -52,7 +37,10 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <Toaster />
-        <Router />
+        <Header />
+        <main>
+          <Router />
+        </main>
       </TooltipProvider>
     </QueryClientProvider>
   );

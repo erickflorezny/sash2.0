@@ -3,6 +3,7 @@ import { pgTable, text, varchar, timestamp, jsonb } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
+// Database Tables
 export const users = pgTable("users", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   username: text("username").notNull().unique(),
@@ -20,7 +21,7 @@ export const chatSessions = pgTable("chat_sessions", {
 export const chatMessages = pgTable("chat_messages", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   sessionId: varchar("session_id").references(() => chatSessions.id),
-  role: text("role").notNull(), // 'user' | 'assistant'
+  role: text("role").notNull(),
   content: text("content").notNull(),
   createdAt: timestamp("created_at").defaultNow(),
 });
@@ -30,69 +31,61 @@ export const insertUserSchema = createInsertSchema(users).pick({
   password: true,
 });
 
-export const insertChatSessionSchema = createInsertSchema(chatSessions).pick({
-  userId: true,
-  sessionData: true,
-});
+// WordPress Types
+export interface WordPressRenderedContent {
+  rendered: string;
+  protected?: boolean;
+  raw?: string;
+}
 
-export const insertChatMessageSchema = createInsertSchema(chatMessages).pick({
-  sessionId: true,
-  role: true,
-  content: true,
-});
-
-export type InsertUser = z.infer<typeof insertUserSchema>;
-export type User = typeof users.$inferSelect;
-export type ChatSession = typeof chatSessions.$inferSelect;
-export type InsertChatSession = z.infer<typeof insertChatSessionSchema>;
-export type ChatMessage = typeof chatMessages.$inferSelect;
-export type InsertChatMessage = z.infer<typeof insertChatMessageSchema>;
-
-// WordPress Content Types
-export interface WordPressPage {
+interface WordPressBaseNode {
   id: string;
-  title: {
-    rendered: string;
-  };
-  content: {
-    rendered: string;
-  };
-  slug: string;
-  status: string;
   date: string;
   modified: string;
-  excerpt: {
-    rendered: string;
-  };
+  slug: string;
+  status: string;
+  link: string;
+  title: WordPressRenderedContent;
+  content: WordPressRenderedContent;
+  excerpt?: WordPressRenderedContent;
   featuredImage?: {
     node?: {
       sourceUrl: string;
-      altText: string;
+      altText?: string;
+      mediaDetails?: {
+        width: number;
+        height: number;
+      };
     };
   };
   seo?: {
     title: string;
     metaDesc: string;
-    opengraphTitle: string;
-    opengraphDescription: string;
+    metaKeywords?: string;
+    canonical?: string;
+    opengraphTitle?: string;
+    opengraphDescription?: string;
+    opengraphImage?: {
+      sourceUrl: string;
+      altText?: string;
+    };
   };
 }
 
-export interface WordPressPost {
-  id: string;
-  title: {
-    rendered: string;
+export interface WordPressPage extends WordPressBaseNode {
+  type: 'page';
+  template?: {
+    templateName?: string;
   };
-  content: {
-    rendered: string;
+  parent?: {
+    node?: {
+      slug: string;
+    };
   };
-  slug: string;
-  status: string;
-  date: string;
-  modified: string;
-  excerpt: {
-    rendered: string;
-  };
+}
+
+export interface WordPressPost extends WordPressBaseNode {
+  type: 'post';
   categories: {
     nodes: Array<{
       name: string;
@@ -109,35 +102,13 @@ export interface WordPressPost {
     node: {
       name: string;
       slug: string;
+      avatar?: {
+        url: string;
+      };
     };
-  };
-  featuredImage?: {
-    node?: {
-      sourceUrl: string;
-      altText: string;
-    };
-  };
-  seo?: {
-    title: string;
-    metaDesc: string;
-    opengraphTitle: string;
-    opengraphDescription: string;
   };
 }
 
-export interface WordPressMenuItem {
-  id: string;
-  label: string;
-  url: string;
-  target: string;
-  title: string;
-  cssClasses: string[];
-  childItems?: {
-    nodes: WordPressMenuItem[];
-  };
-}
-
-// GraphQL Response Types
 export interface WordPressPageResponse {
   page: WordPressPage | null;
 }
@@ -149,6 +120,10 @@ export interface WordPressPostResponse {
 export interface WordPressPagesResponse {
   pages: {
     nodes: WordPressPage[];
+    pageInfo?: {
+      hasNextPage: boolean;
+      endCursor: string | null;
+    };
   };
 }
 
@@ -163,7 +138,16 @@ export interface WordPressPostsResponse {
 }
 
 export interface WordPressMenuResponse {
-  menuItems: {
-    nodes: WordPressMenuItem[];
+  menu: {
+    menuItems: {
+      nodes: Array<{
+        id: string;
+        label: string;
+        path: string;
+        parentId: string | null;
+        target?: string;
+        title?: string;
+      }>;
+    };
   };
 }
