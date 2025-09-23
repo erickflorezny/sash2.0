@@ -211,9 +211,7 @@ const Doors: React.FC = () => {
                   <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
                     {/* Fiberglass Entry Doors */}
                     <div className="door-card bg-white rounded-lg shadow-lg overflow-hidden">
-                      <div className="w-full h-48 bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center">
-                        <span className="text-4xl">🚪</span>
-                      </div>
+                      <img src="https://via.placeholder.com/400x300.png/DC143C/FFFFFF?text=Fiberglass+Door" alt="Fiberglass Entry Door" className="w-full h-48 object-cover"/>
                       <div className="p-6">
                         <h3 className="text-2xl font-bold text-ny-black mb-3">Fiberglass Entry Doors</h3>
                         <ul className="text-gray-600 mb-4 space-y-2">
@@ -248,9 +246,7 @@ const Doors: React.FC = () => {
 
                     {/* Steel Entry Doors */}
                     <div className="door-card bg-white rounded-lg shadow-lg overflow-hidden">
-                      <div className="w-full h-48 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
-                        <span className="text-4xl">🚪</span>
-                      </div>
+                      <img src="https://via.placeholder.com/400x300.png/1a1a1a/FFFFFF?text=Steel+Door" alt="Steel Entry Door" className="w-full h-48 object-cover"/>
                       <div className="p-6">
                         <h3 className="text-2xl font-bold text-ny-black mb-3">Steel Doors</h3>
                         <ul className="text-gray-600 mb-4 space-y-2">
@@ -287,9 +283,7 @@ const Doors: React.FC = () => {
 
                     {/* French Doors */}
                     <div className="door-card bg-white rounded-lg shadow-lg overflow-hidden">
-                      <div className="w-full h-48 bg-gradient-to-br from-amber-100 to-amber-200 flex items-center justify-center">
-                        <span className="text-4xl">🏛️</span>
-                      </div>
+                      <img src="https://via.placeholder.com/400x300.png/DC143C/FFFFFF?text=French+Doors" alt="French Doors" className="w-full h-48 object-cover"/>
                       <div className="p-6">
                         <h3 className="text-2xl font-bold text-ny-black mb-3">French Doors</h3>
                         <ul className="text-gray-600 mb-4 space-y-2">
@@ -326,9 +320,7 @@ const Doors: React.FC = () => {
 
                     {/* Patio Doors */}
                     <div className="door-card bg-white rounded-lg shadow-lg overflow-hidden">
-                      <div className="w-full h-48 bg-gradient-to-br from-green-100 to-green-200 flex items-center justify-center">
-                        <span className="text-4xl">🏠</span>
-                      </div>
+                      <img src="https://via.placeholder.com/400x300.png/1a1a1a/FFFFFF?text=Patio+Doors" alt="Patio Doors" className="w-full h-48 object-cover"/>
                       <div className="p-6">
                         <h3 className="text-2xl font-bold text-ny-black mb-3">Patio Doors</h3>
                         <ul className="text-gray-600 mb-4 space-y-2">
