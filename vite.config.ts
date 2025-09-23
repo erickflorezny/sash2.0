@@ -7,11 +7,9 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
   plugins: [react()],
+  root: path.resolve(__dirname, "client"),
   build: {
-    outDir: "dist/public",
+    outDir: path.resolve(__dirname, "dist/public"),
     emptyOutDir: true,
-    rollupOptions: {
-      input: path.resolve(__dirname, "client/index.html"),
-    },
   },
 });
