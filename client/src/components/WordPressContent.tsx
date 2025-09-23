@@ -182,29 +182,7 @@ const WordPressContent: React.FC<WordPressContentProps> = ({
   if (error && !pageData) {
     return fallbackContent ? (
       <div>
-        {/* Hero Section with Title - Full Width */}
-        <HeroSection
-          title={slug.charAt(0).toUpperCase() + slug.slice(1)}
-          className="min-h-[400px]"
-          showShareButton={true}
-          shareTitle={`${slug.charAt(0).toUpperCase() + slug.slice(1)} - New York Sash`}
-          shareDescription={`Learn more about ${slug} from New York Sash`}
-        />
-
-        {/* Breadcrumbs and Content Container */}
-        <div className={className}>
-          {/* Breadcrumbs */}
-          <div className="bg-gray-50 py-4">
-            <div className="container mx-auto px-4">
-              <Breadcrumbs items={generateBreadcrumbs(slug, slug.charAt(0).toUpperCase() + slug.slice(1))} />
-            </div>
-          </div>
-
-          {/* Fallback Content */}
-          <div className="container mx-auto px-4 py-8">
-            {fallbackContent}
-          </div>
-        </div>
+        {fallbackContent}
       </div>
     ) : (
       <div className={`${className} py-8 text-center`}>
@@ -226,9 +204,6 @@ const WordPressContent: React.FC<WordPressContentProps> = ({
         <HeroSection
           title={pageData.title}
           className="min-h-[400px]"
-          showShareButton={true}
-          shareTitle={`${pageData.title} - New York Sash`}
-          shareDescription={`Learn more about ${pageData.title.toLowerCase()} from New York Sash`}
         />
 
         {/* Breadcrumbs and Content Container */}
@@ -276,9 +251,6 @@ const WordPressContent: React.FC<WordPressContentProps> = ({
         <HeroSection
           title={slug.charAt(0).toUpperCase() + slug.slice(1)}
           className="min-h-[400px]"
-          showShareButton={true}
-          shareTitle={`${slug.charAt(0).toUpperCase() + slug.slice(1)} - New York Sash`}
-          shareDescription={`Learn more about ${slug} from New York Sash`}
         />
 
         {/* Breadcrumbs and Content Container */}

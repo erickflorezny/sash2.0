@@ -61,6 +61,9 @@ export default {
           border: "var(--sidebar-border)",
           ring: "var(--sidebar-ring)",
         },
+        'ny-red': '#DC143C',
+        'ny-black': '#1a1a1a',
+        'ny-gray': '#f8f9fa'
       },
       fontFamily: {
         sans: ["var(--font-sans)"],

@@ -4,6 +4,10 @@ import CustomerMapGallery from '@/components/CustomerMapGallery';
 import GoogleReviewsSlider from '@/components/GoogleReviewsSlider';
 import BeforeAfterSlider from '@/components/BeforeAfterSlider';
 
+// Import the before and after images
+import beforeWindowImage from '@/assets/before-window-brick.png';
+import afterWindowImage from '@/assets/after-window-brick.png';
+
 // Sample project data for the map gallery
 const sampleProjects = [
   {
@@ -118,7 +122,7 @@ export default function Home() {
               <div className="hidden lg:block">
                 <div className="bg-white/10 backdrop-blur-sm rounded-md p-8">
                   <div className="text-center">
-                    <iframe className="w-full rounded-md shadow-lg" height="315" src="https://www.youtube.com/embed/mWuLqrQ-rIU" title="Welcome to New York Sash" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen loading="lazy"></iframe>
+                    <iframe className="w-full rounded-md shadow-lg" height="315" src="https://www.youtube.com/embed/3wKPyfZBFCM" title="Welcome to New York Sash" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen loading="lazy"></iframe>
                   </div>
                 </div>
               </div>
@@ -138,8 +142,8 @@ export default function Home() {
               {/* Windows */}
               <div className="service-card bg-white rounded-md shadow-md overflow-hidden">
                 <BeforeAfterSlider
-                  beforeImage="https://via.placeholder.com/400x300/cccccc/666666?text=Before+Windows"
-                  afterImage="https://via.placeholder.com/400x300/e8f4f8/2c5aa0?text=After+Windows"
+                  beforeImage={beforeWindowImage}
+                  afterImage={afterWindowImage}
                   beforeAlt="Old windows before replacement"
                   afterAlt="New premium windows installed"
                 />
@@ -158,9 +162,9 @@ export default function Home() {
               {/* Siding */}
               <div className="service-card bg-white rounded-md shadow-md overflow-hidden">
                 <BeforeAfterSlider
-                  beforeImage="https://via.placeholder.com/400x300/8B4513/FFFFFF?text=Before+Siding"
-                  afterImage="https://via.placeholder.com/400x300/4682B4/FFFFFF?text=After+Siding"
-                  beforeAlt="Old siding before replacement"
+                  beforeImage="https://via.placeholder.com/400x300/696969/FFFFFF?text=Before+Siding+Replacement"
+                  afterImage="https://via.placeholder.com/400x300/87CEEB/FFFFFF?text=After+New+Siding"
+                  beforeAlt="Old weathered siding before replacement"
                   afterAlt="New insulated vinyl siding installed"
                 />
                 <div className="p-6">
@@ -178,8 +182,8 @@ export default function Home() {
               {/* Baths */}
               <div className="service-card bg-white rounded-md shadow-md overflow-hidden">
                 <BeforeAfterSlider
-                  beforeImage="https://via.placeholder.com/400x300/D3D3D3/000000?text=Before+Bathroom"
-                  afterImage="https://via.placeholder.com/400x300/F0F8FF/4169E1?text=After+Bathroom"
+                  beforeImage="https://via.placeholder.com/400x300/8B7355/FFFFFF?text=Before+Bathroom+Remodel"
+                  afterImage="https://via.placeholder.com/400x300/E0FFFF/FFFFFF?text=After+Modern+Bathroom"
                   beforeAlt="Old bathroom before remodel"
                   afterAlt="Modern bathroom with walk-in tub"
                 />
@@ -198,8 +202,8 @@ export default function Home() {
               {/* Entry Doors */}
               <div className="service-card bg-white rounded-md shadow-md overflow-hidden">
                 <BeforeAfterSlider
-                  beforeImage="https://via.placeholder.com/400x300/8B4513/FFFFFF?text=Before+Door"
-                  afterImage="https://via.placeholder.com/400x300/8B4513/FFD700?text=After+Door"
+                  beforeImage="https://via.placeholder.com/400x300/654321/FFFFFF?text=Before+Door+Replacement"
+                  afterImage="https://via.placeholder.com/400x300/8B4513/FFD700?text=After+New+Entry+Door"
                   beforeAlt="Old entry door before replacement"
                   afterAlt="New fiberglass entry door with decorative glass"
                 />
@@ -282,7 +286,7 @@ export default function Home() {
                 <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
                   <iframe
                     className="absolute top-0 left-0 w-full h-full"
-                    src="https://www.youtube.com/embed/rcq4yJAw9EA"
+                    src="https://www.youtube.com/embed/u3BdC0aOwR8"
                     title="Customer Testimonial - Teresa from Utica, NY - Breakfast with the Installers"
                     frameBorder="0"
                     loading="lazy"

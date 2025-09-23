@@ -98,4 +98,4 @@ Preferred communication style: Simple, everyday language.
 - Created dynamic routing system that loads WordPress content based on URL slugs
 - Enhanced navigation structure to route to WordPress pages instead of anchor links
 - Added top bar with centered logo and hamburger menu for consistent brand presentation
-- Implemented cross-browser compatibility and accessibility features throughout templates
+- Implemented cross-browser compatibility and accessibility features throughout templates 

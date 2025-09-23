@@ -1953,7 +1953,7 @@
 /* Mobile responsiveness for footer */
 @media (max-width: 1024px) {
   .footer-sections {
-    grid-template-columns: 2fr;
+    grid-template-columns: 1fr 1fr 1fr;
     gap: 2rem;
   }
   
