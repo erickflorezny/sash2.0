@@ -1,7 +1,7 @@
 {
   "version": 2,
   "framework": null,
-  "buildCommand": "cd client && npx vite build",
+  "buildCommand": "cd client && npm install && npm run build",
   "outputDirectory": "dist/public",
   "installCommand": "npm install",
   "devCommand": null,
