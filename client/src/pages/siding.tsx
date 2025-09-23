@@ -57,13 +57,18 @@ const Siding: React.FC = () => {
                 {/* Dynamic Background */}
                 <div className="absolute inset-0">
                   <div className="relative h-full">
-                    {/* Before/After Slider Effect */}
-                    <div className="absolute inset-0 z-10">
-                      <div className="w-full h-full bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center">
-                        <span className="text-6xl">🏠</span>
+                    <div className="absolute inset-0">
+                      <img src="[PLACEHOLDER_IMAGE_URL_siding_hero_1920x1080.jpg]" alt="Premium siding installation in Central NY home" className="w-full h-full object-cover" loading="lazy" />
+                    </div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-black via-black/90 to-black/80">
+                      <div className="h-full w-full blueprint-overlay"></div>
+                      <div className="absolute inset-0 overflow-hidden">
+                        <div className="absolute h-px w-full top-1/2 left-0 bg-red-600/20"></div>
+                        <div className="absolute h-full w-px left-1/4 top-0 bg-red-600/20"></div>
+                        <div className="absolute h-full w-px left-2/4 top-0 bg-red-600/20"></div>
+                        <div className="absolute h-full w-px left-3/4 top-0 bg-red-600/20"></div>
                       </div>
                     </div>
-                    <div className="absolute inset-0 bg-gradient-to-r from-ny-black/95 to-ny-black/85 blueprint-overlay"></div>
                   </div>
                 </div>
 

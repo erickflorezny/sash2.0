@@ -68,12 +68,20 @@ const Windows: React.FC = () => {
               {/* Hero Section */}
               <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
                 <div className="absolute inset-0">
-                  <div className="grid grid-cols-3 gap-4 opacity-20 blur-sm">
-                    <img src="[PLACEHOLDER_IMAGE_URL_window_project_1.jpg]" alt="Premium window installation in Central NY home" className="w-full h-screen object-cover" />
-                    <img src="[PLACEHOLDER_IMAGE_URL_window_project_2.jpg]" alt="Energy efficient window replacement" className="w-full h-screen object-cover" />
-                    <img src="[PLACEHOLDER_IMAGE_URL_window_project_3.jpg]" alt="Custom window installation" className="w-full h-screen object-cover" />
+                  <div className="relative h-full">
+                    <div className="absolute inset-0">
+                      <img src="[PLACEHOLDER_IMAGE_URL_window_hero_1920x1080.jpg]" alt="Premium window installation in Central NY home" className="w-full h-full object-cover" loading="lazy" />
+                    </div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-black via-black/90 to-black/80">
+                      <div className="h-full w-full blueprint-overlay"></div>
+                      <div className="absolute inset-0 overflow-hidden">
+                        <div className="absolute h-px w-full top-1/2 left-0 bg-red-600/20"></div>
+                        <div className="absolute h-full w-px left-1/4 top-0 bg-red-600/20"></div>
+                        <div className="absolute h-full w-px left-2/4 top-0 bg-red-600/20"></div>
+                        <div className="absolute h-full w-px left-3/4 top-0 bg-red-600/20"></div>
+                      </div>
+                    </div>
                   </div>
-                  <div className="absolute inset-0 bg-gradient-to-b from-ny-black via-ny-black/95 to-ny-black/90 blueprint-overlay"></div>
                 </div>
 
                 <div className="container mx-auto px-6 relative z-10">
