@@ -6,6 +6,11 @@ import wordpressRoutes from "./routes/wordpress";
 export function registerRoutes(app: Express) {
   // WordPress proxy routes
   app.use(wordpressRoutes);
+
+  // Health check
+  app.get('/api/ping', (req, res) => {
+    res.json({ status: 'ok', time: new Date().toISOString() });
+  });
   
   // Chat session routes
   app.post("/api/chat/sessions", async (req, res) => {
