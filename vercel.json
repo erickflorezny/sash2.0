@@ -11,6 +11,10 @@
       "dest": "dist/server/index.js"
     },
     {
+      "src": "/",
+      "dest": "/index.html"
+    },
+    {
       "src": "/(.*)",
       "dest": "/$1"
     }
