@@ -51,10 +51,10 @@ app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
 });
 
 // Setup for production (Vercel/serverless)
-serveStatic(app);
+// serveStatic(app); // Static files handled by Vercel routing
 
 // Export for Vercel
-export default app;
+module.exports = app;
 
 // For local development, start the server
 if (require.main === module) {
