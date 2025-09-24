@@ -1,10 +1,9 @@
 import type { Express } from "express";
-import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import type { chatMessages } from "@shared/schema";
 import wordpressRoutes from "./routes/wordpress";
 
-export async function registerRoutes(app: Express): Promise<Server> {
+export function registerRoutes(app: Express) {
   // WordPress proxy routes
   app.use(wordpressRoutes);
   
@@ -54,8 +53,4 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(500).json({ error: "Failed to get chat messages" });
     }
   });
-
-  const httpServer = createServer(app);
-
-  return httpServer;
 }
