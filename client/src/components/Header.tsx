@@ -1,12 +1,15 @@
 import { Button } from "./ui/button"
 import { Link } from "wouter"
+import { useState } from "react"
 import logoImage from '@/assets/new-york-sash-logo.png'
 
 const Header = () => {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+
   return (
     <header className="relative w-full">
       {/* Top Bar */}
-      <div className="bg-black text-white py-4">
+      <div className="bg-black text-white py-4 hidden lg:block">
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center text-sm">
             <div className="relative h-6 overflow-hidden" style={{ minWidth: '400px' }}>
@@ -78,6 +81,7 @@ const Header = () => {
                   src={logoImage}
                   alt="New York Sash"
                   className="h-16 w-auto"
+                  style={{ maxWidth: 'auto' }}
                 />
               </a>
             </Link>
@@ -93,6 +97,32 @@ const Header = () => {
                       <i className="bi bi-chevron-down text-sm opacity-50"></i>
                     </a>
                   </Link>
+                  {/* Dropdown menu for About Us */}
+                  <div className="absolute left-0 z-10 hidden w-48 mt-2 bg-white rounded-md shadow-lg group-hover:block">
+                    <div className="py-2">
+                      <div className="px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors">
+                        <Link href="/Showroom">
+                          <a className="flex items-center gap-2">
+                            Showroom
+                          </a>
+                        </Link>
+                      </div>
+                      <div className="px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors">
+                        <Link href="/MeetOurTeam">
+                          <a className="flex items-center gap-2">
+                            Meet Our Team
+                          </a>
+                        </Link>
+                      </div>
+                      <div className="px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors">
+                        <Link href="/JobOpenings">
+                          <a className="flex items-center gap-2">
+                            Job Openings
+                          </a>
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 <div className="relative group">
                   <Link href="/windows">
@@ -101,6 +131,46 @@ const Header = () => {
                       <i className="bi bi-chevron-down text-sm opacity-50"></i>
                     </a>
                   </Link>
+                  {/* Dropdown menu for Windows */}
+                  <div className="absolute left-0 z-10 hidden w-48 mt-2 bg-white rounded-md shadow-lg group-hover:block">
+                    <div className="py-2">
+                      <div className="px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors">
+                        <Link href="/windows/double-hung-windows">
+                          <a className="flex items-center gap-2">
+                            Double Hung Windows
+                          </a>
+                        </Link>
+                      </div>
+                      <div className="px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors">
+                        <Link href="/windows/bay-bow-picture-windows">
+                          <a className="flex items-center gap-2">
+                            Bay, Bow and Picture Windows
+                          </a>
+                        </Link>
+                      </div>
+                      <div className="px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors">
+                        <Link href="/windows/slider-windows">
+                          <a className="flex items-center gap-2">
+                            Slider Windows
+                          </a>
+                        </Link>
+                      </div>
+                      <div className="px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors">
+                        <Link href="/windows/awning-windows">
+                          <a className="flex items-center gap-2">
+                            Awning Windows
+                          </a>
+                        </Link>
+                      </div>
+                      <div className="px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors">
+                        <Link href="/windows/hopper-windows">
+                          <a className="flex items-center gap-2">
+                            Hopper Windows
+                          </a>
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 <div className="relative group">
                   <Link href="/siding">
@@ -109,6 +179,53 @@ const Header = () => {
                       <i className="bi bi-chevron-down text-sm opacity-50"></i>
                     </a>
                   </Link>
+                  {/* Dropdown menu for Siding */}
+                  <div className="absolute left-0 z-10 hidden w-48 mt-2 bg-white rounded-md shadow-lg group-hover:block">
+                    <div className="py-2">
+                      <div className="px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors">
+                        <Link href="/siding/engineered-wood-siding">
+                          <a className="flex items-center gap-2">
+                            Engineered Wood Siding
+                          </a>
+                        </Link>
+                      </div>
+                      <div className="px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors">
+                        <Link href="/siding/reinforced-vinyl-siding">
+                          <a className="flex items-center gap-2">
+                            Reinforced Vinyl Siding
+                          </a>
+                        </Link>
+                      </div>
+                      <div className="px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors">
+                        <Link href="/siding/traditional-vinyl-siding">
+                          <a className="flex items-center gap-2">
+                            Traditional Vinyl Siding
+                          </a>
+                        </Link>
+                      </div>
+                      <div className="px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors">
+                        <Link href="/siding/cedar-shake-vinyl-siding">
+                          <a className="flex items-center gap-2">
+                            Cedar Shake Vinyl Siding
+                          </a>
+                        </Link>
+                      </div>
+                      <div className="px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors">
+                        <Link href="/siding/board-batten-vertical-vinyl-siding">
+                          <a className="flex items-center gap-2">
+                            Board & Batten Vertical Vinyl Siding
+                          </a>
+                        </Link>
+                      </div>
+                      <div className="px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors">
+                        <Link href="/siding/stacked-stone">
+                          <a className="flex items-center gap-2">
+                            Stacked Stone
+                          </a>
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 <div className="relative group">
                   <Link href="/bathrooms">
@@ -117,6 +234,53 @@ const Header = () => {
                       <i className="bi bi-chevron-down text-sm opacity-50"></i>
                     </a>
                   </Link>
+                  {/* Dropdown menu for Bathrooms */}
+                  <div className="absolute left-0 z-10 hidden w-48 mt-2 bg-white rounded-md shadow-lg group-hover:block">
+                    <div className="py-2">
+                      <div className="px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors">
+                        <Link href="/bathrooms/TubToShowerConversion">
+                          <a className="flex items-center gap-2">
+                            Tub To Shower Conversion
+                          </a>
+                        </Link>
+                      </div>
+                      <div className="px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors">
+                        <Link href="/bathrooms/SafetyTubs">
+                          <a className="flex items-center gap-2">
+                            Safety Tubs
+                          </a>
+                        </Link>
+                      </div>
+                      <div className="px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors">
+                        <Link href="/bathrooms/ShowerDoors">
+                          <a className="flex items-center gap-2">
+                            Shower Doors
+                          </a>
+                        </Link>
+                      </div>
+                      <div className="px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors">
+                        <Link href="/bathrooms/Toilets">
+                          <a className="flex items-center gap-2">
+                            Toilets
+                          </a>
+                        </Link>
+                      </div>
+                      <div className="px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors">
+                        <Link href="/bathrooms/Accessories">
+                          <a className="flex items-center gap-2">
+                            Accessories
+                          </a>
+                        </Link>
+                      </div>
+                      <div className="px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors">
+                        <Link href="/bathrooms/ColorTextureOptions">
+                          <a className="flex items-center gap-2">
+                            Color & Texture Options
+                          </a>
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 <div className="relative group">
                   <Link href="/doors">
@@ -125,11 +289,36 @@ const Header = () => {
                       <i className="bi bi-chevron-down text-sm opacity-50"></i>
                     </a>
                   </Link>
+                  {/* Dropdown menu for Doors */}
+                  <div className="absolute left-0 z-10 hidden w-48 mt-2 bg-white rounded-md shadow-lg group-hover:block">
+                    <div className="py-2">
+                      <div className="px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors">
+                        <Link href="/doors/EntryDoors">
+                          <a className="flex items-center gap-2">
+                            Entry Doors
+                          </a>
+                        </Link>
+                      </div>
+                      <div className="px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors">
+                        <Link href="/doors/StormDoors">
+                          <a className="flex items-center gap-2">
+                            Storm Doors
+                          </a>
+                        </Link>
+                      </div>
+                      <div className="px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors">
+                        <Link href="/doors/PatioDoors">
+                          <a className="flex items-center gap-2">
+                            Patio Doors
+                          </a>
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
               {/* Right Buttons */}
-              <div className="flex space-x-4">
-            
+              <div className="hidden xl:flex space-x-4">
                 <Link href="/coming-soon">
                   <Button variant="default" className="bg-black hover:bg-gray-800 text-white">
                     <i className="bi bi-chat-dots-fill mr-2"></i>
@@ -151,6 +340,7 @@ const Header = () => {
                 size="icon"
                 className="text-gray-700"
                 aria-label="Open menu"
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               >
                 <svg
                   className="h-6 w-6"
@@ -168,6 +358,52 @@ const Header = () => {
               </Button>
             </div>
           </div>
+
+          {/* Mobile Menu */}
+          {isMobileMenuOpen && (
+            <div className="lg:hidden bg-white border-t border-gray-200">
+              <div className="px-4 py-4 space-y-4">
+                <Link href="/about" onClick={() => setIsMobileMenuOpen(false)}>
+                  <a className="block px-3 py-2 text-gray-800 hover:text-red-600 text-lg font-bold">
+                    About Us
+                  </a>
+                </Link>
+                <Link href="/windows" onClick={() => setIsMobileMenuOpen(false)}>
+                  <a className="block px-3 py-2 text-gray-800 hover:text-red-600 text-lg font-bold">
+                    Windows
+                  </a>
+                </Link>
+                <Link href="/siding" onClick={() => setIsMobileMenuOpen(false)}>
+                  <a className="block px-3 py-2 text-gray-800 hover:text-red-600 text-lg font-bold">
+                    Siding
+                  </a>
+                </Link>
+                <Link href="/bathrooms" onClick={() => setIsMobileMenuOpen(false)}>
+                  <a className="block px-3 py-2 text-gray-800 hover:text-red-600 text-lg font-bold">
+                    Baths
+                  </a>
+                </Link>
+                <Link href="/doors" onClick={() => setIsMobileMenuOpen(false)}>
+                  <a className="block px-3 py-2 text-gray-800 hover:text-red-600 text-lg font-bold">
+                    Doors
+                  </a>
+                </Link>
+                <div className="flex flex-col space-y-2 pt-4 border-t border-gray-200">
+                  <Link href="/coming-soon" onClick={() => setIsMobileMenuOpen(false)}>
+                    <Button variant="default" className="bg-black hover:bg-gray-800 text-white w-full">
+                      <i className="bi bi-chat-dots-fill mr-2"></i>
+                      Chat with AI
+                    </Button>
+                  </Link>
+                  <Link href="/coming-soon" onClick={() => setIsMobileMenuOpen(false)}>
+                    <Button variant="default" className="bg-red-600 hover:bg-red-700 text-white w-full">
+                      Client Login
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </header>
