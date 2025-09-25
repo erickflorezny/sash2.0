@@ -4,6 +4,11 @@ import type { chatMessages } from "@shared/schema";
 import wordpressRoutes from "./routes/wordpress";
 
 export function registerRoutes(app: Express) {
+  // Health check endpoint
+  app.get("/api/ping", (req, res) => {
+    res.json({ status: "ok", timestamp: new Date().toISOString() });
+  });
+  
   // WordPress proxy routes
   app.use(wordpressRoutes);
   

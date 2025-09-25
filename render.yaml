@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: sash2-0
+    runtime: node
+    buildCommand: npm run build
+    startCommand: npm run start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        generateValue: true
+    healthCheckPath: /api/ping
