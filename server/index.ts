@@ -53,22 +53,20 @@ app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
 // Setup for production (Vercel/serverless)
 // serveStatic(app); // Static files handled by Vercel routing
 
-// Export for Vercel
-module.exports = app;
+// Export for Vercel/serverless (not needed for Render)
+// export default app;
 
-// For local development, start the server
-if (require.main === module) {
-  (async () => {
-    const { createServer } = await import("http");
-    const server = createServer(app);
+// For local development and production, start the server
+(async () => {
+  const { createServer } = await import("http");
+  const server = createServer(app);
 
-    if (app.get("env") === "development") {
-      await setupVite(app, server);
-    }
+  if (app.get("env") === "development") {
+    await setupVite(app, server);
+  }
 
-    const port = parseInt(process.env.PORT || '5000', 10);
-    server.listen(port, () => {
-      log(`serving on port ${port}`);
-    });
-  })();
-}
+  const port = parseInt(process.env.PORT || '5000', 10);
+  server.listen(port, () => {
+    log(`serving on port ${port}`);
+  });
+})();
