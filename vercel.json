@@ -3,6 +3,10 @@
     {
       "src": "dist/server/index.js",
       "use": "@vercel/node"
+    },
+    {
+      "src": "dist/index.html",
+      "use": "@vercel/static-build"
     }
   ],
   "routes": [
@@ -11,12 +15,8 @@
       "dest": "dist/server/index.js"
     },
     {
-      "src": "/",
-      "dest": "/index.html"
-    },
-    {
       "src": "/(.*)",
-      "dest": "/$1"
+      "dest": "dist/$1"
     }
   ]
 }
