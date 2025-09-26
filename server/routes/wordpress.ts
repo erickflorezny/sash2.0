@@ -4,20 +4,26 @@ import fetch from 'node-fetch';
 const router = Router();
 
 // WordPress proxy endpoint - helps avoid CORS issues during development
-router.post('/api/wordpress', async (req, res) => {
+router.get('/api/wordpress', async (req, res) => {
   try {
     // WordPress GraphQL endpoint - change this to match your actual WordPress site
-    const wpEndpoint = process.env.WORDPRESS_API_URL || 'https://wordpress-tefyrj53vq-uc.a.run.app/graphql';
+    const wpEndpoint = process.env.WORDPRESS_API_URL || 'http://utica.supply/resashgraph';
     
     console.log(`🔄 Proxying WordPress GraphQL request to: ${wpEndpoint}`);
     
-    // Forward the request to WordPress
-    const wpResponse = await fetch(wpEndpoint, {
-      method: 'POST',
+    // Get query from URL parameter
+    const query = req.query.query as string;
+    const queryString = new URLSearchParams({ query }).toString();
+    const fullUrl = `${wpEndpoint}?${queryString}`;
+    
+    console.log(`Full URL: ${fullUrl}`);
+    
+    // Forward the request to WordPress using GET
+    const wpResponse = await fetch(fullUrl, {
+      method: 'GET',
       headers: {
-        'Content-Type': 'application/json',
+        'Accept': 'application/json',
       },
-      body: JSON.stringify(req.body),
     });
     
     // Get the response data

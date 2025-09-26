@@ -12,6 +12,9 @@ import Bathrooms from "@/pages/bathrooms";
 import Doors from "@/pages/doors";
 import Contact from "@/pages/Contact";
 import ComingSoon from "@/pages/ComingSoon";
+import Showroom from "@/pages/Showroom";
+import JobOpenings from "@/pages/JobOpenings";
+import MeetOurTeam from "@/pages/MeetOurTeam";
 import NotFound from "@/pages/not-found";
 import Header from "@/components/Header";
 
@@ -26,6 +29,9 @@ function Router() {
       <Route path="/bathrooms" component={Bathrooms} />
       <Route path="/doors" component={Doors} />
       <Route path="/contact" component={Contact} />
+      <Route path="/showroom" component={Showroom} />
+      <Route path="/job-openings" component={JobOpenings} />
+      <Route path="/meet-our-team" component={MeetOurTeam} />
       <Route path="/coming-soon" component={ComingSoon} />
       <Route component={NotFound} />
     </Switch>

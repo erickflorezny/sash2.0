@@ -50,109 +50,71 @@ const WordPressContent: React.FC<WordPressContentProps> = ({
 
   useEffect(() => {
     console.log(`[${new Date().toISOString()}] ===== COMPONENT MOUNT/UPDATE for slug: "${slug}" =====`);
-    console.log(`[${new Date().toISOString()}] WordPress GraphQL endpoint being used:`, import.meta.env.VITE_WORDPRESS_API_URL);
+    console.log(`[${new Date().toISOString()}] Starting fetch process...`);
 
-    const testEndpoint = async () => {
-      try {
-        console.log("Testing GraphQL endpoint accessibility...");
-        const response = await fetch('http://utica.supply/resashgraph', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            query: '{ pages(first: 1) { nodes { slug title } } }'
-          })
-        });
-        console.log("Endpoint test response status:", response.status);
-        if (response.ok) {
-          const data = await response.json();
-          console.log("Endpoint test successful:", data);
-        } else {
-          console.error("Endpoint test failed with status:", response.status);
-        }
-      } catch (e) {
-        console.error("Endpoint test error:", e);
-      }
-    };
-
-    testEndpoint();
-
-    const fetchAllPages = async () => {
-      try {
-        console.log(`[${new Date().toISOString()}] Fetching all available pages from WordPress...`);
-        const { data }: { data: any } = await wordpressClient.query({
-          query: WORDPRESS_QUERIES.GET_ALL_PAGES_WITH_CONTENT,
-        });
-        console.log(`[${new Date().toISOString()}] Available pages:`, data.pages.nodes);
-        console.log(`[${new Date().toISOString()}] Available page slugs:`, data.pages.nodes.map((p: any) => p.slug).join(', '));
-      } catch (e) {
-        console.error(`[${new Date().toISOString()}] Failed to fetch all pages:`, e);
-      }
-    };
-
-    fetchAllPages();
-
-    const fetchPageContent = async () => {
+    const fetchPageData = async () => {
       try {
         setLoading(true);
         setError(null);
 
-        // Try to fetch from WordPress first
-        console.log(`[${new Date().toISOString()}] Attempting to fetch WordPress content for page "${slug}"`);
+        console.log(`[${new Date().toISOString()}] Fetching WordPress data for slug: "${slug}"`);
 
+        // Use server proxy endpoint to avoid CORS issues
+        const query = `{ pages(where:{name:"${slug}"}){nodes{id title content slug featuredImage{node{sourceUrl altText}} seo{title metaDesc} modified date}} }`;
+        const encodedQuery = encodeURIComponent(query);
+        const url = `http://localhost:5002/api/wordpress?query=${encodedQuery}`;
+
+        console.log(`[${new Date().toISOString()}] Fetching from URL:`, url);
+
+        // Test basic connectivity first
         try {
-          // Fetch all pages with full content in one query
-          console.log(`[${new Date().toISOString()}] Fetching all pages with content to find "${slug}"...`);
-          const { data: allPagesData }: { data: any } = await wordpressClient.query({
-            query: WORDPRESS_QUERIES.GET_ALL_PAGES_WITH_CONTENT,
-          });
-
-          if (allPagesData?.pages?.nodes) {
-            console.log(`[${new Date().toISOString()}] All pages data received:`, allPagesData.pages.nodes.length, 'pages');
-            console.log(`[${new Date().toISOString()}] Available slugs:`, allPagesData.pages.nodes.map((p: any) => p.slug).join(', '));
-
-            // Find the page with matching slug
-            const pageNode = allPagesData.pages.nodes.find((p: any) => {
-              console.log(`[${new Date().toISOString()}] Checking page:`, p.slug, 'against:', slug, 'match:', p.slug === slug);
-              return p.slug === slug;
-            });
-
-            console.log(`[${new Date().toISOString()}] Found page node:`, pageNode);
-
-            if (pageNode) {
-              console.log(`[${new Date().toISOString()}] Successfully loaded WordPress content for "${slug}"`);
-              setPageData(pageNode);
-              setLoading(false);
-              return;
-            }
-          }
-
-          console.log(`[${new Date().toISOString()}] About to throw error - page not found`);
-          throw new Error(`Page with slug "${slug}" not found in WordPress`);
-        } catch (wpError: any) {
-          console.error(`[${new Date().toISOString()}] WordPress fetch failed for "${slug}":`, wpError);
-          console.error(`[${new Date().toISOString()}] Error details:`, wpError.message, wpError.networkError, wpError.graphQLErrors);
-
-          // Fall back to mock data if WordPress fails
-          if (mockPages && (mockPages as any)[slug]) {
-            console.log(`Using mock data fallback for page "${slug}"`);
-            setPageData((mockPages as any)[slug]);
-            setError(`WordPress connection failed: ${wpError.message}. Using mock data.`);
-            setLoading(false);
-            return;
-          } else {
-            throw new Error(`No mock data available for "${slug}"`);
-          }
+          console.log(`[${new Date().toISOString()}] Testing server connectivity...`);
+          const testResponse = await fetch('http://localhost:5002/api/ping');
+          console.log(`[${new Date().toISOString()}] Server ping response:`, testResponse.status);
+        } catch (testError) {
+          console.error(`[${new Date().toISOString()}] Server connectivity test failed:`, testError);
         }
-      } catch (err: any) {
-        console.error("Critical error fetching content:", err);
-        setError(err.message || "Unknown error");
+
+        const response = await fetch(url, {
+          method: 'GET',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          mode: 'cors', // Try CORS mode
+        });
+
+        console.log(`[${new Date().toISOString()}] Response status:`, response.status);
+        console.log(`[${new Date().toISOString()}] Response headers:`, Object.fromEntries(response.headers.entries()));
+
+        if (!response.ok) {
+          const errorText = await response.text();
+          console.log(`[${new Date().toISOString()}] Error response:`, errorText);
+          throw new Error(`HTTP error! status: ${response.status}, body: ${errorText}`);
+        }
+
+        const data = await response.json();
+        console.log(`[${new Date().toISOString()}] Parsed data:`, data);
+
+        console.log(`[${new Date().toISOString()}] WordPress response:`, data);
+
+        if (data?.data?.pages?.nodes && data.data.pages.nodes.length > 0) {
+          const page = data.data.pages.nodes[0];
+          console.log(`[${new Date().toISOString()}] Found page data:`, page);
+          setPageData(page);
+        } else {
+          console.log(`[${new Date().toISOString()}] No page data found for slug: "${slug}"`);
+          setError(`No content found for page: ${slug}`);
+        }
+      } catch (err) {
+        console.error(`[${new Date().toISOString()}] Error fetching WordPress data for slug "${slug}":`, err);
+        setError(`Failed to load content: ${err instanceof Error ? err.message : 'Unknown error'}`);
+      } finally {
         setLoading(false);
       }
     };
 
-    fetchPageContent();
+    fetchPageData();
   }, [slug]);
 
   // Show loading state

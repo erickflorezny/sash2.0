@@ -28,7 +28,7 @@ export default function Home() {
       */}
 
       {/* Static HTML Homepage */}
-      <body className="font-sans">
+      <div className="font-sans">
         {/* Hero Section */}
         <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gray-900">
           {/* Background Image Container */}
@@ -353,7 +353,7 @@ export default function Home() {
             </div>
           </div>
         </section>
-      </body>
+      </div>
 
       <CustomerMapGallery
         projects={sampleProjects}

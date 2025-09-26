@@ -1,7 +1,13 @@
-const JobOpenings = () => {
+import React from 'react';
+import WordPressContent from '@/components/WordPressContent';
+
+const JobOpenings: React.FC = () => {
   return (
-    <div>
-      {/* Content for Job Openings page will go here */}
+    <div className="min-h-screen">
+      <WordPressContent
+        slug="job-openings"
+        fallbackContent={<p>Content for Job Openings is coming soon.</p>}
+      />
     </div>
   );
 };

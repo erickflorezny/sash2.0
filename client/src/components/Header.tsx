@@ -75,15 +75,13 @@ const Header = () => {
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-24">
             {/* Logo */}
-            <Link href="/">
-              <a className="flex-shrink-0">
-                <img
-                  src={logoImage}
-                  alt="New York Sash"
-                  className="h-16 w-auto"
-                  style={{ maxWidth: 'auto' }}
-                />
-              </a>
+            <Link href="/" className="flex-shrink-0">
+              <img
+                src={logoImage}
+                alt="New York Sash"
+                className="h-16 w-auto"
+                style={{ maxWidth: 'auto' }}
+              />
             </Link>
 
             {/* Desktop Navigation */}
@@ -91,226 +89,170 @@ const Header = () => {
               {/* Center Links */}
               <div className="flex-1 flex justify-center space-x-2">
                 <div className="relative group">
-                  <Link href="/about">
-                    <a className="px-3 py-2 text-gray-800 hover:text-red-600 text-xl font-bold transition-colors flex items-center gap-1">
-                      About Us
-                      <i className="bi bi-chevron-down text-sm opacity-50"></i>
-                    </a>
+                  <Link href="/about" className="px-3 py-2 text-gray-800 hover:text-red-600 text-xl font-bold transition-colors flex items-center gap-1">
+                    About Us
+                    <i className="bi bi-chevron-down text-sm opacity-50"></i>
                   </Link>
                   {/* Dropdown menu for About Us */}
                   <div className="absolute left-0 z-10 hidden w-48 mt-2 bg-white rounded-md shadow-lg group-hover:block">
                     <div className="py-2">
                       <div className="px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors">
-                        <Link href="/Showroom">
-                          <a className="flex items-center gap-2">
-                            Showroom
-                          </a>
+                        <Link href="/showroom" className="flex items-center gap-2">
+                          Showroom
                         </Link>
                       </div>
                       <div className="px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors">
-                        <Link href="/MeetOurTeam">
-                          <a className="flex items-center gap-2">
-                            Meet Our Team
-                          </a>
+                        <Link href="/meet-our-team" className="flex items-center gap-2">
+                          Meet Our Team
                         </Link>
                       </div>
                       <div className="px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors">
-                        <Link href="/JobOpenings">
-                          <a className="flex items-center gap-2">
-                            Job Openings
-                          </a>
+                        <Link href="/job-openings" className="flex items-center gap-2">
+                          Job Openings
                         </Link>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div className="relative group">
-                  <Link href="/windows">
-                    <a className="px-3 py-2 text-gray-800 hover:text-red-600 text-xl font-bold transition-colors flex items-center gap-1">
-                      Windows
-                      <i className="bi bi-chevron-down text-sm opacity-50"></i>
-                    </a>
+                  <Link href="/windows" className="px-3 py-2 text-gray-800 hover:text-red-600 text-xl font-bold transition-colors flex items-center gap-1">
+                    Windows
+                    <i className="bi bi-chevron-down text-sm opacity-50"></i>
                   </Link>
                   {/* Dropdown menu for Windows */}
                   <div className="absolute left-0 z-10 hidden w-48 mt-2 bg-white rounded-md shadow-lg group-hover:block">
                     <div className="py-2">
                       <div className="px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors">
-                        <Link href="/windows/double-hung-windows">
-                          <a className="flex items-center gap-2">
-                            Double Hung Windows
-                          </a>
+                        <Link href="/windows/double-hung-windows" className="flex items-center gap-2">
+                          Double Hung Windows
                         </Link>
                       </div>
                       <div className="px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors">
-                        <Link href="/windows/bay-bow-picture-windows">
-                          <a className="flex items-center gap-2">
-                            Bay, Bow and Picture Windows
-                          </a>
+                        <Link href="/windows/bay-bow-picture-windows" className="flex items-center gap-2">
+                          Bay, Bow and Picture Windows
                         </Link>
                       </div>
                       <div className="px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors">
-                        <Link href="/windows/slider-windows">
-                          <a className="flex items-center gap-2">
-                            Slider Windows
-                          </a>
+                        <Link href="/windows/slider-windows" className="flex items-center gap-2">
+                          Slider Windows
                         </Link>
                       </div>
                       <div className="px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors">
-                        <Link href="/windows/awning-windows">
-                          <a className="flex items-center gap-2">
-                            Awning Windows
-                          </a>
+                        <Link href="/windows/awning-windows" className="flex items-center gap-2">
+                          Awning Windows
                         </Link>
                       </div>
                       <div className="px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors">
-                        <Link href="/windows/hopper-windows">
-                          <a className="flex items-center gap-2">
-                            Hopper Windows
-                          </a>
+                        <Link href="/windows/hopper-windows" className="flex items-center gap-2">
+                          Hopper Windows
                         </Link>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div className="relative group">
-                  <Link href="/siding">
-                    <a className="px-3 py-2 text-gray-800 hover:text-red-600 text-xl font-bold transition-colors flex items-center gap-1">
-                      Siding
-                      <i className="bi bi-chevron-down text-sm opacity-50"></i>
-                    </a>
+                  <Link href="/siding" className="px-3 py-2 text-gray-800 hover:text-red-600 text-xl font-bold transition-colors flex items-center gap-1">
+                    Siding
+                    <i className="bi bi-chevron-down text-sm opacity-50"></i>
                   </Link>
                   {/* Dropdown menu for Siding */}
                   <div className="absolute left-0 z-10 hidden w-48 mt-2 bg-white rounded-md shadow-lg group-hover:block">
                     <div className="py-2">
                       <div className="px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors">
-                        <Link href="/siding/engineered-wood-siding">
-                          <a className="flex items-center gap-2">
-                            Engineered Wood Siding
-                          </a>
+                        <Link href="/siding/engineered-wood-siding" className="flex items-center gap-2">
+                          Engineered Wood Siding
                         </Link>
                       </div>
                       <div className="px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors">
-                        <Link href="/siding/reinforced-vinyl-siding">
-                          <a className="flex items-center gap-2">
-                            Reinforced Vinyl Siding
-                          </a>
+                        <Link href="/siding/reinforced-vinyl-siding" className="flex items-center gap-2">
+                          Reinforced Vinyl Siding
                         </Link>
                       </div>
                       <div className="px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors">
-                        <Link href="/siding/traditional-vinyl-siding">
-                          <a className="flex items-center gap-2">
-                            Traditional Vinyl Siding
-                          </a>
+                        <Link href="/siding/traditional-vinyl-siding" className="flex items-center gap-2">
+                          Traditional Vinyl Siding
                         </Link>
                       </div>
                       <div className="px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors">
-                        <Link href="/siding/cedar-shake-vinyl-siding">
-                          <a className="flex items-center gap-2">
-                            Cedar Shake Vinyl Siding
-                          </a>
+                        <Link href="/siding/cedar-shake-vinyl-siding" className="flex items-center gap-2">
+                          Cedar Shake Vinyl Siding
                         </Link>
                       </div>
                       <div className="px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors">
-                        <Link href="/siding/board-batten-vertical-vinyl-siding">
-                          <a className="flex items-center gap-2">
-                            Board & Batten Vertical Vinyl Siding
-                          </a>
+                        <Link href="/siding/board-batten-vertical-vinyl-siding" className="flex items-center gap-2">
+                          Board & Batten Vertical Vinyl Siding
                         </Link>
                       </div>
                       <div className="px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors">
-                        <Link href="/siding/stacked-stone">
-                          <a className="flex items-center gap-2">
-                            Stacked Stone
-                          </a>
+                        <Link href="/siding/stacked-stone" className="flex items-center gap-2">
+                          Stacked Stone
                         </Link>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div className="relative group">
-                  <Link href="/bathrooms">
-                    <a className="px-3 py-2 text-gray-800 hover:text-red-600 text-xl font-bold transition-colors flex items-center gap-1">
-                      Baths
-                      <i className="bi bi-chevron-down text-sm opacity-50"></i>
-                    </a>
+                  <Link href="/bathrooms" className="px-3 py-2 text-gray-800 hover:text-red-600 text-xl font-bold transition-colors flex items-center gap-1">
+                    Baths
+                    <i className="bi bi-chevron-down text-sm opacity-50"></i>
                   </Link>
                   {/* Dropdown menu for Bathrooms */}
                   <div className="absolute left-0 z-10 hidden w-48 mt-2 bg-white rounded-md shadow-lg group-hover:block">
                     <div className="py-2">
                       <div className="px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors">
-                        <Link href="/bathrooms/TubToShowerConversion">
-                          <a className="flex items-center gap-2">
-                            Tub To Shower Conversion
-                          </a>
+                        <Link href="/bathrooms/TubToShowerConversion" className="flex items-center gap-2">
+                          Tub To Shower Conversion
                         </Link>
                       </div>
                       <div className="px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors">
-                        <Link href="/bathrooms/SafetyTubs">
-                          <a className="flex items-center gap-2">
-                            Safety Tubs
-                          </a>
+                        <Link href="/bathrooms/SafetyTubs" className="flex items-center gap-2">
+                          Safety Tubs
                         </Link>
                       </div>
                       <div className="px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors">
-                        <Link href="/bathrooms/ShowerDoors">
-                          <a className="flex items-center gap-2">
-                            Shower Doors
-                          </a>
+                        <Link href="/bathrooms/ShowerDoors" className="flex items-center gap-2">
+                          Shower Doors
                         </Link>
                       </div>
                       <div className="px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors">
-                        <Link href="/bathrooms/Toilets">
-                          <a className="flex items-center gap-2">
-                            Toilets
-                          </a>
+                        <Link href="/bathrooms/Toilets" className="flex items-center gap-2">
+                          Toilets
                         </Link>
                       </div>
                       <div className="px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors">
-                        <Link href="/bathrooms/Accessories">
-                          <a className="flex items-center gap-2">
-                            Accessories
-                          </a>
+                        <Link href="/bathrooms/Accessories" className="flex items-center gap-2">
+                          Accessories
                         </Link>
                       </div>
                       <div className="px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors">
-                        <Link href="/bathrooms/ColorTextureOptions">
-                          <a className="flex items-center gap-2">
-                            Color & Texture Options
-                          </a>
+                        <Link href="/bathrooms/ColorTextureOptions" className="flex items-center gap-2">
+                          Color & Texture Options
                         </Link>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div className="relative group">
-                  <Link href="/doors">
-                    <a className="px-3 py-2 text-gray-800 hover:text-red-600 text-xl font-bold transition-colors flex items-center gap-1">
-                      Doors
-                      <i className="bi bi-chevron-down text-sm opacity-50"></i>
-                    </a>
+                  <Link href="/doors" className="px-3 py-2 text-gray-800 hover:text-red-600 text-xl font-bold transition-colors flex items-center gap-1">
+                    Doors
+                    <i className="bi bi-chevron-down text-sm opacity-50"></i>
                   </Link>
                   {/* Dropdown menu for Doors */}
                   <div className="absolute left-0 z-10 hidden w-48 mt-2 bg-white rounded-md shadow-lg group-hover:block">
                     <div className="py-2">
                       <div className="px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors">
-                        <Link href="/doors/EntryDoors">
-                          <a className="flex items-center gap-2">
-                            Entry Doors
-                          </a>
+                        <Link href="/doors/EntryDoors" className="flex items-center gap-2">
+                          Entry Doors
                         </Link>
                       </div>
                       <div className="px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors">
-                        <Link href="/doors/StormDoors">
-                          <a className="flex items-center gap-2">
-                            Storm Doors
-                          </a>
+                        <Link href="/doors/StormDoors" className="flex items-center gap-2">
+                          Storm Doors
                         </Link>
                       </div>
                       <div className="px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors">
-                        <Link href="/doors/PatioDoors">
-                          <a className="flex items-center gap-2">
-                            Patio Doors
-                          </a>
+                        <Link href="/doors/PatioDoors" className="flex items-center gap-2">
+                          Patio Doors
                         </Link>
                       </div>
                     </div>
@@ -363,30 +305,20 @@ const Header = () => {
           {isMobileMenuOpen && (
             <div className="lg:hidden bg-white border-t border-gray-200">
               <div className="px-4 py-4 space-y-4">
-                <Link href="/about" onClick={() => setIsMobileMenuOpen(false)}>
-                  <a className="block px-3 py-2 text-gray-800 hover:text-red-600 text-lg font-bold">
-                    About Us
-                  </a>
+                <Link href="/about" onClick={() => setIsMobileMenuOpen(false)} className="block px-3 py-2 text-gray-800 hover:text-red-600 text-lg font-bold">
+                  About Us
                 </Link>
-                <Link href="/windows" onClick={() => setIsMobileMenuOpen(false)}>
-                  <a className="block px-3 py-2 text-gray-800 hover:text-red-600 text-lg font-bold">
-                    Windows
-                  </a>
+                <Link href="/windows" onClick={() => setIsMobileMenuOpen(false)} className="block px-3 py-2 text-gray-800 hover:text-red-600 text-lg font-bold">
+                  Windows
                 </Link>
-                <Link href="/siding" onClick={() => setIsMobileMenuOpen(false)}>
-                  <a className="block px-3 py-2 text-gray-800 hover:text-red-600 text-lg font-bold">
-                    Siding
-                  </a>
+                <Link href="/siding" onClick={() => setIsMobileMenuOpen(false)} className="block px-3 py-2 text-gray-800 hover:text-red-600 text-lg font-bold">
+                  Siding
                 </Link>
-                <Link href="/bathrooms" onClick={() => setIsMobileMenuOpen(false)}>
-                  <a className="block px-3 py-2 text-gray-800 hover:text-red-600 text-lg font-bold">
-                    Baths
-                  </a>
+                <Link href="/bathrooms" onClick={() => setIsMobileMenuOpen(false)} className="block px-3 py-2 text-gray-800 hover:text-red-600 text-lg font-bold">
+                  Baths
                 </Link>
-                <Link href="/doors" onClick={() => setIsMobileMenuOpen(false)}>
-                  <a className="block px-3 py-2 text-gray-800 hover:text-red-600 text-lg font-bold">
-                    Doors
-                  </a>
+                <Link href="/doors" onClick={() => setIsMobileMenuOpen(false)} className="block px-3 py-2 text-gray-800 hover:text-red-600 text-lg font-bold">
+                  Doors
                 </Link>
                 <div className="flex flex-col space-y-2 pt-4 border-t border-gray-200">
                   <Link href="/coming-soon" onClick={() => setIsMobileMenuOpen(false)}>

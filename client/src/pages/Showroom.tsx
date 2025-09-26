@@ -1,7 +1,13 @@
-const Showroom = () => {
+import React from 'react';
+import WordPressContent from '@/components/WordPressContent';
+
+const Showroom: React.FC = () => {
   return (
-    <div>
-      {/* Content for Showroom page will go here */}
+    <div className="min-h-screen">
+      <WordPressContent
+        slug="showroom"
+        fallbackContent={<p>Content for Showroom is coming soon.</p>}
+      />
     </div>
   );
 };

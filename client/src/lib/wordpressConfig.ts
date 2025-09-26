@@ -8,13 +8,14 @@ const isDev = import.meta.env.DEV;
 // In production, this should point to your WordPress GraphQL endpoint
 const WORDPRESS_GRAPHQL_ENDPOINT =
   import.meta.env.VITE_WORDPRESS_API_URL ||
-  (isDev ? "http://sash20.local/graphql" : "https://wordpress-tefyrj53vq-uc.a.run.app/graphql");// Create Apollo Client instance
+  (isDev ? "http://sash20.local/graphql" : "http://utica.supply/resashgraph");// Create Apollo Client instance with custom link for GET requests
 export const wordpressClient = new ApolloClient({
   link: new HttpLink({
     uri: WORDPRESS_GRAPHQL_ENDPOINT,
     fetchOptions: {
-      mode: "cors",
-    }
+      method: "GET", // Use GET instead of POST
+    },
+    useGETForQueries: true, // Send queries as GET requests with query in URL
   }),
   cache: new InMemoryCache(),
   defaultOptions: {
@@ -27,6 +28,44 @@ export const wordpressClient = new ApolloClient({
 
 // GraphQL queries
 export const WORDPRESS_QUERIES = {
+  GET_PAGE_BY_SLUG: gql`
+    query GetPageBySlug($slug: String!) {
+      pages(where: { name: $slug }) {
+        nodes {
+          id
+          title
+          content
+          slug
+          featuredImage {
+            node {
+              sourceUrl
+              altText
+            }
+          }
+          seo {
+            title
+            metaDesc
+            metaKeywords
+            metaRobotsNoindex
+            metaRobotsNofollow
+            opengraphTitle
+            opengraphDescription
+            opengraphImage {
+              sourceUrl
+            }
+            opengraphSiteName
+            opengraphUrl
+            opengraphType
+            schema {
+              raw
+            }
+          }
+          modified
+          date
+        }
+      }
+    }
+  `,
   GET_ALL_PAGES_WITH_CONTENT: gql`
     query GetAllPagesWithContent {
       pages(first: 100) {

@@ -8,7 +8,7 @@ const About: React.FC = () => {
   return (
     <div className="min-h-screen">
         <WordPressContent
-          slug="about"
+          slug="about-us"
           fallbackContent={
             <div>
               {/* Custom Styles */}

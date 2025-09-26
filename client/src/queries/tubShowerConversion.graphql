@@ -1,0 +1,11 @@
+query TubShowerConversionPage {
+  page(id: "bathrooms/tub-shower-conversion", idType: URI) {
+    title
+    content
+    featuredImage {
+      node {
+        sourceUrl
+      }
+    }
+  }
+}
