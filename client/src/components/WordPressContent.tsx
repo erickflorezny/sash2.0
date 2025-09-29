@@ -60,16 +60,16 @@ const WordPressContent: React.FC<WordPressContentProps> = ({
         console.log(`[${new Date().toISOString()}] Fetching WordPress data for slug: "${slug}"`);
 
         // Use server proxy endpoint to avoid CORS issues
-        const query = `{ pages(where:{name:"${slug}"}){nodes{id title content slug featuredImage{node{sourceUrl altText}} seo{title metaDesc} modified date}} }`;
+        const query = `{ pages(where:{name:"${slug}"}){nodes{id title content slug featuredImage{node{sourceUrl altText}} modified date}} }`;
         const encodedQuery = encodeURIComponent(query);
-        const url = `http://localhost:5002/api/wordpress?query=${encodedQuery}`;
+        const url = `http://localhost:5000/api/wordpress?query=${encodedQuery}`;
 
         console.log(`[${new Date().toISOString()}] Fetching from URL:`, url);
 
         // Test basic connectivity first
         try {
           console.log(`[${new Date().toISOString()}] Testing server connectivity...`);
-          const testResponse = await fetch('http://localhost:5002/api/ping');
+          const testResponse = await fetch('http://localhost:5000/api/ping');
           console.log(`[${new Date().toISOString()}] Server ping response:`, testResponse.status);
         } catch (testError) {
           console.error(`[${new Date().toISOString()}] Server connectivity test failed:`, testError);

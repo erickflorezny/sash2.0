@@ -3,11 +3,20 @@ import fetch from 'node-fetch';
 
 const router = Router();
 
+// Handle preflight OPTIONS requests for CORS
+router.options('/api/wordpress', (req, res) => {
+  res.setHeader('Access-Control-Allow-Origin', req.headers.origin || '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+  res.status(200).end();
+});
+
 // WordPress proxy endpoint - helps avoid CORS issues during development
 router.get('/api/wordpress', async (req, res) => {
   try {
     // WordPress GraphQL endpoint - change this to match your actual WordPress site
-    const wpEndpoint = process.env.WORDPRESS_API_URL || 'http://utica.supply/resashgraph';
+    const wpEndpoint = process.env.WORDPRESS_API_URL || 'http://utica.supply/graphql';
     
     console.log(`🔄 Proxying WordPress GraphQL request to: ${wpEndpoint}`);
     

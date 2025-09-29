@@ -8,7 +8,7 @@ const isDev = import.meta.env.DEV;
 // In production, this should point to your WordPress GraphQL endpoint
 const WORDPRESS_GRAPHQL_ENDPOINT =
   import.meta.env.VITE_WORDPRESS_API_URL ||
-  (isDev ? "http://sash20.local/graphql" : "http://utica.supply/resashgraph");// Create Apollo Client instance with custom link for GET requests
+  (isDev ? "http://utica.supply/resashgraph" : "http://utica.supply/resashgraph");// Create Apollo Client instance with custom link for GET requests
 export const wordpressClient = new ApolloClient({
   link: new HttpLink({
     uri: WORDPRESS_GRAPHQL_ENDPOINT,
@@ -42,24 +42,6 @@ export const WORDPRESS_QUERIES = {
               altText
             }
           }
-          seo {
-            title
-            metaDesc
-            metaKeywords
-            metaRobotsNoindex
-            metaRobotsNofollow
-            opengraphTitle
-            opengraphDescription
-            opengraphImage {
-              sourceUrl
-            }
-            opengraphSiteName
-            opengraphUrl
-            opengraphType
-            schema {
-              raw
-            }
-          }
           modified
           date
         }
@@ -78,24 +60,6 @@ export const WORDPRESS_QUERIES = {
             node {
               sourceUrl
               altText
-            }
-          }
-          seo {
-            title
-            metaDesc
-            metaKeywords
-            metaRobotsNoindex
-            metaRobotsNofollow
-            opengraphTitle
-            opengraphDescription
-            opengraphImage {
-              sourceUrl
-            }
-            opengraphSiteName
-            opengraphUrl
-            opengraphType
-            schema {
-              raw
             }
           }
           modified
